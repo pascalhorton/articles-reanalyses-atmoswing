@@ -1,1 +1,7 @@
 _ressources/
+*.aux
+*.log
+Comparison reanalysis - JCli/template.pdf
+*.gz
+*.bbl
+*.blg
