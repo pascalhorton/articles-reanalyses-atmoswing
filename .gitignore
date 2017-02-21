@@ -5,3 +5,7 @@ Comparison reanalysis - JCli/template.pdf
 *.gz
 *.bbl
 *.blg
+*/ressources/
+*.lot
+*.ttt
+*/corrections/

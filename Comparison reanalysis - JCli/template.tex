@@ -16,10 +16,12 @@
 
 %% Start with one of the following:
 %  DOUBLE-SPACED VERSION FOR SUBMISSION TO THE AMS
-\documentclass{ametsoc}
+%\documentclass{ametsoc}
 
 %  TWO-COLUMN JOURNAL PAGE LAYOUT---FOR AUTHOR USE ONLY
-% \documentclass[twocol]{ametsoc}
+\documentclass[twocol]{ametsoc}
+
+\usepackage{multirow}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% To be entered only if twocol option is used
@@ -151,6 +153,15 @@
 \cite{Kanamitsu2002}
 
 
+
+\section{Methods}
+
+\subsection{Considered analogue methods}
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  ACKNOWLEDGMENTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -221,6 +232,74 @@ Start acknowledgments here.
 %\end{tabular}
 %\end{center}
 %\end{table}
+
+
+\begin{table*}[t]
+	\caption{Considered analogue methods with increasing complexity. P0 is the preselection (PC: on calendar basis, that is $\pm 60$ days around the target date), L1, L2 and L3 are the subsequent levels of analogy. The meteorological variables are: PR -- precipitation rate, SLP -- mean sea level pressure, Z -- geopotential height, T -- air temperature, W -- vertical velocity, MI -- moisture index, which is the product of the relative humidity at the given pressure level and the total water column. The analogy criterion is S1 for SLP and Z and RMSE for the other variables.}
+	\begin{center}
+		\begin{tabular}{ccccc}
+			\hline
+			\textbf{Method} & \textbf{P0} & \textbf{L1} & \textbf{L2} & \textbf{L3} \\ 
+			\hline 
+			\textbf{PREC} & PC & $\sum$ PR 06-30h && \\
+			\hline 
+			\multirow{2}{*}{\textbf{2SLP}} & \multirow{2}{*}{PC} & SLP@12h && \\
+			&& SLP@24h && \\
+			\hline 
+			\multirow{2}{*}{\textbf{2Z}} & \multirow{2}{*}{PC} & Z1000@12h && \\
+			 && Z500@24h && \\
+	 		\hline 
+			\multirow{4}{*}{\textbf{4Z}} & \multirow{4}{*}{PC} & Z1000@06h && \\
+			 && Z1000@30h && \\
+			 && Z700@24h && \\
+			 && Z500@12h && \\
+			\hline 
+			\multirow{2}{*}{\textbf{2Z-2MI}} & \multirow{2}{*}{PC} & Z1000@12h & \multirow{2}{*}{MI850@12+24h} & \\
+			&& Z500@24h && \\
+			\hline 
+			\multirow{4}{*}{\textbf{4Z-2MI}} & \multirow{4}{*}{PC} & Z1000@30h & \multirow{4}{*}{MI700@12+24h} & \\
+			&& Z850@12h && \\
+			&& Z700@24h && \\
+			&& Z400@12h && \\
+			\hline 
+			\multirow{2}{*}{\textbf{PT-2Z-4MI}} & T925@36h & Z1000@12h & MI925@12+24h & \\
+			& T600@12h & Z500@24h & MI700@12+24h & \\
+			\hline 
+			\multirow{2}{*}{\textbf{PT-2Z-4W-4MI}} & T925@36h & Z1000@12h & \multirow{2}{*}{W850@06-24h} & MI925@12+24h \\
+			& T600@12h & Z500@24h && MI700@12+24h \\
+			\hline 
+			
+		\end{tabular} 
+	\end{center}
+	\label{table:methods}
+\end{table*}
+
+
+
+
+
+
+
+\begin{table}[t]
+	\caption{Method 4Z. Same conventions as Table \ref{table:method_slp}}
+	\begin{center}
+		\begin{tabular}{cccc}
+			\hline
+			\textbf{Level} & \textbf{Variable} & \textbf{Hour} & \textbf{Criteria} \\ 
+			\hline 
+			0 & \multicolumn{3}{l}{$\pm 60$ days around the target date} \\
+			\hline 
+			\multirow{4}{*}{1} & Z1000 & 12~h & \multirow{4}{*}{S1} \\
+			& Z850 & 24~h & \\ 
+			& Z700 & 12~h & \\ 
+			& Z500 & 24~h & \\ 
+			\hline 
+		\end{tabular}
+	\end{center}
+	\label{table:R6}
+\end{table}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  FIGURES
