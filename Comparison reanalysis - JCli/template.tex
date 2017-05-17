@@ -159,9 +159,52 @@ In order to fill this gap and to advise on the choice of appropriate datasets, n
 \subsection{Considered analogue methods}
 
 
+
+
+%TODO: rewrite
+Multiple variations of the analogue method exist, most of which are not detailed here \cite[see][for a more comprehensive listing]{BenDaoud2016}. However, there are mainly two parameterizations that are most often used for precipitation prediction and that are considered as reference: one that relies on an analogy of the atmospheric circulation, and another that adds a second level of analogy on moisture variables \citep{Obled2002, Bontron2005, Marty2012}.
+
+The method based on the analogy of synoptic circulation consists of the following steps (Table \ref{table:params_R1}): the similarity of the atmospheric circulation of a target date with every day of the archive is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Drosdowsky2003}, which is a comparison of gradients, over a certain spatial window:
+
+\begin{equation}
+\label{eq:S1}
+S1=100 \frac {\displaystyle \sum_{i} \vert \Delta\hat{z}_{i} - \Delta z_{i} \vert}
+{\displaystyle \sum_{i} max\left\lbrace \vert \Delta\hat{z}_{i} \vert , \vert \Delta z_{i} \vert \right\rbrace }
+\end{equation}
+where $\Delta \hat{z}_{i}$ is the difference in geopotential height between the \textit{i}-th pair of adjacent points of gridded data describing the target situation, and $\Delta z_{i}$ is the corresponding observed geopotential height difference in the candidate situation. The differences are processed separately in both North and East directions over the selected spatial domain. The smaller the S1 values, the more similar the pressure fields.
+
+\citet{Bontron2005} showed that the geopotential height at 500~hPa (Z500) and 1000~hPa (Z1000) are the best first predictors of the NCEP/NCAR reanalysis I dataset, and that the S1 criterion performs better than scores based on absolute distances. The reason for such better results is that the S1 criterion allows comparison of the circulation patterns, by means of the gradients, rather than the absolute value of the geopotential height, which better represent the flow direction. To cope with seasonal effects, candidate dates are extracted within a period of four months centred around the target date, for every year of the archive. This method using two geopotential heights is named here 2Z.
+
+The $N_{1}$ dates with the lowest values of S1 are considered as analogues to the target day. The number of analogues, $N_{1}$, is a parameter to calibrate. Then, the daily observed precipitation amount for the $N_{1}$ selected dates provide the empirical conditional distribution, considered as the probabilistic prediction for the target day.
+
+The other most well-known parametrization adds a second level of analogy on the moisture variables (method 2Z-2MI, Table \ref{table:params_R2}). The predictor that \citet{Bontron2004} found optimal for France is a moisture index made of the product of the total precipitable water (TPW) with the relative humidity at 850~hPa (RH850). \cite{Horton2012a} confirmed that this index is also better for the Swiss Alps than any other variable from the NCEP/NCAR reanalysis I considered independently. When adding a second level of analogy, $N_{2}$ dates are subsampled within the $N_{1}$ analogues of the atmospheric circulation, to end up with a smaller number of analogue situations. When this second level of analogy is added, a higher number of analogues $N_{1}$ is kept on the first level. Prediction of moisture fields by NWP models are more model-dependent and more uncertain than pressure variables. This implies that the 2Z-2MI method, when used in real-time forecasting, is very dependent on the skill of the NWP model in predicting moisture fields. Therefore its use is often restricted to the first lead times.
+
+
 %TODO: not sensitive to biases
 
 \subsection{Performance assessment}
+
+
+
+%TODO: rewrite
+The performance assessment in the present context consists of verifying the prediction of an ensemble probabilistic technique. The set of precipitation values collected with each analogue can be considered as a sample drawn from the conditional distribution associated with the current circulation. The score that is most often used to assess an AM performance is the CRPS \citep[Continuous Ranked Probability Score,][]{Brown1974, Matheson1976, Hersbach2000}. It allows evaluating the predicted cumulative distribution functions $F(y)$, for example, of the precipitation values $y$ from analogue situations, compared to the observed value $y^{0}$. The better the prediction, the smaller the score. The mean CRPS of a prediction series of length $n$ can be written as:
+
+\begin{equation}
+\label{eq:CRPS}
+CRPS = \frac{1}{n} \sum_{i=1}^{n} \left(  \int_{-\infty}^{+\infty} \left[ F_{i}(y)-H_{i}(y-y_{i}^{0})\right]^{2} dy \right) 
+\end{equation}
+where $H(y-y_{i}^{0})$ is the Heaviside function that is null when $y-y_{i}^{0}<0$, and has the value 1 otherwise.
+
+In order to compare the value of the score relative to a reference, one often considers its skill score expression, and uses the climatological distribution of precipitation from the entire archive as the reference. The CRPSS (Continuous Ranked Probability Skill Score) is thus defined as follows:
+
+\begin{equation}
+\label{eq:CRPSS}
+CRPSS = \frac{CRPS-CRPS_{r}}{CRPS_{p}-CRPS_{r}} = 1-\frac{CRPS}{CRPS_{r}}
+\end{equation}
+where $CRPS_{r}$ is the CRPS value for the reference and $CRPS_{p}$ would be the one for a perfect prediction (which implies $CRPS_{p}~=~0$). A better prediction is characterized by an increase in CRPSS.
+
+Note, however, that the choice of reference does not matter so much when assessing potential improvements of the method, since we consider more its relative increase or decrease rather than the CRPSS absolute value.
+
 
 
 \section{Influence of the reanalysis dataset}
@@ -268,13 +311,11 @@ Start acknowledgments here.
 
 
 \begin{table*}[t]
-	\caption{Considered analogue methods with increasing complexity. P0 is the preselection (PC: on calendar basis, that is $\pm 60$ days around the target date), L1, L2 and L3 are the subsequent levels of analogy. The meteorological variables are: PR -- precipitation rate, SLP -- mean sea level pressure, Z -- geopotential height, T -- air temperature, W -- vertical velocity, MI -- moisture index, which is the product of the relative humidity at the given pressure level and the total water column. The analogy criterion is S1 for SLP and Z and RMSE for the other variables.}
+	\caption{Considered analogue methods with increasing complexity. P0 is the preselection (PC: on calendar basis, that is $\pm 60$ days around the target date), L1, L2 and L3 are the subsequent levels of analogy. The meteorological variables are: SLP -- mean sea level pressure, Z -- geopotential height, T -- air temperature, W -- vertical velocity, MI -- moisture index, which is the product of the relative humidity at the given pressure level and the total water column. The analogy criterion is S1 for SLP and Z and RMSE for the other variables.}
 	\begin{center}
 		\begin{tabular}{cccccl}
 			\hline
 			\textbf{Method} & \textbf{P0} & \textbf{L1} & \textbf{L2} & \textbf{L3} & \textbf{Reference} \\ 
-			\hline 
-			\textbf{PREC} & PC & $\sum$ PR 06-30h &&& \\
 			\hline 
 			\multirow{2}{*}{\textbf{2SLP}} & \multirow{2}{*}{PC} & SLP@12h &&& \\
 			&& SLP@24h &&& \\
@@ -314,7 +355,7 @@ Start acknowledgments here.
 	\begin{center}
 		\begin{tabular}{ccccccc}
 			\hline
-			\multirow{2}{*}{\textbf{Id}} & \multirow{2}{*}{\textbf{Institutions}} & \multirow{2}{*}{\textbf{Name}} & \textbf{Period} & \textbf{Timesteps} & \textbf{Available} & \textbf{Model} \\ 
+			\multirow{2}{*}{\textbf{Id}} & \multirow{2}{*}{\textbf{Institutions}} & \multirow{2}{*}{\textbf{Name}} & \textbf{Period} & \textbf{Timesteps} & \textbf{Output} & \textbf{Model} \\ 
 			&&& \textbf{of record} & \textbf{(h)} & \textbf{resolution} & \textbf{vintage} \\ 
 			\hline 
 			\textbf{NNR-1} & NCEP, NCAR & Reanalysis I & 1948/01 -- present & 6 & 2.5\degree x 2.5\degree & 1995 \\
