@@ -355,19 +355,19 @@ Start acknowledgments here.
 	\begin{center}
 		\begin{tabular}{ccccccc}
 			\hline
-			\multirow{2}{*}{\textbf{Id}} & \multirow{2}{*}{\textbf{Institutions}} & \multirow{2}{*}{\textbf{Name}} & \textbf{Period} & \textbf{Timesteps} & \textbf{Output} & \textbf{Model} \\ 
-			&&& \textbf{of record} & \textbf{(h)} & \textbf{resolution} & \textbf{vintage} \\ 
+			\multirow{2}{*}{\textbf{Id}} & \multirow{2}{*}{\textbf{Institutions}} & \multirow{2}{*}{\textbf{Name}} & \textbf{Period} & \textbf{Output} & \textbf{Model} & \multirow{2}{*}{\textbf{Assimilation}}\\ 
+			&&& \textbf{of record} & \textbf{resolution} & \textbf{vintage} &\\ 
 			\hline 
-			\textbf{NNR-1} & NCEP, NCAR & Reanalysis I & 1948/01 -- present & 6 & 2.5\degree x 2.5\degree & 1995 \\
-			\textbf{NDR-2} & NCEP, DOE & Reanalysis II & 1948/01 -- present & 6 & 2.5\degree x 2.5\degree & 2001 \\
-			\textbf{ERA-INT} & ECMWF & ERA-Interim & 1979/01 -- present & 3, 6 & 0.75\degree x 0.75\degree & 2006 \\
-			\textbf{CFSR} & NCEP & Clim. Forecast Sys. Rean. & 1979/01 -- present & 1, 6 & 0.5\degree x 0.5\degree & 2009 \\
-			\textbf{JRA-55}  & JMA & Japanese 55-year Rean. & 1957/12 -- 2016/01 & 3, 6 & 1.25\degree x 1.25\degree & 2009 \\
-			\textbf{JRA-55C}  & JMA & JRA-55 Conventional Data & 1957/12 -- 2016/01 & 3, 6 & 1.25\degree x 1.25\degree & 2009 \\
-			\textbf{20CR-2c} & NOAA-CIRES & 20th Century Rean. V2c & 1850/12 -- 2014/12 & 3, 6 & 2\degree x 2\degree & 2009 \\
-			\textbf{ERA-20C} & ECMWF & ERA 20th century & 1900/01 -- 2011/01 & 3, 6 & 1\degree x 1\degree & 2012 \\
-			\textbf{MERRA-2} & NASA & MERRA-2 & 1980/01 -- present & 1, 3, 6 & 0.625\degree x 0.5\degree & 2014 \\
-			\textbf{CERA-20C} & ECMWF & CERA-20C & 1901/01 -- 2010/12 & 3, 6 & 1\degree x 1\degree & 2016 \\
+			\textbf{NNR-1} & NCEP, NCAR & Reanalysis I & 1948/01 -- present & 2.5\degree x 2.5\degree & 1995 & 3D-Var\\
+			\textbf{NDR-2} & NCEP, DOE & Reanalysis II & 1948/01 -- present & 2.5\degree x 2.5\degree & 2001 & 3D-Var\\
+			\textbf{ERA-INT} & ECMWF & ERA-Interim & 1979/01 -- present & 0.75\degree x 0.75\degree & 2006 & 4D-Var\\
+			\textbf{CFSR} & NCEP & Clim. Forecast Sys. Rean. & 1979/01 -- present & 0.5\degree x 0.5\degree & 2009 & 3D-Var\\
+			\textbf{JRA-55}  & JMA & Japanese 55-year Rean. & 1957/12 -- 2016/01 & 1.25\degree x 1.25\degree & 2009 & 4D-Var\\
+			\textbf{JRA-55C}  & JMA & JRA-55 Conventional Data & 1957/12 -- 2016/01 & 1.25\degree x 1.25\degree & 2009 & 4D-Var\\
+			\textbf{20CR-2c} & NOAA-CIRES & 20th Century Rean. V2c & 1850/12 -- 2014/12 & 2\degree x 2\degree & 2009 & E. K. filter\\
+			\textbf{ERA-20C} & ECMWF & ERA 20th century & 1900/01 -- 2011/01 & 1\degree x 1\degree & 2012 & 4D-Var\\
+			\textbf{MERRA-2} & NASA & MERRA-2 & 1980/01 -- present & 0.625\degree x 0.5\degree & 2014 & 3D-Var\\
+			\textbf{CERA-20C} & ECMWF & CERA-20C & 1901/01 -- 2010/12 & 1\degree x 1\degree & 2016 & 4D-Var\\
 			\hline 
 		\end{tabular} 
 	\end{center}
