@@ -140,26 +140,59 @@ In order to fill this gap and to advise on the choice of appropriate datasets, n
 % \paragraph{First quaternary heading}
 
 
+%TODO: publish results as datasets?
+
 \section{Introduction}
 
-\section{Data}
+\section{Data and methods}
 
 \subsection{Reanalysis datasets}
-
-\subsection{Precipitation timeseries}
 
 \cite{Compo2011}
 
 \cite{Kanamitsu2002}
 
 
+\subsection{Precipitation dataset}
 
-\section{Methods}
 
 \subsection{Considered analogue methods}
 
 
+%TODO: not sensitive to biases
 
+\subsection{Performance assessment}
+
+
+\section{Influence of the reanalysis dataset}
+
+\subsection{Mean performance}
+
+\subsection{Precipitation occurrence}
+
+\subsection{High precipitation events}
+
+\subsection{Selection of the analogue dates}
+
+
+\section{Further analyzes}
+
+\subsection{Influence of the spatial resolution}
+
+\subsection{Archive length vs ensembles}
+
+\subsection{On the spread of the ensemble in early years}
+
+%TODO: 20CR spread decrease with time -> low for present & high in the past
+
+
+\subsection{Precipitation data from the reanalysis}
+
+
+\section{Discussion}
+
+
+\section{Conclusion}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -257,9 +290,9 @@ Start acknowledgments here.
 			\multirow{2}{*}{\textbf{2Z-2MI}} & \multirow{2}{*}{PC} & Z1000@12h & \multirow{2}{*}{MI850@12+24h} && \multirow{2}{*}{\citealt{Bontron2004}} \\
 			&& Z500@24h &&& \\
 			\hline 
-			\multirow{4}{*}{\textbf{4Z-2MI}} & \multirow{4}{*}{PC} & Z1000@30h & \multirow{4}{*}{MI700@12+24h} && \multirow{4}{*}{\citealt{Horton2017b}}\\
-			&& Z850@12h &&& \\
-			&& Z700@24h &&& \\
+			\multirow{4}{*}{\textbf{4Z-2MI}} & \multirow{4}{*}{PC} & Z1000@30h &&& \multirow{4}{*}{\citealt{Horton2017b}}\\
+			&& Z850@12h & MI700@24h && \\
+			&& Z700@24h & MI600@12h && \\
 			&& Z400@12h &&& \\
 			\hline 
 			\multirow{2}{*}{\textbf{PT-2Z-4MI}} & T925@36h & Z1000@12h & MI925@12+24h && \multirow{2}{*}{\citealt{BenDaoud2016}} \\
