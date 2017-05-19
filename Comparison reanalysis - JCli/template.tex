@@ -16,10 +16,10 @@
 
 %% Start with one of the following:
 %  DOUBLE-SPACED VERSION FOR SUBMISSION TO THE AMS
-%\documentclass{ametsoc}
+\documentclass{ametsoc}
 
 %  TWO-COLUMN JOURNAL PAGE LAYOUT---FOR AUTHOR USE ONLY
-\documentclass[twocol]{ametsoc}
+%\documentclass[twocol]{ametsoc}
 
 \usepackage{multirow}
 \usepackage{gensymb}
@@ -165,6 +165,14 @@ CERA-20C
 
 
 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4461156/
+http://reanalyses.org/comment/3843
+https://disc.gsfc.nasa.gov/datareleases/merra_2_data_release
+https://climatedataguide.ucar.edu/climate-data/era-20c-ecmwfs-atmospheric-reanalysis-20th-century-and-comparisons-noaas-20cr?qt-climatedatasetmaintabs=5#qt-climatedatasetmaintabs
+https://climatedataguide.ucar.edu/climate-data/era-20c-ecmwfs-atmospheric-reanalysis-20th-century-and-comparisons-noaas-20cr
+https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.derived.html
+https://www.esrl.noaa.gov/psd/data/20thC_Rean/
+https://climatedataguide.ucar.edu/climate-data/atmospheric-reanalysis-overview-comparison-tables
 
 
 
@@ -173,26 +181,39 @@ CERA-20C
 
 \subsection{Considered analogue methods}
 
+Different variations of the analogue method were considered in the present work (Table \ref{table:methods}). These methods have a varying complexity and are constituted of a single or multiple subsequent levels of analogy with predictor variables of different kind. A relatively simple method that is often considered as reference is based on the analogy of synoptic circulation on two geopotential heights (Z1000 at 12:00 h UTC and Z500 at 24 h UTC) and is named here 2Z.
 
-
-
-%TODO: rewrite
-Multiple variations of the analogue method exist, most of which are not detailed here \cite[see][for a more comprehensive listing]{BenDaoud2016}. However, there are mainly two parameterizations that are most often used for precipitation prediction and that are considered as reference: one that relies on an analogy of the atmospheric circulation, and another that adds a second level of analogy on moisture variables \citep{Obled2002, Bontron2005, Marty2012}.
-
-The method based on the analogy of synoptic circulation consists of the following steps (Table \ref{table:params_R1}): the similarity of the atmospheric circulation of a target date with every day of the archive is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Drosdowsky2003}, which is a comparison of gradients, over a certain spatial window:
+The 2Z method consists of the following steps: first, to cope with seasonal effects, candidate dates are extracted within a period of four months centred around the target date, for every year of the archive (PC: preselection on calendar basis in Table \ref{table:methods}). Then, the similarity of the atmospheric circulation of a target date with every day of the archive is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Drosdowsky2003}, which is a comparison of gradients, over a certain spatial window:
 
 \begin{equation}
 \label{eq:S1}
 S1=100 \frac {\displaystyle \sum_{i} \vert \Delta\hat{z}_{i} - \Delta z_{i} \vert}
 {\displaystyle \sum_{i} max\left\lbrace \vert \Delta\hat{z}_{i} \vert , \vert \Delta z_{i} \vert \right\rbrace }
 \end{equation}
-where $\Delta \hat{z}_{i}$ is the difference in geopotential height between the \textit{i}-th pair of adjacent points of gridded data describing the target situation, and $\Delta z_{i}$ is the corresponding observed geopotential height difference in the candidate situation. The differences are processed separately in both North and East directions over the selected spatial domain. The smaller the S1 values, the more similar the pressure fields.
+where $\Delta \hat{z}_{i}$ is the difference in geopotential height between the \textit{i}-th pair of adjacent points of gridded data describing the target situation, and $\Delta z_{i}$ is the corresponding observed geopotential height difference in the candidate situation. The smaller the S1 values, the more similar the pressure fields. This criteria being processed on gradients, it is not sensitive to biases in the considered dataset, as long as the circulation is correctly represented. \citet{Bontron2004} showed that the S1 criterion performs better than scores based on absolute distances, as it compares the circulation patterns rather than the absolute value of the geopotential height. 
 
-\citet{Bontron2005} showed that the geopotential height at 500~hPa (Z500) and 1000~hPa (Z1000) are the best first predictors of the NCEP/NCAR reanalysis I dataset, and that the S1 criterion performs better than scores based on absolute distances. The reason for such better results is that the S1 criterion allows comparison of the circulation patterns, by means of the gradients, rather than the absolute value of the geopotential height, which better represent the flow direction. To cope with seasonal effects, candidate dates are extracted within a period of four months centred around the target date, for every year of the archive. This method using two geopotential heights is named here 2Z.
+The $N_{1}$ dates with the lowest values of S1 are considered as analogues to the target day. The number of analogues, $N_{1}$, is a parameter to calibrate. Then, the daily observed precipitation amount for the $N_{1}$ selected dates provide the empirical conditional distribution, considered as the probabilistic prediction for the target day. The choice of the predictors and their corresponding pressure levels and temporal windows were optimized for the NR-1 dataset.
 
-The $N_{1}$ dates with the lowest values of S1 are considered as analogues to the target day. The number of analogues, $N_{1}$, is a parameter to calibrate. Then, the daily observed precipitation amount for the $N_{1}$ selected dates provide the empirical conditional distribution, considered as the probabilistic prediction for the target day.
+A variation of the former method, but based on the mean sea level pressure (2SLP) rather than geopotential heights was also assessed in this work. The S1 criteria was also used to quantify the analogy between the pressure fields.
 
-The other most well-known parametrization adds a second level of analogy on the moisture variables (method 2Z-2MI, Table \ref{table:params_R2}). The predictor that \citet{Bontron2004} found optimal for France is a moisture index made of the product of the total precipitable water (TPW) with the relative humidity at 850~hPa (RH850). \cite{Horton2012a} confirmed that this index is also better for the Swiss Alps than any other variable from the NCEP/NCAR reanalysis I considered independently. When adding a second level of analogy, $N_{2}$ dates are subsampled within the $N_{1}$ analogues of the atmospheric circulation, to end up with a smaller number of analogue situations. When this second level of analogy is added, a higher number of analogues $N_{1}$ is kept on the first level. Prediction of moisture fields by NWP models are more model-dependent and more uncertain than pressure variables. This implies that the 2Z-2MI method, when used in real-time forecasting, is very dependent on the skill of the NWP model in predicting moisture fields. Therefore its use is often restricted to the first lead times.
+Another method relying only on the atmospheric circulation has also been considered. It relies on four geopotential heights (4Z, Table \ref{table:methods}) that were automatically selected by genetic algorithms for the upper Rhone catchment in Switzerland \citep{Horton2017b}. The 4Z method was shown to significantly outperform the 2Z method by exploiting more information from the geopotential heights and by taking advantage of additional degrees of freedom, such as different spatial windows between the pressure levels and the introduction of a weighting between them. However, due to the high number of datasets and stations considered in this work, it was not possible to use genetic algorithms in order to optimize the method. Thus, the 4Z method considered here is a simplification of the results from \citet{Horton2017b}, and only the selection of the optimal pressure levels and temporal windows were considered, and fixed for all stations. As for the 2Z method, a unique but station-specific spatial window for all pressure level was considered, and the weights between the pressure levels have equal values. Such simplifications of the parameters resulted in a decrease of the performance score, which however was still superior to the one of the 2Z method.
+
+Another well-known parametrization adds a second level of analogy on the moisture variables (method 2Z-2MI, Table \ref{table:methods}). The predictor that \citet{Bontron2004} found optimal for France is a moisture index made of the product of the total precipitable water (TPW) with the relative humidity at 850~hPa (RH850). \cite{Horton2012a} confirmed that this index is also better for the Swiss Alps than any other variable from the NR-1 considered independently. When adding a second level of analogy, $N_{2}$ dates are subsampled within the $N_{1}$ analogues of the atmospheric circulation, to end up with a smaller number of analogue situations. When this second level of analogy is added, a higher number of analogues $N_{1}$ is kept on the first level.
+
+
+
+Unlike stated in Cailloulet...
+
+
+
+
+
+%TODO: rewrite
+\citep{Obled2002, Bontron2005, Marty2012}.
+
+
+ 
+
 
 
 %TODO: not sensitive to biases
