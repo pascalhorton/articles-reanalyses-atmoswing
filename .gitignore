@@ -9,3 +9,5 @@ Comparison reanalysis - JCli/template.pdf
 *.lot
 *.ttt
 */corrections/
+*.lof
+*.fff
