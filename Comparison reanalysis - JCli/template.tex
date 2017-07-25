@@ -155,41 +155,35 @@ In former time, the predictors of the AM were extracted from radio-sounding data
 The goal of this work is to quantify the impact of choosing a certain reanalysis dataset for the AM, and to analyze the role of the dataset resolution. Additionnally, the role of the archive size will be discussed, along with the use of different members of datasets providing ensembles.
 
 
+"Reanalysis data provide a multivariate, spatially complete, and coherent record of the global atmospheric circulation" \cite{Dee2011a} "produced with a single version of a data assimilation system –including the forecast model used –and is therefore not affected by changes in method"
+"The accuracy of these model-generated estimates naturally depends on the quality of the model physics aswell asthat of the analysis. "\cite{Dee2011a}
+
 \section{Data and methods}
 \label{sec:data}
 
 \subsection{Reanalysis datasets}
 
-The considered reanalysis datasets are described hereafter and some of their characteristics are provided in Table \ref{table:datasets}. The common period to all datasets is 1981--2010.
+The considered global atmospheric reanalysis datasets are briefly described hereafter and some of their characteristics are provided in Table \ref{table:datasets}. The common period to all datasets is 1981--2010. All reanalysis products are available at a 6-h time step, with some datasets or variables having higher temporal resolution. Only the 6-h time step is considered in the present work.
 
 \subsubsection{NCEP Reanalysis I}
 
-The NCEP/NCAR Reanalysis I \citep[NR-1,][]{Kalnay1996, Kistler2001} is the first global reanalysis product. It was made with a model frozen at the state-of-the-art of 1995 and by assimilating land surface, ship, aircraft, rawinsonde, and satellite data among others, after quality control. However, upper-air observations have a much larger influence on the analysis than the surface observations \citep{Kistler2001}. The data assimilation system is a 3D variational technique (3D-VAR). The model resolution is T62 (210~km) with 28 sigma vertical levels. All major physical processes are parameterized. The period coverage was starting first in 1957, before being extended to 1948. \citet{Kalnay1996} were aware that assimilating all available data at a give time would have impact on the climate of the reanalysis due to changes in the observating system, but the choice was made for accuracy over stability of the climate. A comparison of two sets of analyses made with and without the use of satellite data showed that even without satellite data, almost 100\% of the daily variance of the geopotential height was explained in the NH extratropics \citep{Kalnay1996}. Lower correlation values were found in other regions of the globe, particularly in the Southern Hemisphere, where the uncertainty is much higher due to the lack of rawinsonde data. However, rms of the analysis increments (difference between the forecast and the analysis) at 500~hPa showed large differences between a data-poor year (1958) and a data-rich year (1996), and the climatologies before and after 1979 differ significantly due to the use of satellite data \citep{Kistler2001}.
-
-
-
-
-
-
+The NCEP/NCAR Reanalysis I \citep[NR-1,][]{Kalnay1996, Kistler2001} is the first global reanalysis product. It was made with a model frozen at the state-of-the-art of 1995 and by assimilating land surface, ship, aircraft, rawinsonde, and satellite data among others, after quality control. However, upper-air observations have a much larger influence on the analysis than the surface observations \citep{Kistler2001}. The data assimilation system is a 3D variational technique (3D-Var). The model resolution is T62 (about 210~km) with 28 sigma vertical levels. All major physical processes are parameterized. The period coverage was starting first in 1957, before being extended to 1948. \citet{Kalnay1996} were aware that assimilating all available data at a give time would have impact on the climate of the reanalysis due to changes in the observating system, but the choice was made for accuracy over stability of the climate. A comparison of two sets of analyses made with and without the use of satellite data showed that even without satellite data, almost 100\% of the daily variance of the geopotential height was explained in the NH extratropics \citep{Kalnay1996}. Lower correlation values were found in other regions of the globe, particularly in the Southern Hemisphere, where the uncertainty is much higher due to the lack of rawinsonde data. However, rms of the analysis increments (difference between the forecast and the analysis) at 500~hPa showed large differences between a data-poor year (1958) and a data-rich year (1996), and the climatologies before and after 1979 differ significantly due to the use of satellite data \citep{Kistler2001}.
 
 
 \subsubsection{NCEP Reanalysis II}
 
-The NCEP–DOE Reanalysis 2 \citep[NR-2,][]{Kanamitsu2002} is a follow-on to the NCEP/NCAR Reanalysis I project with the goal to correct known problems that were identified after the NR-1 production. It also relies on updated versions of the model and the assimilation system. Changes in parameterizations have improved the precipitation estimate \citep{Kistler2001}.
+The NCEP–DOE Reanalysis 2 \citep[NR-2,][]{Kanamitsu2002} is a follow-on to the NCEP/NCAR Reanalysis I project with the goal to correct known problems that were identified after the NR-1 production, mainly human processing errors. However. these issues have consequences for a limited number of applications. NR-2 also relies on updated versions of the assimilation system and the model, with improvements to the model physics. Changes in parameterizations have improved the precipitation estimate, but may have caused deterioration of other variables \citep{Kistler2001, Kanamitsu2002}.
 
-
- 
-
-
-
+The model and the outputs have the same spatial and temporal resolution as NR-1, and it relies on mostly the same observational data.
 
 
 \subsubsection{ERA-Interim}
 
-ERA-INT \citep{Dee2011a}
+ERA-Interim \citep[ERA-INT, ][]{Dee2011a} is produced by the European Centre for Medium-Range Weather Forecasts (ECMWF) and covers the period from 1979 onwards. It replaced ERA-40 \citep{Uppala2005}, which replaced ERA-15 \citep{Gibson1997}, reanalysis datasets of 45 and 15 years respectively. ERA-INT aims at addressing problems in data assimilation of ERA-40 and at improving several technical aspects in the process, which are expected to have an impact on the quality of the product.
 
+ERA-INT uses a 4D variational technique (4D-Var) with sequential data assimilation in 12-hourly analysis cycles. It assimilates conventional observations, rawinsonde, aircraft, and satellite data, etc. 4D-Var is expected to make a more effective use of observations \citep{Dee2011a}. ERA-INT also relies on several bias and error correction techniques that were introduced after ERA-40 in order to minimise inconsistencies between observations of different types.
 
-
+The atmospheric model uses a hybrid sigma-pressure vertical coordinate on 60 layers and has a T255 horizontal resolution (about 79~km) and a 30~min time step. Orographic effects and convection schemes, among others, have been improved since ERA-40.
 
 
 \subsubsection{Climate Forecast System Reanalysis}
