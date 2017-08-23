@@ -86,7 +86,7 @@
     %\extraaffil{Affiliation, City, State/Province, Country}
 
 \extraauthor{Charles Obled}
-\extraaffil{Laboratoire d'\'{e}tude des Transferts en Hydrologie et Environnement (LTHE), Universit\'{e} de Grenoble-Alpes, Grenoble, France}
+\extraaffil{Institut des G\'{e}osciences de l'Environnement, Universit\'{e} de Grenoble-Alpes, Grenoble, France}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -564,7 +564,7 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 
 \begin{figure}[t]
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative.pdf}\\
-	\caption{Effect of the reanalysis dataset on the performance isolated by processing the improvement (\%) in CRPSS for one dataset compared to the mean performance on all datasets, per station and per method. The methods cannot be compared here, only the datasets.}
+	\caption{Effect of the reanalysis dataset on the performance isolated by processing the improvement in CRPSS for one dataset compared to the mean performance on all datasets, per station and per method. Note that the methods cannot be compared here, only the datasets.}
 	\label{fig:comparison_relative}
 \end{figure}
 
@@ -576,28 +576,44 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 
 \begin{figure}[t]
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative-eq0.pdf}\\
-	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with no precipitation. Please note the difference of the scales. The methods cannot be compared here, only the datasets.}
+	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with no precipitation and expressed as a relative CRPSS. The methods cannot be compared here, only the datasets.}
 	\label{fig:comparison_relative_P0}
 \end{figure}
 
 \begin{figure}[t]
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative-q95.pdf}\\
-	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with precipitation above the all days 95th percentile. Please note the difference of the scales. The methods cannot be compared here, only the datasets.}
+	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with precipitation above the all days 95th percentile and expressed as a relative CRPSS. The methods cannot be compared here, only the datasets.}
 	\label{fig:comparison_relative_Pq95}
 \end{figure}
 
 \begin{figure}[t]
-	\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-resolution.pdf}\\
-	\caption{Impact (\% of CRPSS) of a decrease in grid resolution (degrees) for different datasets and AMs. Mean performance of 30 stations.}
+	\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-resolution-spread.pdf}\\
+	\caption{Impact (difference in CRPSS) of a decrease in grid resolution (degrees) for different datasets and AMs on the CP. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 	\label{fig:plot_impact_resolution}
 \end{figure}
 
 \begin{figure}[t]
-	\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-length.pdf}\\
-	\caption{Impact (\% of CRPSS) of an increase in the archive length (years) for different datasets and AMs. Results for the 4Z method are displayed along with the 2Z method, but with dashed lines. Mean performance of 30 stations.}
-	\label{fig:plot_impact_length}
+	\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-length-spread-CP.pdf}\\
+	\caption{Impact (difference in CRPSS) of an increase in the archive length (years) for different datasets and AMs. Results for the 4Z method are displayed along with the 2Z method, but with dashed lines. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
+	\label{fig:plot_impact_length_CP}
 \end{figure}
 
+\begin{figure}[t]
+	\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-length-spread-VP.pdf}\\
+	\caption{Same as Fig. \ref{fig:plot_impact_length_CP} but for the VP.}
+	\label{fig:plot_impact_length_VP}
+\end{figure}
 
+\begin{figure}[t]
+	\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-members-2Z.pdf}\\
+	\caption{Impact (difference in CRPSS) of an increase in the number of ensemble members used for the 2Z method and for CERA-20C and 20CR-2c datasets. The results are provided for two periods: (a, c) 1981--2010 and (b, d) 1901--1930. Two approaches were assessed: (a, b) the first allowing duplicate analogue dates ("w.d.d.") and (c, d) the second without duplicate analogue dates ("wo.d.d."). The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations). The dashed line and striped area correspond to results on the VP. The 56 members of 20CR-2c were assessed and the tendencies continue, but the plots are split at 30 members.}
+	\label{fig:plot_impact_members_2Z}
+\end{figure}
+
+\begin{figure}[t]
+	\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-members-2Z-2MI.pdf}\\
+	\caption{Same as Fig. \ref{fig:plot_impact_members_2Z} but for the 2Z-2MI method.}
+	\label{fig:plot_impact_members_2Z-2MI}
+\end{figure}
 
 \end{document}
