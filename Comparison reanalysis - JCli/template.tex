@@ -261,7 +261,7 @@ CERA-20C
 \subsection{Precipitation dataset}
 \label{sec:precip}
 
-The predictands -- variables to be predicted -- considered here are daily precipitation totals (06:00 h UTC to 06:00 h UTC the following day) at 301 weather stations of the MeteoSwiss network in Switzerland (Fig. \ref{fig:stations}). All stations with a good data coverage of the period 1981--2010 were considered. Most AM applications use gridded precipitation or catchment-scale aggregated series, but any data manipulation were avoided here in order to obviate any undesired interference with the sensitivity analysis. The precipitation data were not transformed by a square root like in some other studies. Thirty stations -- those with longer time series -- were selected among this selection for additional analyses (Sect. \ref{sec:analyzes}).
+The predictands -- variables to be predicted -- considered here are daily precipitation totals (06:00 h UTC to 06:00 h UTC the following day) at 301 weather stations of the MeteoSwiss network in Switzerland (Fig. \ref{fig:stations}). All stations with a good data record over the period 1981--2010 were considered. Often, applications of analogue methods rely on gridded precipitation or catchment-scale aggregated series, but any data manipulation were avoided here in order to obviate any undesired interference with the sensitivity analysis. The precipitation data were not transformed by a square root like in some other studies. Thirty stations -- those with longer time series -- were selected among this selection for additional analyses (Sect. \ref{sec:analyzes}).
 
 The 30-year precipitation dataset was divided into a calibration period (CP) and an independent validation period (VP). In order to reduce the impact of potential inhomogeneities in the time series, the selection of the VP was evenly distributed over the entire series \citep{BenDaoud2010}. A total of 6 years was considered for the VP by selecting 1 out of every 5 years. Days from the VP were never used as candidate situations for the selection of analogues.
 
@@ -269,7 +269,7 @@ The 30-year precipitation dataset was divided into a calibration period (CP) and
 \subsection{Considered analogue methods}
 \label{sec:ams}
 
-Different variations of the analogue method were considered in the present work (Table \ref{table:methods}). These methods have a varying complexity and are constituted of a single or multiple subsequent levels of analogy with predictor variables of different kind. A relatively simple method that is often considered as reference is based on the analogy of synoptic circulation on two geopotential heights (Z1000 at 12:00 h UTC and Z500 at 24 h UTC) and is named here 2Z.
+Different variants of the analogue method were considered in the present work (Table \ref{table:methods}). These methods have a varying complexity and are constituted of a single or multiple subsequent levels of analogy with predictor variables of different kind. A relatively simple method that is often considered as reference is based on the analogy of synoptic circulation on two geopotential heights (Z1000 at 12:00 h UTC and Z500 at 24 h UTC) and is named here 2Z.
 
 The 2Z method consists of the following steps: first, to cope with seasonal effects, candidate dates are extracted within a period of four months centred around the target date, for every year of the archive (PC: preselection on calendar basis in Table \ref{table:methods}). Then, the similarity of the atmospheric circulation of a target date with every day of the archive is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Drosdowsky2003}, which is a comparison of gradients, over a certain spatial window:
 
@@ -327,7 +327,7 @@ where $CRPS_{r}$ is the CRPS value for the reference and $CRPS_{p}$ would be the
 
 \section{Influence of the reanalysis dataset}
 
-All considered AMs were calibrated for every dataset and station, which resulted in a total of 21,070 runs processed on a HPC cluster at the University of Bern. For every combination, the spatial windows and the number of analogues of each analogy level were optimized with a semi-automatic sequential procedure (Sect. \ref{sec:data}\ref{sec:ams}). Thus, the parameters were independent for any configuration, and the number of analogues was always optimal. All results are shown for the VP (Sect. \ref{sec:data}\ref{sec:precip}), and are thus not due to over-parameterization. The scores processed on the CP were similar.
+All considered AMs were calibrated for every dataset and station, which resulted in a total of 21,070 runs processed on a HPC cluster at the University of Bern. For every combination, the spatial windows and the number of analogues of each analogy level were optimized with a semi-automatic sequential procedure (Sect. \ref{sec:data}\ref{sec:ams}). Thus, the parameters were independent for any configuration, and the number of analogues was always optimal. All results are shown for the VP (Sect. \ref{sec:data}\ref{sec:precip}), and are thus not due to over-parameterization. The scores processed on the CP were similar. The original resolutions of the reanalysis datasets were used and thus differ from one to to other. Impact of the resolution is analyzed in Sect. \ref{sec:analyzes}.\ref{sec:resolution}.
 
 The results of 20CR-2c are shown for the ensemble mean only. The same analyzes were performed on a single member, but no significant difference has been observed. The single-member might be slightly less skillful than the ensemble mean, but only by a small amount (not shown).
 
@@ -352,11 +352,18 @@ Different thresholds for high precipitation were assessed and provide similar re
 
 \subsection{Selection of the analogue dates}
 
+The use of a certain dataset over another has an influence on the selection of the analogue days. These selections were compared between datasets for all stations and all AMs. Figure \ref{fig:similarities_analogue_dates} shows the percentage of similar analogue dates selected when using the reanalysis datasets in columns that are also found when using the datasets in rows for different AMs. The values are averaged for all stations on the VP (same results on the CP). One should remember that the methods were calibrated for all stations and all datasets independently, and thus the spatial windows on which the predictors are compared might not correspond, neither the number of analogues.
+
+As expected, more complex AMs show lower percentages of similar analogue days between the datasets. Indeed, higher correspondence is expected for circulation variables than moisture variables, which are more model-dependent. Reanalysis datasets that are close products, such as NR-1 and NR-2 or JRA-55 and JRA-55C, show the highest similarity. However, differences still exist although these datasets perform almost equally well (Fig. \ref{fig:comparison_relative}). Higher similarities can also be observed between CERA-20C and ERA-20C.
+
+20CR-2c differs the most from other datasets for all methods. This difference in the selection of analogue days leads to lower performance of the methods (Fig. \ref{fig:comparison_relative}). However, this difference is less present row-wise. It is due to the selection of a higher number of analogues for 20CR-2c: this selection being larger, it is easier to find matching dates from other datasets with a lower number of analogues than the opposite. Another noticeable difference is for MERRA-2 and the 2SLP method. In this case, this difference leads to better performance score (Fig. \ref{fig:comparison_relative}). The selection based on JRA-55 and JRA-55C have globally the highest correspondence to the other datasets.
+
 
 \section{Further analyzes}
 \label{sec:analyzes}
 
 \subsection{Influence of the spatial resolution}
+\label{sec:resolution}
 
 The different reanalysis datasets are characterized by various grid resolutions. In order to assess the role of the resolution in the relative performance of the methods, the datasets with the higher resolution were degraded to increasingly lower resolutions. For each resolution, the parameters of the AMs were calibrated again, independently for every method, dataset and station, and are thus optimal for a given configuration. The impact of the resolution degradation is presented in Figure \ref{fig:plot_impact_resolution} for six AMs. The values are averaged on a selection of 30 stations (Fig. \ref{fig:stations}). First, except for 2SLP with MERRA-2, using a resolution below 1\degree\ do not provide higher performance. There are two possible reasons for such result: first, the AMs might not be sensitive to small scale variability, as the analogy of features at 1\degree\ is sufficient to describe the situation; or, the small-scale information contained in the datasets is not relevant. An mean increase in performance might be observed when using a 1\degree\ (or 1.25\degree) instead of a 0.5\degree\ (or 0.625\degree) resolution. In must first be noted that this increase is not systematic for every station, and that some variability was observed. Thus, it might not be highly reliable. However, if such increase would be confirmed in a larger selection of stations, it might highlight some small-scale variability that is detrimental to the AM. The exception of SLP from MERRA-2 being more relevant at a higher resolution would suggest that this variable contains relevant information at a small scale, which partly explains its mean higher performance (Fig. \ref{fig:comparison_relative}), and in particular a better description of the more dynamic situations related to high precipitation events (Fig. \ref{fig:comparison_relative_Pq99}).
 
@@ -364,6 +371,7 @@ After 1\degree, the decrease in performance is systematic, but not of the same m
 
 
 \subsection{Archive length}
+\label{sec:length}
 
 All previous comparisons take place on the period 1981--2010. However, some datasets have the important added value of covering longer periods. Longer datasets have mainly two benefits: they allow working on past periods as target, for example to reconstruct the meteorological conditions linked to a flood event, and they enrich the pool of potential analogue situations primarily for less frequent situations. This second aspect is the focus of the present analysis. 
 
@@ -373,6 +381,7 @@ With perfect predictor and predictand (precipitation) archives, the prediction s
 
 
 \subsection{Ensembles datasets}
+\label{sec:ensemble}
 
 As discussed in the previous section, the datasets spanning over a century are more uncertain for the early period. In order to take into account this uncertainty, the CERA-20C and the 20CR-2c datasets provide 10 and 56 members respectively. These ensemble datasets can be used in the analogue method by looking for similar days on every member. Both the target and the candidate situations are thus extracted from the same member and the identified analogue days are gathered in a single selection. Two options are then possible : (a) to keep all dates, including the duplicates, or (b) to keep only once a date, by removing duplicates. For both options the optimal number of analogues needs to be reassessed. If the data from the different members were exactly identical, the optimized number of analogues of the first approach would be $m$ times higher as the selection on a single member, $m$ being the number of members considered. On the contrary, the number of analogues would not change for the second approach. Both approaches were assessed for the methods 2Z and 2Z-2MI, because their predictors were also available for 20CR-2c. As the spread is lower for the present and higher in the past, two periods were assessed: 1901--1930 and 1981--2010.
 
@@ -382,7 +391,7 @@ As discussed in the previous section, the datasets spanning over a century are m
 
 
 
-\subsection{Precipitation data from the reanalysis}
+
 
 
 \section{Discussion}
@@ -584,6 +593,12 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative-q95.pdf}\\
 	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with precipitation above the all days 95th percentile and expressed as a relative CRPSS. The methods cannot be compared here, only the datasets.}
 	\label{fig:comparison_relative_Pq95}
+\end{figure}
+
+\begin{figure}[t]
+	\noindent\includegraphics[width=19pc,angle=0]{figures/similarities-analogue-dates.pdf}\\
+	\caption{Percentage of similar analogue dates selected when using the reanalysis datasets in columns that are also found when using the datasets in rows for different AMs. The values are averaged for all stations on the VP.}
+	\label{fig:similarities_analogue_dates}
 \end{figure}
 
 \begin{figure}[t]
