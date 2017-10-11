@@ -188,21 +188,12 @@ The atmospheric model uses a hybrid sigma-pressure vertical coordinate on 60 lay
 
 \subsubsection{Climate Forecast System Reanalysis}
 
-The Climate Forecast System Reanalysis \citep[CFSR, ][]{Saha2010a} is the second generation of global reanalyses provided by NCEP. The model resolution was significantly increased since NR-1/NR-2 : horizontal resolution of T382 (about 38~km) and 64 vertical levels on sigma-pressure hybrid vertical coordinates. Both the model and the assimilation were also improved. New parameterizations were used, resulting in more realistic moisture prediciton and mountain blocking representation, among others \citep{Saha2010a}. There is also a coupling to the ocean and a sea ice model.
+The Climate Forecast System Reanalysis \citep[CFSR, ][]{Saha2010a} is the second generation of global reanalyses provided by NCEP. The model resolution was significantly increased since NR-1/NR-2 : horizontal resolution of T382 (about 38~km) and 64 vertical levels on sigma-pressure hybrid vertical coordinates. Both the model and the assimilation were also improved. New parameterizations were used, resulting in more realistic moisture prediction and mountain blocking representation, among others \citep{Saha2010a}. There is also a coupling to the ocean and a sea ice model. Temperature, moisture, and ozone fields are also better adjusted to best match the observed radiances.
 
-The assimilation scheme relies on the 3D-Var technique, but with a certain consideration of the time aspect by using time tendencies of state variables. The assimilated data are most of available observations from different kind of sensors, selected after quality control. The period covered is from 1979 onwards, but the initial plan was to extend it back to 1947 or earlier \citep{Saha2010a}.
+CFSR has the particularity to analyze the historical tropical storm locations. The substantial benefit is that "by relocating a tropical storm vortex to its observed location prior to the assimilation of storm circulation observations, distortion of the circulation by the mismatch of guess and observed locations is avoided" \citep{Saha2010a}. This aspect can have significant impact on analogue methods using geopotential heights as predictors in certain regions of the world.
 
-"Another notable difference between R1 and/or
-R2 and the CFSR is that the CFSR GSI uses satellite radiances rather than derived temperature or mois- ture profiles. This allows the GSI greater freedom to generate adjustments to the temperature, moisture, and ozone fields to best match the observed radiances."
+The assimilation scheme relies on the 3D-Var technique, but with a certain consideration of the time aspect by using time tendencies of state variables. The analysis system used in CFSR for the atmosphere is similar to the one used by MERRA, with nearly the same input data. The assimilated data are most of available observations from different kind of sensors, selected after quality control. The period covered is from 1979 onwards, but the initial plan was to extend it back to 1947 or earlier \citep{Saha2010a}.
 
-
-CFSR has the particularity to analyze the historical tropical storm locations. The substantial benefit is that "by relocating a tropical storm vortex to its observed location prior to the assimilation of storm circulation observations, distortion of the circulation by the mismatch of guess and observed locations is avoided" \citep{Saha2010a}.
-
-
-
-"It is worth noting that the analysis system used in CFSR for the atmosphere, the GSI scheme, is nearly the same as the one used by MERRA at the NASA GSFC"
-Gridded statistical interpolation
-"The MERRA atmosphere-only reanalysis is being conducted over the same years with nearly the same input data."
 
 \subsubsection{Japanese 55-year Reanalysis}
 
@@ -213,29 +204,32 @@ JRA-55C
 The first global reanalysis to assimilate historical tropical storm information was JRA-25 (Onogi et al.
 2007).
 
+
+
+
+
+
 \subsubsection{NOAA-CIRES 20th Century Reanalysis}
 
-20CR-2c \citep{Compo2011}
+The Twentieth Century Reanalysis version 2c \citep[20CR-2c, ][]{Compo2011} produced by NOAA is the longest dataset available, starting in 1851. Unlike the other reanalysis datasets that assimilate as much data as possible, it only assimilates surface pressure data and relies on observed monthly sea-surface temperature and sea-ice distributions as boundary conditions. The assimilation technique used is an Ensemble Kalman Filter that allows to take into account the time-varying observations uncertainty related to the evolution of the measuring networks. The atmospheric model used is the NCEP Global Forecast System (GFS) with a T62 horizontal resolution and 28 vertical hybrid sigma-pressure levels. The datasets contains 56 members and also provides an ensemble mean. As expected, the ensemble uncertainty varies with the time-changing observation network, i.e. it decreases over time. The outputs are available with a 2\degree\ resolution on 24 pressure levels (for the ensemble mean -- less levels are publicly available for the individual members).
 
-
-
+Although 20CR-2c only relies on surface data, it was found to have relevant information of the state of the atmosphere at higher levels, such as the 500~hPa geopotential height and the 850~hPa air temperature \citep{Compo2011}. Thanks to the consideration of the evolving observation uncertainty in the Kalman Filter, 20CR-2c was found to be more skilful that ERA-40 (predecessor of ERA-interim) for the prediction of the 300~hPa geopotential height in the Southern Hemisphere prior to the satellite era. Statistics of storm tracks and some climate indices were also found to be relevant \citep{Compo2011}.
 
 
 \subsubsection{ECMWF 20th Century Reanalysis}
 
-ERA-20C \citep{Poli2016}
+The ECMWF twentieth century reanalysis \citep[ERA-20C, ][]{Poli2016} starts in 1900, which makes it the second longest dataset after 20CR-2c. ERA-20C also assimilates surface pressure, but additionally assimilates marine wind observations. Unlike 20CR-2c it is single-member. It is forced by sea surface temperature, sea ice cover, atmospheric composition changes, and solar forcing. The atmospheric model used is the ECMWF’s Integrated Forecast System (IFS) with a time step of 30 min, a T159 resolution (approximately 125 km), and 91 levels. The assimilation technique is 4D-Var on a 24~h window, which is also able to account for spatially and temporally varying errors in the model and the observations, as in 20CR-2c. A previously produced 10-member ensemble was used to derive these errors estimates.
 
-
-
+When analysing the total column water vapor output, \citet{Poli2016} found that ERA-20C and 20CR-2c had dry biases but better reproduced anomalies than JRA-55 or ERA-INT. Despite some differences, climate indices are in reasonable agreement between reanalysis datasets.
 
 
 \subsubsection{MERRA-2}
 
-\cite{Gelaro2017}
-MERRA-2. MERRA-2 is an update for the first MERRA reanalysis \citep{Rienecker2011}
+The Modern-Era Retrospective Analysis for Research and Applications, version 2  \citep[MERRA-2, ][]{Gelaro2017} is an improvement for the first MERRA reanalysis \citep{Rienecker2011} produced by NASA’s Global Modeling and Assimilation Office (GMAO). One of the main objective of NASA's GMAO reanalysis projects is to improve the hydrological cycle represented in reanalysis products, primarily by providing improvement in precipitation and water vapor climatology.
 
+MERRA-2 relies on assimilation of additional satellite observations, including deduced surface wind speeds and vectors. An important improvement is that shows a reduction of biases and imbalances in the water cycle, and the reduction of discontinuities in precipitation related to changes in the observing system \citep{Gelaro2017}. The atmospheric model has also improved both in its dynamical core and its physical parameterizations since the first version of MERRA. New bias corrections schemes were implemented too.
 
-
+A particularity of MERRA-2 compared to the other datasets considered in the present work is that it uses a finite-volume dynamical core with a cubed-sphere horizontal discretization rather than a spectral model. The model grid has a relatively uniform resolution of 0.5\degree x 0.625\degree and 72 vertical levels. The analysis uses the 3D-Var technique with a 6-h update cycle, at the same resolution as the atmospheric model. The quality control procedure was changed in order to allow for larger observation values (outliers) of to be preserved, for surface pressure and other variables.
 
 
 \subsubsection{ECMWF Coupled 20th Century Reanalysis}
@@ -456,7 +450,7 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Make your BibTeX bibliography by using these commands:
 \bibliographystyle{ametsoc2014}
-\bibliography{../../../Biblio/Mendeley/Export/4_articles-2017_JCli_reanalysis}
+\bibliography{../../../Biblio/Mendeley/Export/_For_articles-2017_JCli_reanalysis}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -526,7 +520,7 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 
 
 \begin{table*}[t]
-	\caption{Assessed reanalysis datasets with their respective available period, timestep and resolution.}
+	\caption{Assessed reanalysis datasets with their respective properties.}
 	\begin{center}
 		\begin{tabular}{cccccccc}
 			\hline
