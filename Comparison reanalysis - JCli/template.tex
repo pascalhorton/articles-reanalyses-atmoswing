@@ -53,7 +53,7 @@
 
 %% May use \\ to break lines in title:
 
-\title{Comparison of present reanalysis datasets in the context of the analogue method for statistical precipitation downscaling.}
+\title{Comparison of global reanalysis datasets in the context of statistical precipitation downscaling.}
 
 %%% Enter authors' names, as you see in this example:
 %%% Use \correspondingauthor{} and \thanks{Current Affiliation:...}
@@ -146,6 +146,11 @@
 
 \section{Introduction}
 
+
+
+
+
+
 Reanalysis datasets have a wide range of application. Among these are statistical downscaling methods, which use these global gridded data as predictors in order to predict a local variable of interest, such as precipitation. The present work focuses on the analogue method (AM), which is a statistical downscaling technique relying on the hypothesis that similar synoptic situations are likely to result in similar local effect, plus a certain variability that is not explained by the considered predictors. In order to take into account this unertainty, several analogue days are extracted from the archive and provide the empirical conditional distribution that is the statistical prediction for the considered target day. Different versions of AMs exist, relying on various predictors. 
 
 In former time, the predictors of the AM were extracted from radio-sounding data \citep{Duband1981}, which involved heavy pre-treatment to have a complete and homogeneous database that can be used. The release of the first reanalysis dataset \citep[NCEP/NCAR Reanalysis I, NR-1][]{Kalnay1996, Kistler2001} greatly simplified the implementation of the AM, and opened new opportunities of using other variables. \citet{Bontron2004} assessed most variables of the NR-1 dataset to end up with two methods: one based on the atmospheric circulation and the second one adding a second level of analogy on moisture variables.
@@ -158,12 +163,44 @@ The goal of this work is to quantify the impact of choosing a certain reanalysis
 "Reanalysis data provide a multivariate, spatially complete, and coherent record of the global atmospheric circulation" \cite{Dee2011a} "produced with a single version of a data assimilation system –including the forecast model used –and is therefore not affected by changes in method"
 "The accuracy of these model-generated estimates naturally depends on the quality of the model physics aswell asthat of the analysis. "\cite{Dee2011a}
 
+
+"changes in observing systems have a significant impact on the representation of hydrological cycle in reanalyses. Because of these weaknesses, it has been pointed out that great caution is needed when using hydrological variables from reanalyses, especially model diagnostics such as precipitation and evaporation" \cite{Kobayashi2015}
+
+
+
+"However, precipitation biases are generally particularly important in reanalyses [Kalnay and Kanamitsu, 1996; Simmons et al., 2010] and climate models [Boberg et al., 2009; Kelley et al., 2012], which may be problematic in the statistical downscaling context." \citep{Dayon2015}
+"Regarding climatological means (Figure 3), precipitation as predictor leads to important biases, especially with MERRA (−15\% in summer and −10\% in winter). It is interesting to note that the best performances correlation-wisewere seen with MERRA and precipitation as predictor (Figure 2)." \citep{Dayon2015}
+"Not surprisingly, the SD method with precipitation as predictor cannot fully overcome the biases in reanalysis precipitation. Biases in downscaled precipitation obtained with the other combinations of predictors are generally much smaller" \citep{Dayon2015}
+"Given the fact that precipitation as predictor (C1) does not necessarily lead to higher correlations between downscaled and observed precipitation, and leads to serious climatological biases, this combination is not investigated further in the manuscript" \citep{Dayon2015}
+
+"In terms of median over France, the highest correlations are always obtained with precipitation as predictor (C1) for MERRA (Figure 2). It is not the case for the other reanalyses. For example, C1 never leads to the highest correlations for ERAI, and only in autumn for NCEP. Precipitations in reanalyses are therefore not necessarily the best predictor for local precipitation. It is consistent with the fact that precipitation in reanalyses is generally poorly constrained by observations and strongly depends on model physics [Rienecker and Suarez, 2011]." \citep{Dayon2015}
+
+"The interreanalyses differences in correlations for a given combination of predictors are in the end often greater than the differences due to predictors for a given reanalysis." \citep{Dayon2015}
+"Very interestingly, TTI and HUS as predictors were not associated with large differences in downscal- ing results during summer in the present climate (for example, compare the results of C6, C5, and C4 in Figure 2). These variables however lead to large differences in terms of future climate change signals, as shown with the perfect model framework. This is an illustration of the limitation of classical approaches for the evaluation of downscaling methods based only on present-day observations. It is also interesting to note that the lowest interannual present-day correlations between downscaled precipitation and obser- vations were found in summer. Despite that, Figure 7 show that summer changes are especially well captured. It is another illustration that present-day performances are not necessarily a very good indicator of performances in the climate change context." \citep{Dayon2015}
+"reanalyses are a nonnegligible source of uncertainties (contribution between 5\% and 10\%)"
+"The substantial differences in downscaling results associated with reanalyses in that context suggests that the role of reanalyses should not be underestimated when evaluating the SD method."
+"From a more general perspective, our study illustrates some important methodological issues for SD. First, even if uncertainties in reanalyses are not crucial for future climate change, they are important in the context of the development and evaluation of SD methods in the present climate. In our case, the reanalyses do not necessarily simply agree on the best combination of predictors. The optimization of the SD method with a single reanalysis is therefore likely to be reanalysis dependent and might lack robustness."
+
+
+
 \section{Data and methods}
 \label{sec:data}
 
 \subsection{Reanalysis datasets}
 
 The considered global atmospheric reanalysis datasets are briefly described hereafter and some of their characteristics are provided in Table \ref{table:datasets}. The common period to all datasets is 1981--2010. All reanalysis products are available at a 6-h time step, with some datasets or variables having higher temporal resolution. Only the 6-h time step is considered in the present work.
+
+
+
+
+"A forecast model serves to propagate information of observations in time and place, and therefore its perfor- mance has a considerable impact on the quality of a reanalysis" \citep{Kobayashi2015}.
+
+"that historical changes of observing systems cause inhomogeneities in these reanalyses that have discouraged use of the reanalyses to detect and examine climate variations and climate trends".
+"variability on multi-year timescales (especially decadal) is not estimated very well in the reanalyses." 
+\citep{Kobayashi2014}.
+
+
+
 
 \subsubsection{NCEP Reanalysis I}
 
@@ -197,16 +234,9 @@ The assimilation scheme relies on the 3D-Var technique, but with a certain consi
 
 \subsubsection{Japanese 55-year Reanalysis}
 
-JRA-55 \citep{Kobayashi2015, Harada2016}
-JRA-55C
+The Japanese 55-year Reanalysis \citep[JRA-55, ][]{Kobayashi2015, Harada2016} is the second global atmospheric reanalysis produced by the Japan Meteorological Agency (JMA). The datasets starts in 1958 is continued. It is based on the 4D-Var assimilation technique, which makes it the first one applying 4D-Var to this period. The forecast model used is a TL319 spectral resolution (about 60~km) version of the JMA global spectral model (GSM) with 60 vertical layers. The improvement in the forecast model and the assimilation, as well as the use of newly available and improved past observations have led to substantial improvements in the reanalysis quality since the first dataset (JRA-25) \citep{Kobayashi2015, Harada2016}. The observations used consist of those archived by JMA and those used in ERA-40 \citep{Uppala2005}. Tropical cyclones data were also assimilated, which results in a good representation of tropical cyclones in the dataset compared to other reanalyses \citep{Harada2016}. JRA-55 is still sensitive to changes in the observing networks for some characteristics, but far less than JRA-25 was, which is likely related to improvements in the forecast model providing greater physical consistency of the JRA-55 product \citep{Kobayashi2015}. JRA-55 aims at providing time-consistent data suitable for climate change studies \citep{Ebita2011}.
 
-
-The first global reanalysis to assimilate historical tropical storm information was JRA-25 (Onogi et al.
-2007).
-
-
-
-
+The Japan Meteorological Agency (JMA) also released another product, JRA-55 Conventional \citep[JRA-55C,][]{Kobayashi2014}, a version of the reanalysis based on the assimilation of only conventional data and upper air observations, without any satellite observation. The dataset is thus more homogeneous as it is unaffected by changes in satellite observing systems, even though the time variation of the number of observations may also have an impact. The data assimilation system and the boundary conditions remains identical to the ones used in JRA-55. JRA-55C starts in 1972; the full 55-years datasets is obtained by using outputs from JRA-55 prior to 1972. Geopotential heights at 500~hPa were found to present very small differences in the extra-tropics in the Northern Hemisphere. These differences are more important for the Southern Hemisphere. Globally, the anomaly  of geopotential heights are highly correlated between both datasets, except where conventional observations are sparse, especially for high latitude areas of the SH (60\degree S−90\degree S). Precipitation, which provides an integrated evaluation of the performances of the assimilation system, was found to be more consistent with observations in some analyzed regions for JRA-55 and JRA-55C than for JRA-25 and ERA-INT.
 
 
 \subsubsection{NOAA-CIRES 20th Century Reanalysis}
@@ -397,6 +427,11 @@ As discussed in the previous section, the datasets spanning over a century are m
 Perspective with ERA-5
 
 
+"MJO signals in JRA-55 (Fig. 8a) and ERA-Interim (Fig. 8d) are stronger than in the other reanalyses and are closer to those in the NOAA OLR" \cite{Harada2016}
+
+
+
+"20CR generally leads to smaller correlations, when local processes, not as well constrained in 20CR, are important for precipitation. Yet, given the breadth of data assimilated by the other reanalyses compared to 20CR, the relatively good performance obtained with 20CR is noteworthy, as this reanalysis has the advantage to be available on a much longer period" \cite{Dayon2015}
 
 
 \section{Conclusion}
@@ -522,21 +557,21 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 \begin{table*}[t]
 	\caption{Assessed reanalysis datasets with their respective properties.}
 	\begin{center}
-		\begin{tabular}{cccccccc}
+		\begin{tabular}{ccccccc}
 			\hline
-			\multirow{2}{*}{\textbf{Id}} & \multirow{2}{*}{\textbf{Institutions}} & \multirow{2}{*}{\textbf{Name}} & \textbf{Period} & \textbf{Output} & \textbf{Model} & \textbf{Model} & \textbf{Assimilation}\\ 
-			&&& \textbf{of record} & \textbf{resolution} & \textbf{resolution} & \textbf{vintage} & \textbf{technique} \\ 
+			\multirow{2}{*}{\textbf{Name}} & \multirow{2}{*}{\textbf{Institution}} & \textbf{Period} & \textbf{Output} & \textbf{Model} & \textbf{Model} & \textbf{Assimilation}\\ 
+			&& \textbf{of record} & \textbf{resolution} & \textbf{resolution} & \textbf{vintage} & \textbf{technique} \\ 
 			\hline 
-			\textbf{NR-1} & NCEP, NCAR & Reanalysis I & 1948 -- present & 2.5\degree x 2.5\degree & T62 ($\sim$1.88\degree) & 1995 & 3D-Var\\
-			\textbf{NR-2} & NCEP, DOE & Reanalysis II & 1948 -- present & 2.5\degree x 2.5\degree & T62 ($\sim$1.88\degree) & 2001 & 3D-Var\\
-			\textbf{ERA-INT} & ECMWF & ERA-Interim & 1979 -- present & 0.75\degree x 0.75\degree & T255 ($\sim$0.70\degree) & 2006 & 4D-Var\\
-			\textbf{CFSR} & NCEP & Clim. Forecast Sys. Rean. & 1979 -- present & 0.5\degree x 0.5\degree & T382 ($\sim$0.31\degree) & 2009 & 3D-Var\\
-			\textbf{JRA-55}  & JMA & Japanese 55-year Rean. & 1958 -- 2015 & 1.25\degree x 1.25\degree & T319 ($\sim$0.36\degree) & 2009 & 4D-Var\\
-			\textbf{JRA-55C}  & JMA & JRA-55 Conventional Data & 1958 -- 2015 & 1.25\degree x 1.25\degree & T319 ($\sim$0.36\degree) & 2009 & 4D-Var\\
-			\textbf{20CR-2c} & NOAA-CIRES & 20th Century Rean. V2c & 1851 -- 2014 & 2\degree x 2\degree & T62 ($\sim$1.88\degree) & 2009 & E. K. filter\\
-			\textbf{ERA-20C} & ECMWF & ERA 20th century & 1900 -- 2011 & 1\degree x 1\degree & T159 ($\sim$1.13\degree) & 2012 & 4D-Var\\
-			\textbf{MERRA-2} & NASA & MERRA-2 & 1980 -- present & 0.625\degree x 0.5\degree & 0.625\degree x 0.5\degree & 2014 & 3D-Var\\
-			\textbf{CERA-20C} & ECMWF & CERA-20C & 1901 -- 2010 & 1\degree x 1\degree & T159 ($\sim$1.13\degree) & 2016 & 4D-Var\\
+			\textbf{NR-1} & NCEP, NCAR & 1948 -- present & 2.5\degree x 2.5\degree & T62 ($\sim$1.88\degree), L28 & 1995 & 3D-Var\\
+			\textbf{NR-2} & NCEP, DOE & 1948 -- present & 2.5\degree x 2.5\degree & T62 ($\sim$1.88\degree), L28 & 2001 & 3D-Var\\
+			\textbf{ERA-INT} & ECMWF & 1979 -- present & 0.75\degree x 0.75\degree & TL255 ($\sim$0.70\degree), L60 & 2006 & 4D-Var\\
+			\textbf{CFSR} & NCEP & 1979 -- present & 0.5\degree x 0.5\degree & T382 ($\sim$0.31\degree), L64 & 2009 & 3D-Var\\
+			\textbf{JRA-55}  & JMA & 1958 -- present & 1.25\degree x 1.25\degree & TL319 ($\sim$0.36\degree), L60 & 2009 & 4D-Var\\
+			\textbf{JRA-55C}  & JMA & 1958 -- 2015 & 1.25\degree x 1.25\degree & TL319 ($\sim$0.36\degree), L60 & 2009 & 4D-Var\\
+			\textbf{20CR-2c} & NOAA-CIRES & 1851 -- 2014 & 2\degree x 2\degree & T62 ($\sim$1.88\degree), L28 & 2009 & E. K. filter\\
+			\textbf{ERA-20C} & ECMWF & 1900 -- 2011 & 1\degree x 1\degree & TL159 ($\sim$1.13\degree), L91 & 2012 & 4D-Var\\
+			\textbf{MERRA-2} & NASA GMAO & 1980 -- present & 0.625\degree x 0.5\degree & 0.625\degree x 0.5\degree, L72 & 2014 & 3D-Var\\
+			\textbf{CERA-20C} & ECMWF & 1901 -- 2010 & 1\degree x 1\degree & T159 ($\sim$1.13\degree), L91 & 2016 & 4D-Var\\
 			\hline 
 		\end{tabular} 
 	\end{center}
