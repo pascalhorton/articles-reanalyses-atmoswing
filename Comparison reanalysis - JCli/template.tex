@@ -16,10 +16,10 @@
 
 %% Start with one of the following:
 %  DOUBLE-SPACED VERSION FOR SUBMISSION TO THE AMS
-\documentclass{ametsoc}
+%\documentclass{ametsoc}
 
 %  TWO-COLUMN JOURNAL PAGE LAYOUT---FOR AUTHOR USE ONLY
-%\documentclass[twocol]{ametsoc}
+\documentclass[twocol]{ametsoc}
 
 \usepackage{multirow}
 \usepackage{gensymb}
@@ -146,41 +146,25 @@
 
 \section{Introduction}
 
+Statistical downscaling is widely used, along with dynamical downscaling, to bridge the resolution gap between global and impact models, be it in a climate or a forecasting context. Statistical downscaling methods consist in establishing an empirical statistical relationship between large-scale atmospheric variables and the local variable of interest. Following the classification of \citet{Rummukainen1997} also used in \citet{Maraun2010}, there are basically two types of approaches: perfect prognosis, for which the relationship is calibrated on large-scale and local-scale observations, and model output statistics, for which the relationship is calibrated on model outputs for the large-scale variables and local-scale observations. In the context of perfect prognosis approaches, large-scale observations are thus needed. Global meteorological reanalyses are very useful to fulfil this role, as they provide gridded large-scale variables available at any location of the world.
 
+Reanalyses are produced with a single version of a data assimilation system with a forecast model constrained to follow at best the observations over a long period. They provide multivariate outputs that are physically consistent, and that contain information in locations where few or no observations are available, also for variables that are not directly observed \citep{Gelaro2017}. Their accuracy depends on both the quality of the model physics and that of the analysis process, and thus indirectly of the quantity and quality of the assimilated observations \citep{Dee2011a}. The homogeneity of a reanalysis is a challenge due to significant changes in observing systems. For example, the availability of satellite observations drastically changed the amount of data available, particularly for regions with sparse conventional observation networks. The assimilation of an variable amount of observations is likely to lead to inhomogeneities in the reanalysis. For this reason, some reanalyses are either limited to the satellite era, or, if the period of interest expands before 1980, they might not use satellite observations. Because of these issues, some variables, such as precipitation and evaporation are to be used with great caution \citep{Kobayashi2015}.
 
+In perfect prognosis methods, these reanalyses are considered as observations of the large-scale variables. As the statistical relationship established using reanalyses is afterwards applied to outputs from other models, the variables considered as predictors should not strongly depend on the model used and should be as robust as possible, so that they are mainly influenced by the observations only.
 
+The present work focuses on the analogue method (AM), which is a statistical downscaling technique relying on the hypothesis that similar synoptic situations are likely to result in similar local effects, plus a certain variability that is not explained by the considered predictors \citep{Lorenz1969}. The variable of interest is here precipitation. In order to take into account this uncertainty, several analogue days are extracted from the archive to provide the empirical conditional distribution that is the statistical prediction for the considered target day. Different versions of AMs exist, relying on various predictors. However, they generally all contain a predictor describing the atmospheric circulation.
 
+In one of the first version of the AM, the predictors were extracted from radio-sounding data \citep{Duband1981}, which involved heavy pre-treatment to have a complete and homogeneous database that can be used. Other authors worked with rather short local analysis from forecast models \cite[for example][]{Kruizinga1983, VandenDool1989}. The release of the first reanalysis dataset \citep[NCEP/NCAR Reanalysis I, NR-1,][]{Kalnay1996, Kistler2001} greatly simplified the implementation of the AM, and opened new opportunities of using other variables that were not available before. This increased the popularity of the method \citep{Timbal2008a}.
 
-Reanalysis datasets have a wide range of application. Among these are statistical downscaling methods, which use these global gridded data as predictors in order to predict a local variable of interest, such as precipitation. The present work focuses on the analogue method (AM), which is a statistical downscaling technique relying on the hypothesis that similar synoptic situations are likely to result in similar local effect, plus a certain variability that is not explained by the considered predictors. In order to take into account this unertainty, several analogue days are extracted from the archive and provide the empirical conditional distribution that is the statistical prediction for the considered target day. Different versions of AMs exist, relying on various predictors. 
+\citet{Timbal2003} and \citet{Bontron2004} were the first authors to use NR-1 in the AM. As NR-1 remained a popular dataset for a long time, this dataset or its updated version NCEP/DOE Reanalysis 2 \citep[NR-2,][]{Kanamitsu2002} were often used until recently \citep{Wetterhall2005a, Gangopadhyay2005, Altava-Ortiz2006, Barrera2007, Cannon2007, Matulla2007, Bliefernicht2007, Maurer2008, Wu2012, Marty2012, Teng2012, Horton2012, Yiou2014}. When the first European long reanalysis ERA-40 \citep{Uppala2005} became available, it took some years to see it used in AMs, but it finally also became popular for European users \citep {Willems2011b, JakobThemessl2011a, BenDaoud2011, Turco2011a, Franke2011, Pascual2012b, Schenk2012, Ribalaygua2013a, Osca2013, Radanovics2013, Martin2014b, Chardon2014, BenDaoud2016}. \citet{BenDaoud2009} analysed the impact of choosing NR-1 or ERA-40 in the AM developed by \citet{Bontron2004} and found no significant difference for the predictors considered. The more recent ERA-Interim \citep[ERA-INT, ][]{Dee2011a} was used by \cite{Raynaud2016b}, and MERRA was used by \citet{Vanvyve2015}.
 
-In former time, the predictors of the AM were extracted from radio-sounding data \citep{Duband1981}, which involved heavy pre-treatment to have a complete and homogeneous database that can be used. The release of the first reanalysis dataset \citep[NCEP/NCAR Reanalysis I, NR-1][]{Kalnay1996, Kistler2001} greatly simplified the implementation of the AM, and opened new opportunities of using other variables. \citet{Bontron2004} assessed most variables of the NR-1 dataset to end up with two methods: one based on the atmospheric circulation and the second one adding a second level of analogy on moisture variables.
+In almost all of these research works, a single reanalysis was used. The choice is likely to be primarily driven by the ease of access and the availability of some datasets in the research units, along with the code able to read it. Indeed, it is often not a priority to use the last reanalysis dataset available if the benefit for AMs is not proven, as it requires efforts to acquire ever larger datasets and to adapt the code to read it. It likely explains why many authors stick with the first American or European dataset.
 
+Some other use of the AM focus on the reconstruction of weather conditions in the Twentieth Century. Thus, they require reanalyses spanning this period, such as the Twentieth Century Reanalysis \citep[20CR][]{Compo2011} produced by NOAA \citep[for example,][]{Kuentz2015, Caillouet2016, Brigode2016}. 
 
+To our knowledge, \citet{Dayon2015} made the most comprehensive comparison of the reanalyses in the AM so far. They compared NR-1, MERRA, ERA-INT and 20CR and noted that the choice of the reanalysis, even if crucial for future climate change, is a non-negligible source of uncertainty, and that it can even impact the performance of the method to a greater extent than the choice of the predictors. They concluded that "the substantial differences in downscaling results associated with reanalyses [...] suggests that the role of reanalyses should not be underestimated when evaluating the statistical downscaling method". The choice of the predictors was also found to vary from a dataset to another, in a way that the optimization of the method is likely to be reanalysis dependent and that using a single reanalysis might introduce a lack of robustness \citep{Dayon2015}.
 
-The goal of this work is to quantify the impact of choosing a certain reanalysis dataset for the AM, and to analyze the role of the dataset resolution. Additionnally, the role of the archive size will be discussed, along with the use of different members of datasets providing ensembles.
-
-
-"Reanalysis data provide a multivariate, spatially complete, and coherent record of the global atmospheric circulation" \cite{Dee2011a} "produced with a single version of a data assimilation system –including the forecast model used –and is therefore not affected by changes in method"
-"The accuracy of these model-generated estimates naturally depends on the quality of the model physics aswell asthat of the analysis. "\cite{Dee2011a}
-
-
-"changes in observing systems have a significant impact on the representation of hydrological cycle in reanalyses. Because of these weaknesses, it has been pointed out that great caution is needed when using hydrological variables from reanalyses, especially model diagnostics such as precipitation and evaporation" \cite{Kobayashi2015}
-
-
-
-"However, precipitation biases are generally particularly important in reanalyses [Kalnay and Kanamitsu, 1996; Simmons et al., 2010] and climate models [Boberg et al., 2009; Kelley et al., 2012], which may be problematic in the statistical downscaling context." \citep{Dayon2015}
-"Regarding climatological means (Figure 3), precipitation as predictor leads to important biases, especially with MERRA (−15\% in summer and −10\% in winter). It is interesting to note that the best performances correlation-wisewere seen with MERRA and precipitation as predictor (Figure 2)." \citep{Dayon2015}
-"Not surprisingly, the SD method with precipitation as predictor cannot fully overcome the biases in reanalysis precipitation. Biases in downscaled precipitation obtained with the other combinations of predictors are generally much smaller" \citep{Dayon2015}
-"Given the fact that precipitation as predictor (C1) does not necessarily lead to higher correlations between downscaled and observed precipitation, and leads to serious climatological biases, this combination is not investigated further in the manuscript" \citep{Dayon2015}
-
-"In terms of median over France, the highest correlations are always obtained with precipitation as predictor (C1) for MERRA (Figure 2). It is not the case for the other reanalyses. For example, C1 never leads to the highest correlations for ERAI, and only in autumn for NCEP. Precipitations in reanalyses are therefore not necessarily the best predictor for local precipitation. It is consistent with the fact that precipitation in reanalyses is generally poorly constrained by observations and strongly depends on model physics [Rienecker and Suarez, 2011]." \citep{Dayon2015}
-
-"The interreanalyses differences in correlations for a given combination of predictors are in the end often greater than the differences due to predictors for a given reanalysis." \citep{Dayon2015}
-"Very interestingly, TTI and HUS as predictors were not associated with large differences in downscal- ing results during summer in the present climate (for example, compare the results of C6, C5, and C4 in Figure 2). These variables however lead to large differences in terms of future climate change signals, as shown with the perfect model framework. This is an illustration of the limitation of classical approaches for the evaluation of downscaling methods based only on present-day observations. It is also interesting to note that the lowest interannual present-day correlations between downscaled precipitation and obser- vations were found in summer. Despite that, Figure 7 show that summer changes are especially well captured. It is another illustration that present-day performances are not necessarily a very good indicator of performances in the climate change context." \citep{Dayon2015}
-"reanalyses are a nonnegligible source of uncertainties (contribution between 5\% and 10\%)"
-"The substantial differences in downscaling results associated with reanalyses in that context suggests that the role of reanalyses should not be underestimated when evaluating the SD method."
-"From a more general perspective, our study illustrates some important methodological issues for SD. First, even if uncertainties in reanalyses are not crucial for future climate change, they are important in the context of the development and evaluation of SD methods in the present climate. In our case, the reanalyses do not necessarily simply agree on the best combination of predictors. The optimization of the SD method with a single reanalysis is therefore likely to be reanalysis dependent and might lack robustness."
-
+Reanalysis datasets were compared in multiple studies (...), but mainly in terms of climatological properties. It is certainly important for AMs to use reanalyses with accurate climatological characteristics, and particularly a good homogeneity over the period covered. However, AMs are sensitive to daily variability, and their performance assessment is greatly influenced by heavy precipitation events. The impact of the reanalysis on the performance of the AM can not be directly deduced from climatological analyses and needs to be assessed within the method, which is the goal of the present work (Sect. \ref{sec:influence}). Additionally, the role of the dataset resolution (Sect. \ref{sec:analyzes}.\ref{sec:resolution}), the length of the archive (Sect. \ref{sec:analyzes}.\ref{sec:length}), and the use of different members from ensemble datasets (Sect. \ref{sec:analyzes}.\ref{sec:ensemble}) were investigated.
 
 
 \section{Data and methods}
@@ -209,7 +193,7 @@ The NCEP/NCAR Reanalysis I \citep[NR-1,][]{Kalnay1996, Kistler2001} is the first
 
 \subsubsection{NCEP Reanalysis II}
 
-The NCEP–DOE Reanalysis 2 \citep[NR-2,][]{Kanamitsu2002} is a follow-on to the NCEP/NCAR Reanalysis I project with the goal to correct known problems that were identified after the NR-1 production, mainly human processing errors. However. these issues have consequences for a limited number of applications. NR-2 also relies on updated versions of the assimilation system and the model, with improvements to the model physics. Changes in parameterizations have improved the precipitation estimate, but may have caused deterioration of other variables \citep{Kistler2001, Kanamitsu2002}. Primary analysis variables, such as geopotential heights, only contains minor differences with NR-1.
+The NCEP/DOE Reanalysis 2 \citep[NR-2,][]{Kanamitsu2002} is a follow-on to the NCEP/NCAR Reanalysis I project with the goal to correct known problems that were identified after the NR-1 production, mainly human processing errors. However. these issues have consequences for a limited number of applications. NR-2 also relies on updated versions of the assimilation system and the model, with improvements to the model physics. Changes in parameterizations have improved the precipitation estimate, but may have caused deterioration of other variables \citep{Kistler2001, Kanamitsu2002}. Primary analysis variables, such as geopotential heights, only contains minor differences with NR-1.
 
 The model and the outputs have the same spatial and temporal resolution as NR-1, and it relies on mostly the same observational data.
 
@@ -306,7 +290,7 @@ where $\Delta \hat{z}_{i}$ is the difference in geopotential height between the 
 
 The $N_{1}$ dates with the lowest values of S1 are considered as analogues to the target day. The number of analogues, $N_{1}$, is a parameter to calibrate. Then, the daily observed precipitation amount for the $N_{1}$ selected dates provide the empirical conditional distribution, considered as the probabilistic prediction for the target day. The choice of the predictors and their corresponding pressure levels and temporal windows were optimized for the NR-1 dataset \citep{Bontron2004}.
 
-A variation of the former method, but based on the mean sea level pressure (2SLP) rather than geopotential heights was also assessed in this work. The S1 criteria was also used to quantify the analogy between the pressure fields.
+A variation of the former method, but based on the mean sea level pressure (2SLP) rather than geopotential heights was also assessed in this work. The S1 criteria was also used to quantify the analogy between the pressure fields. SLP was used in AMs by \citet{Zorita1999}, \citet{Timbal2001a} and \citet{Martin2014b} amongst others.
 
 Another method relying only on the atmospheric circulation has also been considered. It relies on four geopotential heights (4Z, Table \ref{table:methods}) that were automatically selected by genetic algorithms for the upper Rhone catchment in Switzerland \citep{Horton2017b}. The 4Z method was shown to significantly outperform the 2Z method by exploiting more information from the geopotential heights and by taking advantage of additional degrees of freedom, such as different spatial windows between the pressure levels and the introduction of a weighting between them. However, due to the high number of datasets and stations considered in this work, it was not possible to use genetic algorithms in order to optimize the method. Thus, the 4Z method considered here is a simplification of the results from \citet{Horton2017b}, and only the selection of the optimal pressure levels and temporal windows were considered (Z1000 at 06:00 and 30:00 h UTC, Z700 at 24:00 h UTC, and Z500 at 12:00 h UTC), and fixed for all stations. As for the 2Z method, a unique but station-specific spatial window for all pressure level was considered, and the weights between the pressure levels have equal values. Such simplifications of the parameters resulted in a decrease of the performance score, which however was still superior to the one of the 2Z method.
 
@@ -326,6 +310,8 @@ AMs rely on parameters that need to be defined for every level of analogy. In th
 \end{itemize}
 
 The semi-automatic sequential procedure developed by \citet{Bontron2004} was used to calibrate the AM. The procedure used is described in \citet{Horton2017c} and is similar to the work of \citet{Radanovics2013} and \citet{BenDaoud2016}. It was implemented in the open source AtmoSwing-optimizer software v1.5.0 \citep[www.atmoswing.org,][]{Horton2017a}, which was used to perform the calibration.
+
+Precipitation variables from reanalyses are generally not considered as predictors, as they strongly depend on the model physics \citep{Rienecker2011} and are characterized by important biases, which would make the method non-transposable to the outputs of another model. \citet{Dayon2015} assessed the relevance of using precipitation from four reanalyses as predictors. This resulted in downscaled precipitation with high correlation with the observations for MERRA, but the related biases were much larger than for other predictors. Their analyses conducted them to reject precipitation as a predictor.
 
 
 \subsection{Performance assessment}
@@ -350,6 +336,7 @@ where $CRPS_{r}$ is the CRPS value for the reference and $CRPS_{p}$ would be the
 
 
 \section{Influence of the reanalysis dataset}
+\label{sec:influence}
 
 All considered AMs were calibrated for every dataset and station, which resulted in a total of 21,070 runs processed on a HPC cluster at the University of Bern. For every combination, the spatial windows and the number of analogues of each analogy level were optimized with a semi-automatic sequential procedure (Sect. \ref{sec:data}\ref{sec:ams}). Thus, the parameters were independent for any configuration, and the number of analogues was always optimal. All results are shown for the VP (validation period, Sect. \ref{sec:data}\ref{sec:precip}), and are thus not due to over-parameterization. The scores processed on the CP (calibration period) were similar. The original resolutions of the reanalysis datasets were used and thus differ from one to to other. Impact of the resolution is analyzed in Sect. \ref{sec:analyzes}.\ref{sec:resolution}.
 
@@ -432,6 +419,12 @@ Perspective with ERA-5
 
 
 "20CR generally leads to smaller correlations, when local processes, not as well constrained in 20CR, are important for precipitation. Yet, given the breadth of data assimilated by the other reanalyses compared to 20CR, the relatively good performance obtained with 20CR is noteworthy, as this reanalysis has the advantage to be available on a much longer period" \cite{Dayon2015}
+
+
+
+
+"Very interestingly, TTI and HUS as predictors were not associated with large differences in downscal- ing results during summer in the present climate (for example, compare the results of C6, C5, and C4 in Figure 2). These variables however lead to large differences in terms of future climate change signals, as shown with the perfect model framework. This is an illustration of the limitation of classical approaches for the evaluation of downscaling methods based only on present-day observations. It is also interesting to note that the lowest interannual present-day correlations between downscaled precipitation and obser- vations were found in summer. Despite that, Figure 7 show that summer changes are especially well captured. It is another illustration that present-day performances are not necessarily a very good indicator of performances in the climate change context." \citep{Dayon2015}
+
 
 
 \section{Conclusion}
@@ -555,7 +548,7 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 
 
 \begin{table*}[t]
-	\caption{Assessed reanalysis datasets with their respective properties.}
+	\caption{Assessed reanalysis datasets with their respective properties, sorted by model age.}
 	\begin{center}
 		\begin{tabular}{ccccccc}
 			\hline
@@ -602,35 +595,35 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 	\label{fig:stations}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-values.pdf}\\
 	\caption{CRPSS score for all stations and for all considered AMs and reanalysis datasets. A higher CRPSS score means better performance. The parameters of the AMs were calibrated for every station, every dataset, and every method.}
 	\label{fig:comparison_values}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative.pdf}\\
 	\caption{Effect of the reanalysis dataset on the performance isolated by processing the improvement in CRPSS for one dataset compared to the mean performance on all datasets, per station and per method. Note that the methods cannot be compared here, only the datasets.}
 	\label{fig:comparison_relative}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\noindent\includegraphics[width=38pc,angle=0]{figures/maps-best-methods.pdf}\\
 	\caption{Best method per station for the different datasets. NR-2 and JRA-55C are not shown as they are similar to NR-1 and JRA-55 respectively.}
 	\label{fig:map_best_methods}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative-eq0.pdf}\\
 	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with no precipitation and expressed as a relative CRPSS. The methods cannot be compared here, only the datasets.}
 	\label{fig:comparison_relative_P0}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative-q95.pdf}\\
 	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with precipitation above the all days 95th percentile and expressed as a relative CRPSS. The methods cannot be compared here, only the datasets.}
 	\label{fig:comparison_relative_Pq95}
-\end{figure}
+\end{figure*}
 
 \begin{figure}[t]
 	\noindent\includegraphics[width=19pc,angle=0]{figures/number-analogues.pdf}\\
