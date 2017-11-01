@@ -16,10 +16,10 @@
 
 %% Start with one of the following:
 %  DOUBLE-SPACED VERSION FOR SUBMISSION TO THE AMS
-%\documentclass{ametsoc}
+\documentclass{ametsoc}
 
 %  TWO-COLUMN JOURNAL PAGE LAYOUT---FOR AUTHOR USE ONLY
-\documentclass[twocol]{ametsoc}
+%\documentclass[twocol]{ametsoc}
 
 \usepackage{multirow}
 \usepackage{gensymb}
@@ -146,7 +146,7 @@
 
 \section{Introduction}
 
-Statistical downscaling is widely used, along with dynamical downscaling, to bridge the resolution gap between global and impact models, be it in a climate or a forecasting context. Statistical downscaling methods consist in establishing an empirical statistical relationship between large-scale atmospheric variables and the local variable of interest. Following the classification of \citet{Rummukainen1997} also used in \citet{Maraun2010}, there are basically two types of approaches: perfect prognosis, for which the relationship is calibrated on large-scale and local-scale observations, and model output statistics, for which the relationship is calibrated on model outputs for the large-scale variables and local-scale observations. In the context of perfect prognosis approaches, large-scale observations are thus needed. Global meteorological reanalyses are very useful to fulfil this role, as they provide gridded large-scale variables available at any location of the world.
+Statistical downscaling is widely used to bridge the resolution gap between climate model outputs and impact models, and to bias-correct them. Several of these methods consist in establishing an empirical statistical relationship between large-scale atmospheric variables and the local variable of interest. Following the classification of \citet{Rummukainen1997} also used in \citet{Maraun2010}, there are basically two types of approaches: perfect prognosis, for which the relationship is calibrated on large-scale and local-scale observations, and model output statistics, for which the relationship is calibrated on model outputs for the large-scale variables and local-scale observations. In the context of perfect prognosis approaches, large-scale observations are thus needed. Global meteorological reanalyses are very useful to fulfil this role, as they provide gridded large-scale variables available at any location of the world.
 
 Reanalyses are produced with a single version of a data assimilation system with a forecast model constrained to follow at best the observations over a long period. They provide multivariate outputs that are physically consistent, and that contain information in locations where few or no observations are available, also for variables that are not directly observed \citep{Gelaro2017}. Their accuracy depends on both the quality of the model physics and that of the analysis process, and thus indirectly of the quantity and quality of the assimilated observations \citep{Dee2011a}. The homogeneity of a reanalysis is a challenge due to significant changes in observing systems. For example, the availability of satellite observations drastically changed the amount of data available, particularly for regions with sparse conventional observation networks. The assimilation of an variable amount of observations is likely to lead to inhomogeneities in the reanalysis. For this reason, some reanalyses are either limited to the satellite era, or, if the period of interest expands before 1980, they might not use satellite observations. Because of these issues, some variables, such as precipitation and evaporation are to be used with great caution \citep{Kobayashi2015}.
 
@@ -164,7 +164,7 @@ Some other use of the AM focus on the reconstruction of weather conditions in th
 
 To our knowledge, \citet{Dayon2015} made the most comprehensive comparison of the reanalyses in the AM so far. They compared NR-1, MERRA, ERA-INT and 20CR and noted that the choice of the reanalysis, even if crucial for future climate change, is a non-negligible source of uncertainty, and that it can even impact the performance of the method to a greater extent than the choice of the predictors. They concluded that "the substantial differences in downscaling results associated with reanalyses [...] suggests that the role of reanalyses should not be underestimated when evaluating the statistical downscaling method". The choice of the predictors was also found to vary from a dataset to another, in a way that the optimization of the method is likely to be reanalysis dependent and that using a single reanalysis might introduce a lack of robustness \citep{Dayon2015}.
 
-Reanalysis datasets were compared in multiple studies (...), but mainly in terms of climatological properties. It is certainly important for AMs to use reanalyses with accurate climatological characteristics, and particularly a good homogeneity over the period covered. However, AMs are sensitive to daily variability, and their performance assessment is greatly influenced by heavy precipitation events. The impact of the reanalysis on the performance of the AM can not be directly deduced from climatological analyses and needs to be assessed within the method, which is the goal of the present work (Sect. \ref{sec:influence}). Additionally, the role of the dataset resolution (Sect. \ref{sec:analyzes}.\ref{sec:resolution}), the length of the archive (Sect. \ref{sec:analyzes}.\ref{sec:length}), and the use of different members from ensemble datasets (Sect. \ref{sec:analyzes}.\ref{sec:ensemble}) were investigated.
+Reanalysis datasets were compared in multiple studies (...), but mainly in terms of climatological properties. It is certainly important for AMs to use reanalyses with accurate climatological characteristics, and particularly a good homogeneity over the period covered. However, AMs are sensitive to daily variability, and their performance assessment is greatly influenced by heavy precipitation events. The impact of the reanalysis on the performance of the AM can not be directly deduced from climatological analyses and needs to be assessed within the method, which is the goal of the present work. Ten reanalyses were compared for seven AMs at 300 stations in Switzerland (Sect. \ref{sec:influence}). Additionally, the role of the dataset resolution (Sect. \ref{sec:analyzes}.\ref{sec:resolution}), the length of the archive (Sect. \ref{sec:analyzes}.\ref{sec:length}), and the use of different members from ensemble datasets (Sect. \ref{sec:analyzes}.\ref{sec:ensemble}) were investigated.
 
 
 \section{Data and methods}
@@ -173,17 +173,6 @@ Reanalysis datasets were compared in multiple studies (...), but mainly in terms
 \subsection{Reanalysis datasets}
 
 The considered global atmospheric reanalysis datasets are briefly described hereafter and some of their characteristics are provided in Table \ref{table:datasets}. The common period to all datasets is 1981--2010. All reanalysis products are available at a 6-h time step, with some datasets or variables having higher temporal resolution. Only the 6-h time step is considered in the present work.
-
-
-
-
-"A forecast model serves to propagate information of observations in time and place, and therefore its perfor- mance has a considerable impact on the quality of a reanalysis" \citep{Kobayashi2015}.
-
-"that historical changes of observing systems cause inhomogeneities in these reanalyses that have discouraged use of the reanalyses to detect and examine climate variations and climate trends".
-"variability on multi-year timescales (especially decadal) is not estimated very well in the reanalyses." 
-\citep{Kobayashi2014}.
-
-
 
 
 \subsubsection{NCEP Reanalysis I}
@@ -248,21 +237,9 @@ A particularity of MERRA-2 compared to the other datasets considered in the pres
 
 \subsubsection{ECMWF Coupled 20th Century Reanalysis}
 
-CERA-20C
+The ECMWF coupled twentieth century reanalysis (CERA-20C) is a follow-up of ERA-20C, with an additional coupling to the ocean. The additional assimilated data are ocean temperature and salinity profiles. The coupled data assimilation system is able to take into account feedbacks between the ocean and atmosphere in the forecast as well as the analysis step \citep{Laloyaux2016}. This ensures a physical consistency between the upper ocean and the lower atmosphere. The positive impact of the coupling on temperatures was found to be limited for the atmosphere, but more important for the ocean \citep{Laloyaux2016}. Changes in the atmosphere temperature are located near the ocean surface, but there is no impact for the upper atmosphere. The coupled system has shown a neutral impact for geopotential heights or wind speeds \citep{Laloyaux2016}. 
 
-
-
-
-
-
-%https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4461156/
-%http://reanalyses.org/comment/3843
-%https://disc.gsfc.nasa.gov/datareleases/merra_2_data_release
-%https://climatedataguide.ucar.edu/climate-data/era-20c-ecmwfs-atmospheric-reanalysis-20th-century-and-comparisons-noaas-20cr?qt-climatedatasetmaintabs=5#qt-climatedatasetmaintabs
-%https://climatedataguide.ucar.edu/climate-data/era-20c-ecmwfs-atmospheric-reanalysis-20th-century-and-comparisons-noaas-20cr
-%https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.derived.html
-%https://www.esrl.noaa.gov/psd/data/20thC_Rean/
-%https://climatedataguide.ucar.edu/climate-data/atmospheric-reanalysis-overview-comparison-tables
+CERA-20C is an ensemble dataset containing 10 members and spanning the period 1901--2010.
 
 
 
@@ -316,21 +293,21 @@ Precipitation variables from reanalyses are generally not considered as predicto
 
 \subsection{Performance assessment}
 
-The CRPS \citep[Continuous Ranked Probability Score,][]{Brown1974, Matheson1976, Hersbach2000} is often used to assess the performance of AMs. It allows evaluating the predicted cumulative distribution functions $F(y)$, for example, of the precipitation values $y$ associated with the analogue situations, compared to the single observed value $y^{0}$. The better the prediction, the smaller the score. The mean CRPS of a prediction series of length $n$ can be written as:
+The CRPS \citep[Continuous Ranked Probability Score,][]{Brown1974, Matheson1976, Hersbach2000} is often used to assess the performance of AMs. It allows evaluating the predicted cumulative distribution functions $F(y)$, for example, of the precipitation values $y$ associated with the analogue situations, compared to the single observed value $y^{0}$. The better the prediction, the smaller the score.
 
 \begin{equation}
 \label{eq:CRPS}
-CRPS = \frac{1}{n} \sum_{i=1}^{n} \left(  \int_{-\infty}^{+\infty} \left[ F_{i}(y)-H_{i}(y-y_{i}^{0})\right]^{2} dy \right) 
+CRPS = \int_{-\infty}^{+\infty} \left[ F_{i}(y)-H_{i}(y-y_{i}^{0})\right]^{2} dy
 \end{equation}
 where $H(y-y_{i}^{0})$ is the Heaviside function that is null when $y-y_{i}^{0}<0$, and has the value 1 otherwise.
 
-In order to compare the value of the score relative to a reference, one often considers its skill score expression, and uses the climatological distribution of precipitation from the entire archive as the reference. However, the choice of the reference is not important when comparing performances, since we consider its increase or decrease rather than the CRPSS absolute value. The CRPSS (Continuous Ranked Probability Skill Score) is thus defined as follows:
+In order to compare the value of the score relative to a reference, one often considers its skill score expression, and uses the climatological distribution of precipitation from the entire archive as the reference. However, the choice of the reference is not important when comparing performances, since we consider its increase or decrease rather than the CRPSS absolute value. The CRPSS (Continuous Ranked Probability Skill Score) is thus defined as follows \citep{Bradley2011}:
 
 \begin{equation}
 \label{eq:CRPSS}
-CRPSS = \frac{CRPS-CRPS_{r}}{CRPS_{p}-CRPS_{r}} = 1-\frac{CRPS}{CRPS_{r}}
+CRPSS = 1-\frac{\overline{CRPS}}{\overline{CRPS}_{clim}}
 \end{equation}
-where $CRPS_{r}$ is the CRPS value for the reference and $CRPS_{p}$ would be the one for a perfect prediction (which implies $CRPS_{p}~=~0$). A better prediction is characterized by an increase in CRPSS.
+where $CRPS_{clim}$ is the CRPS value for the climatology. A better prediction is characterized by an increase in CRPSS.
 
 %TODO: other scores !?
 
@@ -424,6 +401,22 @@ Perspective with ERA-5
 
 
 "Very interestingly, TTI and HUS as predictors were not associated with large differences in downscal- ing results during summer in the present climate (for example, compare the results of C6, C5, and C4 in Figure 2). These variables however lead to large differences in terms of future climate change signals, as shown with the perfect model framework. This is an illustration of the limitation of classical approaches for the evaluation of downscaling methods based only on present-day observations. It is also interesting to note that the lowest interannual present-day correlations between downscaled precipitation and obser- vations were found in summer. Despite that, Figure 7 show that summer changes are especially well captured. It is another illustration that present-day performances are not necessarily a very good indicator of performances in the climate change context." \citep{Dayon2015}
+
+"A forecast model serves to propagate information of observations in time and place, and therefore its perfor- mance has a considerable impact on the quality of a reanalysis" \citep{Kobayashi2015}.
+
+"that historical changes of observing systems cause inhomogeneities in these reanalyses that have discouraged use of the reanalyses to detect and examine climate variations and climate trends".
+"variability on multi-year timescales (especially decadal) is not estimated very well in the reanalyses." 
+\citep{Kobayashi2014}.
+
+
+
+%https://climatedataguide.ucar.edu/climate-data/era-20c-ecmwfs-atmospheric-reanalysis-20th-century-and-comparisons-noaas-20cr
+%https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.derived.html
+%https://www.esrl.noaa.gov/psd/data/20thC_Rean/
+%https://climatedataguide.ucar.edu/climate-data/atmospheric-reanalysis-overview-comparison-tables
+
+
+
 
 
 
@@ -562,7 +555,7 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 			\textbf{JRA-55}  & JMA & 1958 -- present & 1.25\degree x 1.25\degree & TL319 ($\sim$0.36\degree), L60 & 2009 & 4D-Var\\
 			\textbf{JRA-55C}  & JMA & 1958 -- 2015 & 1.25\degree x 1.25\degree & TL319 ($\sim$0.36\degree), L60 & 2009 & 4D-Var\\
 			\textbf{20CR-2c} & NOAA-CIRES & 1851 -- 2014 & 2\degree x 2\degree & T62 ($\sim$1.88\degree), L28 & 2009 & E. K. filter\\
-			\textbf{ERA-20C} & ECMWF & 1900 -- 2011 & 1\degree x 1\degree & TL159 ($\sim$1.13\degree), L91 & 2012 & 4D-Var\\
+			\textbf{ERA-20C} & ECMWF & 1900 -- 2010 & 1\degree x 1\degree & TL159 ($\sim$1.13\degree), L91 & 2012 & 4D-Var\\
 			\textbf{MERRA-2} & NASA GMAO & 1980 -- present & 0.625\degree x 0.5\degree & 0.625\degree x 0.5\degree, L72 & 2014 & 3D-Var\\
 			\textbf{CERA-20C} & ECMWF & 1901 -- 2010 & 1\degree x 1\degree & T159 ($\sim$1.13\degree), L91 & 2016 & 4D-Var\\
 			\hline 
@@ -591,38 +584,38 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 
 \begin{figure}[t]
   \noindent\includegraphics[width=19pc,angle=0]{figures/map-stations.jpg}\\
-  \caption{Map of the 301 precipitation stations with a good data coverage of the period 1981--2010 (blue dots), and the 30 stations with long archives (orange).}
+  \caption{Map of the 301 precipitation stations with a good data coverage of the period 1981--2010 (blue dots), and the 30 stations with long archives (orange). Background map: \textcopyright\ SwissTopo.}
 	\label{fig:stations}
 \end{figure}
 
 \begin{figure*}[t]
-	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-values.pdf}\\
-	\caption{CRPSS score for all stations and for all considered AMs and reanalysis datasets. A higher CRPSS score means better performance. The parameters of the AMs were calibrated for every station, every dataset, and every method.}
+	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-per-method.pdf}\\
+	\caption{CRPSS score for all stations and for all considered AMs and reanalysis datasets on the VP. A higher CRPSS score means better performance. The parameters of the AMs were calibrated for every station, every dataset, and every method. The boxes show the 25th, 50th, and 75th percentiles. The whiskers extend to the most extreme data point which is no more than 1.5 times the interquartile range.}
 	\label{fig:comparison_values}
 \end{figure*}
 
 \begin{figure*}[t]
-	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative.pdf}\\
-	\caption{Effect of the reanalysis dataset on the performance isolated by processing the improvement in CRPSS for one dataset compared to the mean performance on all datasets, per station and per method. Note that the methods cannot be compared here, only the datasets.}
+	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-per-method-relative.pdf}\\
+	\caption{Impact of the reanalysis dataset on the performance isolated by processing the improvement in CRPSS for one dataset compared to the mean performance on all datasets, per station and per method. Note that the methods cannot be compared here, only the datasets. Same conventions as Fig. \ref{fig:comparison_values}.}
 	\label{fig:comparison_relative}
 \end{figure*}
 
 \begin{figure*}[t]
+	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-correl-interannual-mean.pdf}\\
+	\caption{Inter-annual correlation between the mean precipitation from the selected analogues and the observations for all stations and for all considered AMs and reanalysis datasets on both the CP and the VP. Same conventions as Fig. \ref{fig:comparison_values}.}
+	\label{fig:correlation}
+\end{figure*}
+
+\begin{figure*}[t]
+	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-biases-1st.pdf}\\
+	\caption{Same as Fig. \ref{fig:correlation} but for the relative biases.}
+	\label{fig:biases}
+\end{figure*}
+
+\begin{figure*}[t]
 	\noindent\includegraphics[width=38pc,angle=0]{figures/maps-best-methods.pdf}\\
-	\caption{Best method per station for the different datasets. NR-2 and JRA-55C are not shown as they are similar to NR-1 and JRA-55 respectively.}
+	\caption{Best method per station for the different datasets. NR-2 and JRA-55C are not shown as they are similar to NR-1 and JRA-55 respectively. Background map: \textcopyright\ SwissTopo.}
 	\label{fig:map_best_methods}
-\end{figure*}
-
-\begin{figure*}[t]
-	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative-eq0.pdf}\\
-	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with no precipitation and expressed as a relative CRPSS. The methods cannot be compared here, only the datasets.}
-	\label{fig:comparison_relative_P0}
-\end{figure*}
-
-\begin{figure*}[t]
-	\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-all-methods-relative-q95.pdf}\\
-	\caption{Same as Fig. \ref{fig:comparison_relative}, but for target days with precipitation above the all days 95th percentile and expressed as a relative CRPSS. The methods cannot be compared here, only the datasets.}
-	\label{fig:comparison_relative_Pq95}
 \end{figure*}
 
 \begin{figure}[t]
