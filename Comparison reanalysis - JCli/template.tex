@@ -396,33 +396,40 @@ The results with the 2Z-2MI method (Fig. \ref{fig:plot_impact_members_2Z-2MI}) l
 
 \section{Discussion and conclusion}
 
+Although compared on a recent period over a data-rich region, the tested reanalyses resulted in large differences in terms of the performance of the AMs. The impact of the reanalyses was found to be sometimes even larger than the choice of the method and its related predictors, what was also observed by \citet{Dayon2015}. Some constraints might drive the choice of a certain reanalysis over another, for example when working on older periods. However, when the period of interest falls within the satellite era, one has to choose a dataset amongst all these supposedly equivalent reanalyses. The choice is often motivated by either ease of access (availability of the dataset at the institution), ease of use (availability of code to read it), or  preferences for the local provider (such as ECMWF for Europe). As mentioned, this choice has a non negligible impact, which was quantified in this work. There is no single overall winner, but different alternatives that provide similar performance. Figure \ref{fig:synthesis-table} synthesizes the choice of reanalyses for different periods and variables, providing the preferable datasets and their alternatives. It is by no means encouraged to change of dataset when working on a long period, as homogeneity is of paramount importance. The periods in Fig. \ref{fig:synthesis-table} are to be interpreted as starting period for the considered study, and time coverage should be checked in Table \ref{table:datasets}. The different datasets are discussed hereafter.
+
+NR-1 and NR-2 were the first reanalyses available and were used for a long time, until recently. Despite of their age and all the progress made since their production in terms of data assimilation and numerical modelling, they still provide valuable outputs nowadays. However, they are systematically performing slightly below average, and are thus not of particular interest compared to other options. Even though they start in 1948, which is prior to other datasets, there are better alternatives, and we do not recommend using them any more.
+
+ERA-INT is often nowadays the default choice in Europe for various applications. It was found here to be amongst the best performing datasets, except for 2SLP and particularly 2Z, where the skill is substantially lower. The reason for lower skill of the circulation-only predictors was not investigated and might be fixed in the coming ERA-5 dataset. However, for circulation-only AMs, it might be safer to consider another dataset. The use of moisture variables from ERA-INT in AMs leads to particularly higher inter-annual correlation, in competition with MERRA-2, which makes it a dataset of choice for moisture variables.
+
+The new NCEP reanalysis, CFSR, systematically surpasses its predecessors NR-1 and NR-2. It is in the top selection except for W, where it might not perform as well as other options.
+
+The two Japanese datasets, JRA-55 and JRA-55C, are not well known, but they resulted in remarkably good overall performances. The resulting inter-annual correlation when using moisture variables is slightly inferior to ERA-INT and MERRA-2, which does not prevent the two products to be systematically in the first choice or alternative selections. A striking element is the similar performance of both datasets, despite the fact that JRA-55C only assimilates conventional observations. This suggests that the forecast model used has good physics. Indeed, the forecast model is expected to have a considerable impact on the quality of a reanalysis \citep{Kobayashi2015}. JRA-55C is the recommended dataset when the working period starts prior to the satellite era (from 1958 onward), as it is expected to be more homogeneous than JRA-55 due to its use of conventional-only data, and as it performs equally well.
+
+20CR-2c is the only reanalysis so far providing data for the second half of the 19$^{th}$ century, which makes it a valuable asset. However, when working on more recent periods, its performance on the daily precipitation results is systematically and substantially inferior to the other reanalyses. Although it sometimes shows inter-annual correlations at the same level as the other datasets, its overall lower performance discards it as an option for Europe for other periods than the far past. Its lower performance in the AM was also raised by \citet[][]{Dayon2015}, particularly when local predictors are included. It can be at least partly explained by the fact that 20CR-2c assimilates surface pressure only, and the other variables are thus unadjusted model outputs. Thus, they can be expected to be more influenced by the model than the observations. It is noteworthy however to mention all the outputs generated over such a long period on the basis of so little assimilated data.
+
+ERA-20C assimilates marine wind observations in addition to the data ingested in 20CR-2c, and the model is also forced by more data for its boundary conditions. This, along with a different model and assimilation technique, resulted in higher skills than 20CR-2c within the AM. However, ERA-20C does not compete on more recent periods with the other reanalyses that assimilate more observations. CERA-20C has an additional coupling to the ocean. This resulted in a more skilful SLP in the AM, in terms of daily CRPSS and inter-annual correlation. However, when using other variables, the inter-annual correlation strongly decreases, to an extent that makes it non recommendable, even though daily CRPSS values are correct. This issue might come from an undesirable effect on lower frequency variability from the coupling to the ocean, likely mainly on moisture, and should be investigated.
+
+Finally, MERRA-2 presents a striking performance with SLP, that is as skilful as using 4 geopotential heights. It is difficult to pinpoint the reason for such a better performance, but the assimilation of deduced surface wind speeds and vectors surely helps. Another possible reason is its increased tolerance for larger observation values (outliers) for surface pressure and other variables \citep{Gelaro2017}, which might be informative. It is noteworthy to remind that MERRA-2 is the only dataset that shows valuable information for the AM at smaller scale (Sect. \ref{sec:analyzes}\ref{sec:resolution}). When using the other variables, it is systematically in the top selection, also in terms of inter-annual correlation. MERRA-2 is designed to improve the hydrological cycle, which might help in the statistical downscaling of precipitation.
 
 
 
-members: The selection of analogues are also too similar to consider these as independent realizations.
-
-Perspective with ERA-5
-
-
-"MJO signals in JRA-55 (Fig. 8a) and ERA-Interim (Fig. 8d) are stronger than in the other reanalyses and are closer to those in the NOAA OLR" \cite{Harada2016}
 
 
 
-"20CR generally leads to smaller correlations, when local processes, not as well constrained in 20CR, are important for precipitation. Yet, given the breadth of data assimilated by the other reanalyses compared to 20CR, the relatively good performance obtained with 20CR is noteworthy, as this reanalysis has the advantage to be available on a much longer period" \cite{Dayon2015}
 
-20CR-2c: only surface obs
+
+
 
 
 "Very interestingly, TTI and HUS as predictors were not associated with large differences in downscal- ing results during summer in the present climate (for example, compare the results of C6, C5, and C4 in Figure 2). These variables however lead to large differences in terms of future climate change signals, as shown with the perfect model framework. This is an illustration of the limitation of classical approaches for the evaluation of downscaling methods based only on present-day observations. It is also interesting to note that the lowest interannual present-day correlations between downscaled precipitation and obser- vations were found in summer. Despite that, Figure 7 show that summer changes are especially well captured. It is another illustration that present-day performances are not necessarily a very good indicator of performances in the climate change context." \citep{Dayon2015}
 
-"A forecast model serves to propagate information of observations in time and place, and therefore its perfor- mance has a considerable impact on the quality of a reanalysis" \citep{Kobayashi2015}.
+
 
 "that historical changes of observing systems cause inhomogeneities in these reanalyses that have discouraged use of the reanalyses to detect and examine climate variations and climate trends".
 "variability on multi-year timescales (especially decadal) is not estimated very well in the reanalyses." 
 \citep{Kobayashi2014}.
 
-JRA-55C
-This suggests that the forecast model used has good physics. 
 
 %https://climatedataguide.ucar.edu/climate-data/era-20c-ecmwfs-atmospheric-reanalysis-20th-century-and-comparisons-noaas-20cr
 %https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.derived.html
@@ -430,8 +437,12 @@ This suggests that the forecast model used has good physics.
 %https://climatedataguide.ucar.edu/climate-data/atmospheric-reanalysis-overview-comparison-tables
 
 
+members: The selection of analogues are also too similar to consider these as independent realizations.
+
+Perspective with ERA-5
 
 
+Hopefully, the present work can help driving a decision for future use of reanalyses in AMs.
 
 
 
@@ -441,7 +452,7 @@ This suggests that the forecast model used has good physics.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \acknowledgments
-The authors want to thank Marco Rohrer for his inputs.
+The authors want to thank Marco Rohrer for his valuable inputs.
 
 Precipitation time series were provided by MeteoSwiss. The NCEP/NCAR, NCEP/DOE, and 20CR-2c were provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, at http://www.esrl.noaa.gov/psd/. Support for the Twentieth Century Reanalysis Project dataset is provided by the U.S. Department of Energy, Office of Science Innovative and Novel Computational Impact on Theory and Experiment (DOE INCITE) program, and Office of Biological and Environmental Research (BER), and by the National Oceanic and Atmospheric Administration Climate Program Office. The CFSR, and JRA-55 were obtained from the CISL Research Data Archive (http://rda.ucar.edu/) at NCAR in Boulder, Colorado, and the NCAR is supported by grants from the National Science Foundation. The Climate Forecast System Reanalysis (CFSR) project is carried out by the Environmental Modeling Center (EMC), National Centers for Environmental Prediction (NCEP). The Japanese 55-year Reanalysis (JRA-55) project is carried out by the Japan Meteorological Agency (JMA). The MERRA-2 was obtained from the Goddard Earth Sciences Data and Information Services Center, Greenbelt, Maryland, from their website at http://disc.sci.gsfc.nasa.gov/mdisc. The ERA-interim, ERA-20C, and CERA-20C were obtained from the ECMWF Data Server at http://apps.ecmwf.int/datasets/. 
 
@@ -669,5 +680,10 @@ All calculations were performed with the open source AtmoSwing software v1.5.0 \
 	\label{fig:plot_impact_members_2Z-2MI}
 \end{figure}
 
+\begin{figure}[t]
+	\noindent\includegraphics[width=19pc,angle=0]{figures/synthesis-table.pdf}\\
+	\caption{Synthesis table of the recommended reanalyses to use in AMs for different periods and variables. This recommendation applies to Europe and eventually other data-rich regions of the world. The darker shaded area represent the first choice and the lighter shaded area represents alternatives. When a reanalysis is not mentioned, it is either not available or not recommended.}
+	\label{fig:synthesis-table}
+\end{figure}
 
 \end{document}
