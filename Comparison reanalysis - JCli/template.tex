@@ -115,7 +115,7 @@
 %% Necessary!
 \maketitle
 
-%TODO: Update figs 2, 3, 4, 5, 6, 8, 10, 11, 12 with last version
+%TODO: Update figs 8, 11, 12 with last version
 %TODO: Publish analogue dates + params as datasets (not values & scores) ?
 
 
@@ -189,7 +189,9 @@ The impact of the reanalysis on the performance of the AM needs to be assessed w
 
 \subsection{Reanalysis datasets}
 
-The considered global atmospheric reanalyses are briefly described hereafter, ordered chronologically, and some of their characteristics are provided in Table \ref{table:datasets}. The common period to all datasets is 1981--2010. All reanalyses are available at a 6-h time step, with some products or variables having higher temporal resolution. Only the 6-h time step is considered in the present work. All reanalyses are based on observations selected after quality control, which will not be detailed here. 
+Different types of reanalyses exist, primarily characterized by their observational inputs. \citet{Fujiwara2017} define three classes: "surface-input" reanalyses that assimilate surface data only, "conventional-input" reanalyses that additionally assimilate upper-air conventional data, and "full-input" reanalyses that additionally assimilate satellite data.
+
+The considered global atmospheric reanalyses are briefly described hereafter, providing first the full and conventional-input datasets, and then the surface-input ones. They are ordered chronologically, and some of their characteristics are provided in Table \ref{table:datasets}. The common period to all datasets is 1981--2010. All reanalyses are available at a 6-h time step, with some products or variables having higher temporal resolution. Only the 6-h time step is considered in the present work.
 
 
 \subsubsection{NCEP Reanalysis I}
@@ -227,6 +229,15 @@ The Japanese 55-year Reanalysis \citep[JRA-55, ][]{Kobayashi2015, Harada2016} is
 JMA also released another product, JRA-55 Conventional \citep[JRA-55C,][]{Kobayashi2014}, a version of the reanalysis based on the assimilation of only conventional data and upper air observations, without any satellite observation. The dataset is thus more homogeneous as it is unaffected by changes in satellite observing systems, even though the time variation of the number of observations may also have an impact. The data assimilation system and the boundary conditions remains identical to the ones used in JRA-55. JRA-55C starts in 1972; the full 55-years reanalysis is obtained by using outputs from JRA-55 prior to 1972. Geopotential heights at 500~hPa are found to present very small differences in the extra-tropics in the Northern Hemisphere. These differences are more important for the Southern Hemisphere. Globally, the anomaly of geopotential heights are highly correlated between both datasets, except where conventional observations are sparse, especially for high latitude areas of the SH. Precipitation, which provides an integrated evaluation of the performances of the assimilation system, is more consistent with observations in some analyzed regions for JRA-55 and JRA-55C than for JRA-25 and ERA-INT.
 
 
+\subsubsection{MERRA-2}
+
+The Modern-Era Retrospective Analysis for Research and Applications, version 2  \citep[MERRA-2, ][]{Gelaro2017} is an improvement of the first MERRA reanalysis \citep{Rienecker2011} produced by NASA's Global Modeling and Assimilation Office (GMAO). One of its the main objective is to improve the hydrological cycle represented in reanalysis products, primarily by providing improvement in precipitation and water vapor climatology.
+
+MERRA-2 relies on the assimilation of additional satellite observations than MERRA, including deduced surface wind speeds and vectors. The quality control procedure was changed in order to allow for larger observation values (outliers) to be preserved, for surface pressure and other variables. An important improvement is that it shows a reduction of biases and imbalances in the water cycle, and a reduction of discontinuities in precipitation related to changes in the observing system \citep{Gelaro2017}.
+
+The forecast model has also improved both in its dynamical core and its physical parameterizations since the first version of MERRA. A particularity of MERRA-2 compared to the other reanalyses considered in the present work is that it uses a finite-volume dynamical core with a cubed-sphere horizontal discretization rather than a spectral model. The model grid has a relatively uniform resolution of 0.5\degree\ x 0.625\degree\ with 72 vertical levels.
+
+
 \subsubsection{NOAA-CIRES 20th Century Reanalysis}
 
 The Twentieth Century Reanalysis version 2c \citep[20CR-2c, ][]{Compo2011} produced by NOAA starts in 1851. Unlike the other reanalyses that assimilate as much data as possible, it only assimilates surface pressure data and relies on observed monthly sea-surface temperature and sea-ice distributions as boundary conditions. The omission of upper-air and satellite observations aims at increasing the homogeneity of the reanalysis over the whole period. The consequence is that the dataset is not the best estimate for more recent periods compared to other reanalyses \citep{Poli2017}.
@@ -241,15 +252,6 @@ Although 20CR-2c only relies on surface data, it has relevant information of the
 The ECMWF twentieth century reanalysis \citep[ERA-20C, ][]{Poli2016} starts in 1900. Unlike 20CR-2c, it is single-member. ERA-20C also assimilates surface pressure, but additionally assimilates marine wind observations. It is forced by sea surface temperature, sea ice cover, atmospheric composition changes, and solar forcing. The forecast model used is the ECMWF’s Integrated Forecast System (IFS) with a time step of 30 min, a T159 resolution (approximately 125 km), and 91 levels. The assimilation technique is 4D-Var on a 24~h window, which is also able to account for spatially and temporally varying errors in the model and the observations, as in 20CR-2c. A previously produced 10-member ensemble was used to derive these errors estimates.
 
 ERA-20C is expected to perform better than 20CR-2c in data-rich regions, while the contrary might happen in data-sparse regions, e.g. in the Southern Hemisphere \citep{Poli2017}.
-
-
-\subsubsection{MERRA-2}
-
-The Modern-Era Retrospective Analysis for Research and Applications, version 2  \citep[MERRA-2, ][]{Gelaro2017} is an improvement of the first MERRA reanalysis \citep{Rienecker2011} produced by NASA's Global Modeling and Assimilation Office (GMAO). One of its the main objective is to improve the hydrological cycle represented in reanalysis products, primarily by providing improvement in precipitation and water vapor climatology.
-
-MERRA-2 relies on the assimilation of additional satellite observations than MERRA, including deduced surface wind speeds and vectors. The quality control procedure was changed in order to allow for larger observation values (outliers) to be preserved, for surface pressure and other variables. An important improvement is that it shows a reduction of biases and imbalances in the water cycle, and a reduction of discontinuities in precipitation related to changes in the observing system \citep{Gelaro2017}.
-
-The forecast model has also improved both in its dynamical core and its physical parameterizations since the first version of MERRA. A particularity of MERRA-2 compared to the other reanalyses considered in the present work is that it uses a finite-volume dynamical core with a cubed-sphere horizontal discretization rather than a spectral model. The model grid has a relatively uniform resolution of 0.5\degree\ x 0.625\degree\ with 72 vertical levels.
 
 
 \subsubsection{ECMWF Coupled 20th Century Reanalysis}
@@ -430,21 +432,9 @@ The two Japanese reanalyses, JRA-55 and JRA-55C, are less known, but they result
 
 ERA-20C assimilates marine wind observations in addition to the data ingested in 20CR-2c, and the model is also forced by more data for its boundary conditions. This, along with a different model and assimilation technique, resulted in higher skills than 20CR-2c within the AM. However, ERA-20C did not compete at a daily time step on more recent periods with the other reanalyses that assimilate more observations. CERA-20C has an additional coupling to the ocean and is processed with a more recent version of the IFS forecast model. This resulted in relatively equivalent skills at a daily time step, but higher inter-annual correlations. CERA-20C should then be chosen over ERA-20C.
 
-Finally, MERRA-2 showed a striking performance with SLP, that was as skilful as using 4 geopotential heights. 
+Finally, MERRA-2 showed a striking performance with SLP, that was as skilful as using 4 geopotential heights. It is difficult to pinpoint the reason for such a better performance as the assessment is indirect. Differences between MERRA-2 and the other reanalyses that can be related to such effects are (R. Gelaro, pers. comm., November 28, 2017): a specific pressure change due to the physics is computed to conserve atmospheric dry mass, which is likely to impact areas with strong precipitation events, or eventually the use of a less smooth topography compared to spectral models, which may produce stronger gradients as a result of sea-level reduction. The optimal spatial domains associated with MERRA-2's SLP are inland and cover part of France, Italy, Switzerland, and a portion of the Northern Mediterranean (1.25\degree W at minimum and zonal extents mainly between 5 and 10\degree; domains down to about 41\degree N with a mode at 42\degree N and a meridional extents mainly between 5 and 7\degree). In order to assess the contribution of the topography, the same analysis could be undertaken in another region with less reliefs.
 
-
-
-The optimal spatial domains associated with MERRA-2's SLP are inland and cover part of France, Italy, Switzerland, and a portion of the Northern Mediterranean (no domain starting before 1.25\degree W and zonal extents mainly between 5 and 10\degree; domains down to about 41\degree N with a mode at 42\degree N and a meridional extent mainly between 5 and 7\degree).
-
-
-
-
-
-
-
-
-
-It is difficult to pinpoint the reason for such a better performance, as the assimilated data are essentially the same as the other reanalyses (R. Gelaro, pers. comm., November 16, 2017). A possible reason is the use of a smoothed topography (M. G. Bosilovich, pers. comm., November 14, 2017) or eventually the use of a finite-volume dynamical core (R. Gelaro, pers. comm., November 16, 2017). MERRA-2's SLP seemed to be also more informative at its full high spatial resolution (Sect. \ref{sec:analyzes}\ref{sec:resolution}). When using other variables, it was systematically in the top selection, also in terms of inter-annual correlation.
+MERRA-2's SLP seemed to be also more informative at its full high spatial resolution (Sect. \ref{sec:analyzes}\ref{sec:resolution}). When using other variables, it was systematically in the top selection, also in terms of inter-annual correlation.
 
 The differences in skill from a reanalysis to another did not depend on the assimilation technique (at least between 3D-Var and 4D-Var), but on the assimilated data and on the forecast model. Although higher spatial resolutions in the forecast models are likely to result in better reanalyses thanks to a better resolution of convection and orographic effects, higher output resolutions were not found to be determining to explain the differences in skill between reanalyses (Sect. \ref{sec:analyzes}\ref{sec:resolution}). 
 
@@ -578,7 +568,7 @@ Calculations were performed on UBELIX (http://www.id.unibe.ch/hpc), the HPC clus
 
 
 \begin{table*}[t]
-	\caption{Assessed reanalysis datasets with their respective properties, sorted by model age.}
+	\caption{Assessed reanalysis datasets with their respective properties, sorted by type and model age.}
 	\begin{center}
 		\begin{tabular}{ccccccc}
 			\hline
@@ -591,9 +581,10 @@ Calculations were performed on UBELIX (http://www.id.unibe.ch/hpc), the HPC clus
 			\textbf{CFSR} & NCEP & 1979 -- present & 0.5\degree x 0.5\degree & T382 ($\sim$0.31\degree), L64 & 2009 & 3D-Var\\
 			\textbf{JRA-55}  & JMA & 1958 -- present & 1.25\degree x 1.25\degree & TL319 ($\sim$0.36\degree), L60 & 2009 & 4D-Var\\
 			\textbf{JRA-55C}  & JMA & 1958 -- 2015 & 1.25\degree x 1.25\degree & TL319 ($\sim$0.36\degree), L60 & 2009 & 4D-Var\\
+			\textbf{MERRA-2} & NASA GMAO & 1980 -- present & 0.625\degree x 0.5\degree & 0.625\degree x 0.5\degree, L72 & 2014 & 3D-Var\\
+			\hline 
 			\textbf{20CR-2c} & NOAA-CIRES & 1851 -- 2014 & 2\degree x 2\degree & T62 ($\sim$1.88\degree), L28 & 2009 & EnKF\\
 			\textbf{ERA-20C} & ECMWF & 1900 -- 2010 & 1\degree x 1\degree & TL159 ($\sim$1.13\degree), L91 & 2012 & 4D-Var\\
-			\textbf{MERRA-2} & NASA GMAO & 1980 -- present & 0.625\degree x 0.5\degree & 0.625\degree x 0.5\degree, L72 & 2014 & 3D-Var\\
 			\textbf{CERA-20C} & ECMWF & 1901 -- 2010 & 1\degree x 1\degree & T159 ($\sim$1.13\degree), L91 & 2016 & 4D-Var\\
 			\hline 
 		\end{tabular} 
