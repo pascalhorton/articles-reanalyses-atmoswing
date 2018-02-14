@@ -104,7 +104,7 @@
 \abstract{
 	\nohyphens{
 		Statistical downscaling based on a perfect prognosis approach often relies on reanalyses to infer the statistical relationship between synoptic predictors and the local variable of interest, here daily precipitation. Nowadays, many reanalyses are available and their impact on the downscaled variable is not often considered. The present work assessed the impact of ten reanalyses on the performance of seven variants of analogue methods for statistical precipitation downscaling at 300 stations in Switzerland. Even though the study location is in a data-rich region, significant differences were found between reanalyses and their impact on the performance of the method can be even higher than the choice of the predictor variables. There was no single overall winner, but a selection of recommended reanalyses resulting in higher skill scores depending on the considered predictor variables.
-		As expected, the output spatial resolution of the reanalyses was found to have a larger impact on local variables, such as moisture, than on synoptic predictors, such as the geopotential height. Output resolutions below one degree were found to be generally of low to no interest.
+		The impact of the output spatial resolution was assessed for different types of variables. Output resolutions below one degree were found to be often of low to no interest.
 		Reanalyses with longer archives allow the pool of potential analogues to be increased, resulting in better performance. However, when adding variables affected by errors in a more distant past, the skill score decreased again.
 		The use of multiple members from two reanalyses was also tested over a recent and a past period. The benefit of using members to increase the performance by better incorporating the uncertainties was found to be limited, and even problematic with methods using multiple analogy levels.
 	}
@@ -116,15 +116,11 @@
 	%% Necessary!
 	\maketitle
 	
-	%TODO: improve abstract
 	%TODO: Update figs 11, 12 with last version
 	%TODO: Publish analogue dates + params as datasets (not values & scores) ?
 	%TODO: title?
-	%TODO: check seasonal variability?
 	%TODO: thank referees
 	%TODO: update ref Rohrer2018
-	%TODO: add comments Max
-	%TODO: add figure NASA
 	
 	
 	
@@ -601,79 +597,79 @@
 	%\end{figure}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/map-stations.jpg}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure01.jpg}\\
 		\caption{Map of the 301 precipitation stations with good data coverage of the period 1981--2010 (blue dots), and the 30 stations with long archives (orange). Background map: \textcopyright\ SwissTopo.}
 		\label{fig:stations}
 	\end{figure}
 	
 	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-per-method.pdf}\\
+		\noindent\includegraphics[width=39pc,angle=0]{figure02.pdf}\\
 		\caption{CRPSS scores for all stations, and for all considered AMs and reanalysis datasets on the VP. A higher CRPSS score means better performance. The parameters of the AMs were calibrated for every station, every dataset, and every method. The boxes show the 25th, 50th, and 75th percentiles. The whiskers extend to the most extreme data point which is no more than 1.5 times the interquartile range.}
 		\label{fig:comparison_values}
 	\end{figure*}
 	
 	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-per-method-relative.pdf}\\
+		\noindent\includegraphics[width=39pc,angle=0]{figure03.pdf}\\
 		\caption{Impact of the reanalysis dataset on performance, isolated by processing the improvement in CRPSS for one dataset compared to the mean performance on all datasets, per station and per method. Note that the methods cannot be compared here, only the datasets. Same conventions as Fig. \ref{fig:comparison_values}.}
 		\label{fig:comparison_relative}
 	\end{figure*}
 	
 	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-correl-interannual-mean.pdf}\\
+		\noindent\includegraphics[width=39pc,angle=0]{figure04.pdf}\\
 		\caption{Inter-annual correlation between the mean precipitation from the selected analogues and the observations for all stations and for all considered AMs and reanalysis datasets on both the CP and the VP. Same conventions as Fig. \ref{fig:comparison_values}.}
 		\label{fig:correlation}
 	\end{figure*}
 	
 	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figures/boxplot-biases-1st.pdf}\\
+		\noindent\includegraphics[width=39pc,angle=0]{figure05.pdf}\\
 		\caption{Same as Fig. \ref{fig:correlation}, but for relative biases.}
 		\label{fig:biases}
 	\end{figure*}
 	
 	\begin{figure*}[t]
-		\noindent\includegraphics[width=33pc,angle=0]{figures/maps-best-methods.pdf}\\
+		\noindent\includegraphics[width=33pc,angle=0]{figure06.pdf}\\
 		\caption{Best method per station for the different datasets. NR-2 and JRA-55C are not shown as they are similar to NR-1 and JRA-55 respectively. Background map: \textcopyright\ SwissTopo.}
 		\label{fig:map_best_methods}
 	\end{figure*}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/number-analogues.pdf}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure07.pdf}\\
 		\caption{Density plots of the optimal number of analogues of the last analogy level for the different AMs and datasets.}
 		\label{fig:number_analogues}
 	\end{figure}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/similarities-analogue-dates.pdf}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure08.pdf}\\
 		\caption{Percentage of similar analogue dates selected when using the reanalysis datasets in columns that are also found when using the datasets in rows for different AMs. The values are averaged for all stations on the VP.}
 		\label{fig:similarities_analogue_dates}
 	\end{figure}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-resolution-spread.pdf}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure09.pdf}\\
 		\caption{Impact (difference in CRPSS) of a decrease in grid resolution (degrees) for different datasets and AMs on the CP. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_resolution}
 	\end{figure}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-length-spread-VP.pdf}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure10.pdf}\\
 		\caption{Impact (difference in CRPSS) on the VP of an increase in the archive length (years) for different datasets and AMs. Results for the 4Z method (shown by the dashed lines) are displayed along with the 2Z method. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_length}
 	\end{figure}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-members-2Z.pdf}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure11.pdf}\\
 		\caption{Impact (difference in CRPSS) of an increase in the number of ensemble members used for the 2Z method, and for CERA-20C and 20CR-2c datasets. The results are provided for two periods: (a, c) 1981--2010 and (b, d) 1901--1930. Two approaches were assessed: (a, b) the first allowing duplicate analogue dates ("w.d.d.") and (c, d) the second without duplicate analogue dates ("wo.d.d."). The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations). The dashed line and striped area correspond to results on the VP. All 56 members of 20CR-2c were assessed and the tendencies continue, but the plots are split at 30 members.}
 		\label{fig:plot_impact_members_2Z}
 	\end{figure}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/plot-impact-members-2Z-2MI.pdf}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure12.pdf}\\
 		\caption{Same as Fig. \ref{fig:plot_impact_members_2Z} but for the 2Z-2MI method.}
 		\label{fig:plot_impact_members_2Z-2MI}
 	\end{figure}
 	
 	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figures/synthesis-table.pdf}\\
+		\noindent\includegraphics[width=19pc,angle=0]{figure13.pdf}\\
 		\caption{Synthesis table of the recommended reanalyses to use in AMs for different periods and variables. This recommendation applies to Europe and eventually other data-rich regions of the world. The darker shaded area represents the first choice and the lighter shaded area represents alternatives. When a reanalysis is not mentioned, it is either not available or not recommended.}
 		\label{fig:synthesis-table}
 	\end{figure}

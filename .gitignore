@@ -1,7 +1,7 @@
 _ressources/
 *.aux
 *.log
-Comparison reanalysis - JCli/template.pdf
+*/template.pdf
 *.gz
 *.bbl
 *.blg
@@ -16,3 +16,4 @@ Comparison reanalysis - JCli/template.pdf
 *.tdo
 *.cut
 *.zip
+*.gif
