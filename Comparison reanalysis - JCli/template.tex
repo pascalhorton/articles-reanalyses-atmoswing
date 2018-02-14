@@ -1,161 +1,105 @@
-%% Version 4.3.2, 25 August 2014
+% This is a general template file for the LaTeX package SVJour3
+% for Springer journals. Original by Springer Heidelberg, 2010/09/16
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Template.tex --  LaTeX-based template for submissions to the 
-% American Meteorological Society
+% Use it as the basis for your article. Delete % signs as needed.
 %
-% Template developed by Amy Hendrickson, 2013, TeXnology Inc., 
-% amyh@texnology.com, http://www.texnology.com
-% following earlier work by Brian Papa, American Meteorological Society
+% This template includes a few options for different layouts and
+% content for various journals. Please consult a previous issue of
+% your journal as needed.
 %
-% Email questions to latex@ametsoc.org.
+\RequirePackage{fix-cm}
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  PREAMBLE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Start with one of the following:
-%  DOUBLE-SPACED VERSION FOR SUBMISSION TO THE AMS
-\documentclass{ametsoc}
-
-%  TWO-COLUMN JOURNAL PAGE LAYOUT---FOR AUTHOR USE ONLY
-%\documentclass[twocol]{ametsoc}
-
+%\documentclass{svjour3}                     % onecolumn (standard format)
+%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+%\documentclass[twocolumn]{svjour3}          % twocolumn
+%
+\smartqed  % flush right qed marks, e.g. at end of proof
+%
+\usepackage{graphicx}
+%
+% insert here the call for the packages your document requires
+%\usepackage{mathptmx}      % use Times fonts if available on your TeX system
+%\usepackage{latexsym}
+\usepackage{natbib}
 \usepackage{multirow}
 \usepackage{gensymb}
 \usepackage{hyphenat}
-% \usepackage[disable]{todonotes} % notes not showed
-\usepackage[prependcaption,textsize=small]{todonotes}   % notes showed
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% To be entered only if twocol option is used
-
-\journal{jcli}
-
-%  Please choose a journal abbreviation to use above from the following list:
-% 
-%   jamc     (Journal of Applied Meteorology and Climatology)
-%   jtech     (Journal of Atmospheric and Oceanic Technology)
-%   jhm      (Journal of Hydrometeorology)
-%   jpo     (Journal of Physical Oceanography)
-%   jas      (Journal of Atmospheric Sciences)	
-%   jcli      (Journal of Climate)
-%   mwr      (Monthly Weather Review)
-%   wcas      (Weather, Climate, and Society)
-%   waf       (Weather and Forecasting)
-%   bams (Bulletin of the American Meteorological Society)
-%   ei    (Earth Interactions)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Citations should be of the form ``author year''  not ``author, year''
-\bibpunct{(}{)}{;}{a}{}{,}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%% To be entered by author:
-
-%% May use \\ to break lines in title:
-
-\title{Impact of global atmospheric reanalyses on statistical precipitation downscaling.}
-
-%Comparison of global reanalysis datasets in the context of statistical precipitation downscaling.
-
-%%% Enter authors' names, as you see in this example:
-%%% Use \correspondingauthor{} and \thanks{Current Affiliation:...}
-%%% immediately following the appropriate author.
-%%%
-%%% Note that the \correspondingauthor{} command is NECESSARY.
-%%% The \thanks{} commands are OPTIONAL.
-
-    %\authors{Author One\correspondingauthor{Author One, 
-    % American Meteorological Society, 
-    % 45 Beacon St., Boston, MA 02108.}
-% and Author Two\thanks{Current affiliation: American Meteorological Society, 
-    % 45 Beacon St., Boston, MA 02108.}}
-
-\authors{Pascal Horton\correspondingauthor{University of Bern, Institute of Geography, Hallerstrasse 12, 3012 Bern, Switzerland.}, Stefan Br\"{o}nnimann}
-
-%% Follow this form:
-    % \affiliation{American Meteorological Society, 
-    % Boston, Massachusetts.}
-
-\affiliation{Oeschger Centre for Climate Change Research, Institute of Geography, University of Bern, Bern, Switzerland}
-
-%% Follow this form:
-    %\email{latex@ametsoc.org}
-
-\email{pascal.horton@giub.unibe.ch}
-
-%% If appropriate, add additional authors, different affiliations:
-    %\extraauthor{Extra Author}
-    %\extraaffil{Affiliation, City, State/Province, Country}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  ABSTRACT
+\usepackage[disable]{todonotes} % notes not showed
+%\usepackage[prependcaption,textsize=small]{todonotes}   % notes showed
 %
-% Enter your abstract here
-% Abstracts should not exceed 250 words in length!
+% please place your own definitions here and don't use \def but
+% \newcommand{}{}
 %
-% For BAMS authors only: If your article requires a Capsule Summary, please place the capsule text at the end of your abstract
-% and identify it as the capsule. Example: This is the end of the abstract. (Capsule Summary) This is the capsule summary. 
+% Insert the name of "your journal" with
+% \journalname{myjournal}
+%
 
-\abstract{
-	\nohyphens{
+%TODO: Update figs 11, 12 with last version
+%TODO: Publish analogue dates + params as datasets (not values & scores) ?
+%TODO: title?
+%TODO: thank referees
+%TODO: update ref Rohrer2018
+
+\begin{document}
+	
+	\title{Impact of global atmospheric reanalyses on statistical precipitation downscaling
+		%\thanks{}
+	}
+	% Grants or other notes about the article that should go on the front
+	% page should be placed within the \thanks{} command in the title
+	% (and the %-sign in front of \thanks{} should be deleted)
+	%
+	% General acknowledgments should be placed at the end of the article.
+	
+	%\subtitle{Do you have a subtitle?\\ If so, write it here}
+	
+	%\titlerunning{Short form of title}        % if too long for running head
+	
+	\author{Pascal Horton         \and
+		Stefan Br\"{o}nnimann
+	}
+
+
+	%\affiliation{Oeschger Centre for Climate Change Research, Institute of Geography, University of Bern, Bern, Switzerland}
+	
+	%\authorrunning{Short form of author list} % if too long for running head
+	
+	\institute{P. Horton \at
+		University of Bern,
+		Hallerstrasse 12, 
+		3012 Bern, 
+		Switzerland \\
+		Tel.: +41 31 631 80 21\\
+		\email{pascal.horton@giub.unibe.ch}\\
+		ORCID: 0000-0003-0466-0359           %  \\
+		%             \emph{Present address:} of F. Author  %  if needed
+		\and
+		S. Br\"{o}nniman \at
+		University of Bern,
+		Hallerstrasse 12, 
+		3012 Bern, 
+		Switzerland
+	}
+	
+	\date{Received: date / Accepted: date}
+	% The correct dates will be entered by the editor
+	
+	\maketitle
+	
+	\begin{abstract}
 		Statistical downscaling based on a perfect prognosis approach often relies on reanalyses to infer the statistical relationship between synoptic predictors and the local variable of interest, here daily precipitation. Nowadays, many reanalyses are available and their impact on the downscaled variable is not often considered. The present work assessed the impact of ten reanalyses on the performance of seven variants of analogue methods for statistical precipitation downscaling at 300 stations in Switzerland. Even though the study location is in a data-rich region, significant differences were found between reanalyses and their impact on the performance of the method can be even higher than the choice of the predictor variables. There was no single overall winner, but a selection of recommended reanalyses resulting in higher skill scores depending on the considered predictor variables.
 		The impact of the output spatial resolution was assessed for different types of variables. Output resolutions below one degree were found to be often of low to no interest.
 		Reanalyses with longer archives allow the pool of potential analogues to be increased, resulting in better performance. However, when adding variables affected by errors in a more distant past, the skill score decreased again.
 		The use of multiple members from two reanalyses was also tested over a recent and a past period. The benefit of using members to increase the performance by better incorporating the uncertainties was found to be limited, and even problematic with methods using multiple analogy levels.
-	}
-}
-
-
-\begin{document}
-	
-	%% Necessary!
-	\maketitle
-	
-	%TODO: Update figs 11, 12 with last version
-	%TODO: Publish analogue dates + params as datasets (not values & scores) ?
-	%TODO: title?
-	%TODO: thank referees
-	%TODO: update ref Rohrer2018
-	
-	
-	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%  MAIN BODY OF PAPER
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%
-	
-	%% In all cases, if there is only one entry of this type within
-	%% the higher level heading, use the star form: 
-	%%
-	% \section{Section title}
-	% \subsection*{subsection}
-	% text...
-	% \section{Section title}
-	
-	%vs
-	
-	% \section{Section title}
-	% \subsection{subsection one}
-	% text...
-	% \subsection{subsection two}
-	% \section{Section title}
-	
-	%%%
-	% \section{First primary heading}
-	
-	% \subsection{First secondary heading}
-	
-	% \subsubsection{First tertiary heading}
-	
-	% \paragraph{First quaternary heading}
+		\keywords{Reanalyses \and Precipitation \and Statistical downscaling \and Analogue method}
+		% \PACS{PACS code1 \and PACS code2 \and more}
+		% \subclass{MSC code1 \and MSC code2 \and more}
+	\end{abstract}
 	
 	
 	\section{Introduction}
+	\label{intro}
 	
 	Statistical downscaling is widely used to bridge the resolution gap between climate model outputs and impact models, and to bias-correct them, but also to bypass some physical parameterizations. Some of these methods rely on empirical statistical relationships between large-scale atmospheric variables and local variables of interest. Following the classification of \citet{Rummukainen1997}, which was also used in \citet{Maraun2010}, there are basically two types of approaches: perfect prognosis, for which the relationship is calibrated against large-scale and local-scale observations, and model output statistics, for which the relationship is calibrated against the outputs of a specific model and local-scale observations. Here we investigate an approach of the former type to downscale precipitation in Switzerland. Statistical downscaling is of particular interest for precipitation, due to the difficulty for numerical models to accurately simulate all the processes involved.
 	
@@ -434,84 +378,33 @@
 	
 	
 	
-	
-	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%  ACKNOWLEDGMENTS
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%
-	\acknowledgments
+	\begin{acknowledgements}
 	The authors want to thank M. Rohrer and P. Laloyaux for their valuable inputs and C. Obled for correcting the manuscript. Special thanks are due to M. Suarez, L. Takacs, R. Gelaro, and M. G. Bosilovich, from the Global Modeling and Assimilation Office, NASA, for the animation they provided and for their help in investigating the differences in SLP between MERRA-2 and the other reanalyses. Stefan Br\"{o}nnimann acknowledges funding from the FP7 project ERA-CLIM.
 	
 	Precipitation time series were provided by MeteoSwiss. The NCEP/NCAR, NCEP/DOE, and 20CR-2c were provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, at http://www.esrl.noaa.gov/psd/. Support for the Twentieth Century Reanalysis Project dataset is provided by the U.S. Department of Energy, Office of Science Innovative and Novel Computational Impact on Theory and Experiment (DOE INCITE) program, and Office of Biological and Environmental Research (BER), and by the National Oceanic and Atmospheric Administration Climate Program Office. The CFSR, and JRA-55 were obtained from the CISL Research Data Archive (http://rda.ucar.edu/) at NCAR in Boulder, Colorado, and the NCAR is supported by grants from the National Science Foundation. The Climate Forecast System Reanalysis (CFSR) project is carried out by the Environmental Modeling Center (EMC), National Centers for Environmental Prediction (NCEP). The Japanese 55-year Reanalysis (JRA-55) project is carried out by the Japan Meteorological Agency (JMA). The MERRA-2 was obtained from the Goddard Earth Sciences Data and Information Services Center, Greenbelt, Maryland, from their website at http://disc.sci.gsfc.nasa.gov/mdisc. The ERA-interim, ERA-20C, and CERA-20C were obtained from the ECMWF Data Server at http://apps.ecmwf.int/datasets/. 
 	
 	Calculations were performed on UBELIX (http://www.id.unibe.ch/hpc), the HPC cluster at the University of Bern. All calculations were performed with the open source AtmoSwing software v1.5.0 \citep{Horton2017a}.
+	\end{acknowledgements}
 	
 	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%  APPENDIXES
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%
-	% Use \appendix if there is only one appendix.
-	%\appendix
-	
-	% Use \appendix[A], \appendix}[B], if you have multiple appendixes.
-	%\appendix[A]
-	
-	%% Appendix title is necessary! For appendix title:
-	%\appendixtitle{}
-	
-	%%% Appendix section numbering (note, skip \section and begin with \subsection)
-	% \subsection{First primary heading}
-	
-	% \subsubsection{First secondary heading}
-	
-	% \paragraph{First tertiary heading}
-	
-	%% Important!
-	%\appendcaption{<appendix letter and number>}{<caption>} 
-	%must be used for figures and tables in appendixes, e.g.,
-	%
-	%\begin{figure}
-	%\noindent\includegraphics[width=19pc,angle=0]{figure01.pdf}\\
-	%\appendcaption{A1}{Caption here.}
-	%\end{figure}
-	%
-	% All appendix figures/tables should be placed in order AFTER the main figures/tables, i.e., tables, appendix tables, figures, appendix figures.
-	%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%  REFERENCES
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	% Make your BibTeX bibliography by using these commands:
-	\bibliographystyle{ametsoc2014}
+	
+	% BibTeX users please use one of
+	\bibliographystyle{spbasic}      % basic style, author-year citations
+	%\bibliographystyle{spmpsci}      % mathematics and physical sciences
+	%\bibliographystyle{spphys}       % APS-like style for physics
 	\bibliography{references}
 	
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%  TABLES
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%% Enter tables at the end of the document, before figures.
-	%%
-	%
-	%\begin{table}[t]
-	%\caption{This is a sample table caption and table layout.  Enter as many tables as
-	%  necessary at the end of your manuscript. Table from Lorenz (1963).}\label{t1}
-	%\begin{center}
-	%\begin{tabular}{ccccrrcrc}
-	%\hline\hline
-	%$N$ & $X$ & $Y$ & $Z$\\
-	%\hline
-	% 0000 & 0000 & 0010 & 0000 \\
-	% 0005 & 0004 & 0012 & 0000 \\
-	% 0010 & 0009 & 0020 & 0000 \\
-	% 0015 & 0016 & 0036 & 0002 \\
-	% 0020 & 0030 & 0066 & 0007 \\
-	% 0025 & 0054 & 0115 & 0024 \\
-	%\hline
-	%\end{tabular}
-	%\end{center}
-	%\end{table}
-	
 	
 	\begin{table*}[t]
 		\caption{Analogue methods considered in the study, listed by increasing complexity. P0 is the preselection (PC: on calendar basis, that is $\pm 60$ days around the target date), L1, L2 and L3 are the subsequent levels of analogy. The meteorological variables are: SLP -- mean sea level pressure, Z -- geopotential height, T -- air temperature, W -- vertical velocity, MI -- moisture index, which is the product of the relative humidity at the given pressure level and the total water column. The analogy criterion is S1 for SLP and Z and RMSE for the other variables.}
@@ -581,95 +474,85 @@
 	
 	
 	
-	
-	
-	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%  FIGURES
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%% Enter figures at the end of the document, after tables.
-	%%
-	%
-	%\begin{figure}[t]
-	%  \noindent\includegraphics[width=19pc,angle=0]{figure01.pdf}\\
-	%  \caption{Enter the caption for your figure here.  Repeat as
-	%  necessary for each of your figures. Figure from \protect\cite{Knutti2008}.}\label{f1}
-	%\end{figure}
+
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure01.jpg}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure01.jpg}\\
 		\caption{Map of the 301 precipitation stations with good data coverage of the period 1981--2010 (blue dots), and the 30 stations with long archives (orange). Background map: \textcopyright\ SwissTopo.}
 		\label{fig:stations}
 	\end{figure}
 	
-	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figure02.pdf}\\
+	\begin{figure*}
+		\includegraphics[width=\textwidth]{figure02.pdf}\\
 		\caption{CRPSS scores for all stations, and for all considered AMs and reanalysis datasets on the VP. A higher CRPSS score means better performance. The parameters of the AMs were calibrated for every station, every dataset, and every method. The boxes show the 25th, 50th, and 75th percentiles. The whiskers extend to the most extreme data point which is no more than 1.5 times the interquartile range.}
 		\label{fig:comparison_values}
 	\end{figure*}
 	
-	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figure03.pdf}\\
+	\begin{figure*}
+		\includegraphics[width=\textwidth]{figure03.pdf}\\
 		\caption{Impact of the reanalysis dataset on performance, isolated by processing the improvement in CRPSS for one dataset compared to the mean performance on all datasets, per station and per method. Note that the methods cannot be compared here, only the datasets. Same conventions as Fig. \ref{fig:comparison_values}.}
 		\label{fig:comparison_relative}
 	\end{figure*}
 	
-	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figure04.pdf}\\
+	\begin{figure*}
+		\includegraphics[width=\textwidth]{figure04.pdf}\\
 		\caption{Inter-annual correlation between the mean precipitation from the selected analogues and the observations for all stations and for all considered AMs and reanalysis datasets on both the CP and the VP. Same conventions as Fig. \ref{fig:comparison_values}.}
 		\label{fig:correlation}
 	\end{figure*}
 	
-	\begin{figure*}[t]
-		\noindent\includegraphics[width=39pc,angle=0]{figure05.pdf}\\
+	\begin{figure*}
+		\includegraphics[width=\textwidth]{figure05.pdf}\\
 		\caption{Same as Fig. \ref{fig:correlation}, but for relative biases.}
 		\label{fig:biases}
 	\end{figure*}
 	
-	\begin{figure*}[t]
-		\noindent\includegraphics[width=33pc,angle=0]{figure06.pdf}\\
+	\begin{figure*}
+		\includegraphics[width=\textwidth]{figure06.pdf}\\
 		\caption{Best method per station for the different datasets. NR-2 and JRA-55C are not shown as they are similar to NR-1 and JRA-55 respectively. Background map: \textcopyright\ SwissTopo.}
 		\label{fig:map_best_methods}
 	\end{figure*}
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure07.pdf}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure07.pdf}\\
 		\caption{Density plots of the optimal number of analogues of the last analogy level for the different AMs and datasets.}
 		\label{fig:number_analogues}
 	\end{figure}
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure08.pdf}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure08.pdf}\\
 		\caption{Percentage of similar analogue dates selected when using the reanalysis datasets in columns that are also found when using the datasets in rows for different AMs. The values are averaged for all stations on the VP.}
 		\label{fig:similarities_analogue_dates}
 	\end{figure}
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure09.pdf}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure09.pdf}\\
 		\caption{Impact (difference in CRPSS) of a decrease in grid resolution (degrees) for different datasets and AMs on the CP. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_resolution}
 	\end{figure}
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure10.pdf}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure10.pdf}\\
 		\caption{Impact (difference in CRPSS) on the VP of an increase in the archive length (years) for different datasets and AMs. Results for the 4Z method (shown by the dashed lines) are displayed along with the 2Z method. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_length}
 	\end{figure}
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure11.pdf}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure11.pdf}\\
 		\caption{Impact (difference in CRPSS) of an increase in the number of ensemble members used for the 2Z method, and for CERA-20C and 20CR-2c datasets. The results are provided for two periods: (a, c) 1981--2010 and (b, d) 1901--1930. Two approaches were assessed: (a, b) the first allowing duplicate analogue dates ("w.d.d.") and (c, d) the second without duplicate analogue dates ("wo.d.d."). The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations). The dashed line and striped area correspond to results on the VP. All 56 members of 20CR-2c were assessed and the tendencies continue, but the plots are split at 30 members.}
 		\label{fig:plot_impact_members_2Z}
 	\end{figure}
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure12.pdf}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure12.pdf}\\
 		\caption{Same as Fig. \ref{fig:plot_impact_members_2Z} but for the 2Z-2MI method.}
 		\label{fig:plot_impact_members_2Z-2MI}
 	\end{figure}
 	
-	\begin{figure}[t]
-		\noindent\includegraphics[width=19pc,angle=0]{figure13.pdf}\\
+	\begin{figure}
+		\includegraphics[width=0.75\textwidth]{figure13.pdf}\\
 		\caption{Synthesis table of the recommended reanalyses to use in AMs for different periods and variables. This recommendation applies to Europe and eventually other data-rich regions of the world. The darker shaded area represents the first choice and the lighter shaded area represents alternatives. When a reanalysis is not mentioned, it is either not available or not recommended.}
 		\label{fig:synthesis-table}
 	\end{figure}
