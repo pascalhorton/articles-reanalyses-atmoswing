@@ -11,6 +11,7 @@
 %
 %\documentclass{svjour3}                     % onecolumn (standard format)
 %\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
 \documentclass[smallextended]{svjour3}       % onecolumn (second format)
 %\documentclass[twocolumn]{svjour3}          % twocolumn
 %
@@ -26,6 +27,8 @@
 \usepackage{gensymb}
 \usepackage{hyphenat}
 \usepackage[disable]{todonotes} % notes not showed
+\usepackage[mathlines]{lineno}
+\linenumbers
 %\usepackage[prependcaption,textsize=small]{todonotes}   % notes showed
 %
 % please place your own definitions here and don't use \def but
@@ -209,7 +212,7 @@
 	
 	Different variants of the AM were considered in the present work (Table \ref{table:methods}). These methods have varying degrees of complexity and comprise one or more subsequent levels of analogy with predictor variables of different kinds. The first method developed with NR-1 by \citet{Bontron2004} is based on the analogy of synoptic circulation on the geopotential height at two pressure levels (Z1000 at +12 h and Z500 at +24 h) and is known in this work as 2Z.
 	
-	The 2Z method consists of the following steps: firstly, to cope with seasonal effects, candidate dates are extracted within a period of four months centered around the target date, for every year of the archive (PC: preselection on calendar basis in Table \ref{table:methods}). Then, the analogy of the atmospheric circulation of a target date with every day from the preselection set (excluding the same year as the target date) is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Drosdowsky2003}, which is a comparison of gradients, over a defined spatial window (the domain on which the predictors are compared). S1 is processed on each level and the average is then considered, here with the same weights.
+	The 2Z method consists of the following steps: firstly, to cope with seasonal effects, candidate dates are extracted within a period of four months centered around the target date, for every year of the archive (PC: preselection on calendar basis in Table \ref{table:methods}). Then, the analogy of the atmospheric circulation of a target date with every day from the preselection set (excluding the same year as the target date along with the VP) is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Drosdowsky2003}, which is a comparison of gradients, over a defined spatial window (the domain on which the predictors are compared). S1 is processed on each level and the average is then considered, here with the same weights.
 	
 	\begin{equation}
 	\label{eq:S1}
@@ -232,7 +235,7 @@
 	
 	To constraint the seasonal effect, \citet{BenDaoud2016} replaced the calendar preselection ($\pm$ 60 days around the target date) by a preselection based on similarity of air temperature (T925 at +36 h and T600 at +12 h, at the nearest grid point). It allows a more dynamic screening of similar situations in terms of air masses as the seasonal signal is also present in the temperature data. The undesired mixing of spring and autumn situations is discussed in \citet{Caillouet2016}. The number of preselected dates ($N_{0}$) is equivalent to the number of days selected with the calendar approach, and thus depends on the archive size. In this method, named PT-2Z-4MI, the analogy of the atmospheric circulation is the same as in the 2Z method, but the moisture analogy is different (MI925 and MI700 at +12 h and 24 h).
 	
-	Subsequently, \citet{BenDaoud2016} introduced an additional level of analogy between the circulation and the moisture analogy (PT-2Z-4W-4MI, Table \ref{table:methods}), based on the vertical velocity at 850~hPa (W850). This AM was primarily developed for large floodplains in France (Sa\^{o}ne, Seine) and is the most complex method considered in this work. 
+	Subsequently, \citet{BenDaoud2016} introduced an additional level of analogy between the circulation and the moisture analogy (PT-2Z-4W-4MI, Table \ref{table:methods}), based on the vertical velocity at 850~hPa (W850). This AM, called "SANDHY" for Stepwise Analogue Downscaling method for Hydrology \citep{BenDaoud2016, Caillouet2016}, was primarily developed for large and relatively flat/lowland catchments in France (Sa\^{o}ne, Seine) and is the most complex method considered in this work. It has also been applied to the whole France territory by \citet{Radanovics2013} with ERA-40 and by \cite{Caillouet2016} with 20CR-V2b.
 	
 	Precipitation variables from reanalyses are generally not considered as predictors, as they strongly depend on the model physics \citep{Rienecker2011} and have significant biases, which would make them not interchangeable with the outputs of another model. \citet{Dayon2015} assessed the relevance of using precipitation from four reanalyses as predictors and finally rejected precipitation as a predictor due to strong biases in the downscaled series.
 	
@@ -425,7 +428,7 @@
 				\textbf{JRA-55C}  & JMA & 1958 -- 2015 & 1.25\degree x 1.25\degree & TL319 ($\sim$0.36\degree), L60 & 2009 & conventional  & 4D-Var\\
 				\textbf{MERRA-2} & NASA GMAO & 1980 -- present & 0.625\degree x 0.5\degree & 0.625\degree x 0.5\degree, L72 & 2014 & full  & 3D-Var\\
 				\hline 
-				\textbf{20CR-2c} & NOAA-CIRES & 1851 -- 2014 & 2\degree x 2\degree & T62 ($\sim$1.88\degree), L28 & 2009 & surface  & EnKF\\
+				\textbf{20CR-2c} & NOAA-CIRES & 1851 -- 2014 & 2\degree x 2\degree & T62 ($\sim$1.88\degree), L28 & 2008 & surface  & EnKF\\
 				\textbf{ERA-20C} & ECMWF & 1900 -- 2010 & 1\degree x 1\degree & TL159 ($\sim$1.13\degree), L91 & 2012 & surface  & 4D-Var\\
 				\textbf{CERA-20C} & ECMWF & 1901 -- 2010 & 1\degree x 1\degree & T159 ($\sim$1.13\degree), L91 & 2016 & surface & 4D-Var\\
 				\hline 
