@@ -40,7 +40,6 @@
 
 %TODO: Update figs 11, 12 with last version
 %TODO: Publish analogue dates + params as datasets (not values & scores) ?
-%TODO: title?
 %TODO: thank referees
 %TODO: update ref Rohrer2018
 
@@ -263,13 +262,15 @@
 	\end{equation}
 	where $CRPS_{clim}$ is the CRPS value for the climatological distribution. A better prediction is characterized by an increase in CRPSS.
 	
+	All AMs were calibrated for every reanalysis and station, which resulted in a total of 21,070 calibrations being processed on a HPC cluster at the University of Bern. For every combination, the spatial windows and the number of analogues of each analogy level were calibrated for each station in order to be optimal.
+	
 	
 	\section{Impact of the reanalysis}
 	\label{sec:influence}
 	
-	All AMs were calibrated for every reanalysis and station, which resulted in a total of 21,070 calibrations being processed on a HPC cluster at the University of Bern. For every combination, the spatial windows and the number of analogues of each analogy level were calibrated (Sect. \ref{sec:calibration}) for each station in order to be optimal. The comparison period was 1981--2010 and the results are shown for the VP (independent validation period, Sect. \ref{sec:precip}). The reanalyses were used at their original spatial resolution and thus differ from one another, the impact of which is analyzed in Sect. \ref{sec:resolution}.
+	The results of the reanalyses comparison are shown for the VP (independent validation period, Sect. \ref{sec:precip}). The reanalyses were used at their original spatial resolution and thus differ from one another, the impact of which is analyzed in Sect. \ref{sec:resolution}.
 	
-	The results of 20CR-2c are shown for the ensemble mean only. The same analyses were performed on a single member (the first one), but no significant difference was observed. The single-member was slightly less skillful than the ensemble mean, but to a negligible extent (not shown).
+	The results of 20CR-2c are shown here for the ensemble mean only (see Sect. \ref{sec:ensemble} for the impact of using multiple members). The same analyses were performed on a single member (the first one), but no significant difference was observed. The single-member was slightly less skillful than the ensemble mean, but to a negligible extent (not shown).
 	
 	One has to keep in mind that biases in the variables might not affect the performance of the AM, as long as they are constant over time and the prediction methods are used in a perfect prognosis framework. For example, a constant bias in the values of Z will not alter the selection of analogues, whereas a bias in the circulation frequency will affect the performance.
 	
@@ -286,9 +287,11 @@
 	
 	The impact of the reanalysis was then investigated by considering precipitation thresholds for the target date (not shown). The same tendencies could generally be observed for all thresholds considered, with some nuances: MERRA-2's remarkably high skill score for 2SLP was first related to days with precipitation, of any intensity; the lower performance of ERA-INT for 2SLP and 2Z came from days with precipitation, whereas its skill for dry days is similar to the other reanalyses.
 	
-	Daily correlations were processed between the median or the mean precipitation from the selected analogues and the observations. The results were similar to Fig. \ref{fig:comparison_values} (but with higher values) and are thus not presented. The inter-annual correlation was processed in the same way (Figure \ref{fig:correlation}, based on the mean precipitation), but both the CP and the VP were included to increase the sample size. There was only a slightly increasing trend in the correlation coefficient with the complexity of the method, but most of the differences are between reanalyses, with a growing impact for more complex methods. When using moisture variables, ERA-INT, MERRA-2, and CERA-20C were slightly superior to the others.
+	Daily correlations were processed between the median or the mean precipitation from the selected analogues and the observations. The results were similar to Fig. \ref{fig:comparison_values} (same respective differences) and are thus not presented. The inter-annual correlation was processed in the same way (Figure \ref{fig:correlation}, based on the mean precipitation), but both the CP and the VP were included to increase the sample size. There was only a slightly increasing trend in the correlation coefficient with the complexity of the method, but most of the differences are between reanalyses, with a growing impact for more complex methods. When using moisture variables, ERA-INT, MERRA-2, and CERA-20C were slightly superior to the others.
 	
-	The impact of the reanalyses on the biases was assessed for the first analogue. An approach such as Schaake Shuffle \citep{Clark2004a} would be better in impact studies, but it was acceptable to consider the first analogue only for the purpose of comparing reanalyses. Figure \ref{fig:biases} shows that 2SLP induced a dry bias for most reanalyses, as well as PT-2Z-4W-4MI, while PT-2Z-4MI resulted in a wet bias for most reanalyses. The reanalyses certainly had an impact on the biases, but inconsistently between methods. Future use of AMs might rely on Fig. \ref{fig:biases} to guide their choice, according to the predictors selected.
+	The impact of the reanalyses on the biases was assessed for the first analogue. Considering only the first analogue is not recommended when using the results of the AM for hydrological modelling for example, but it was considered reasonable for the purpose of comparing reanalyses. A better way would be to use an approach such as Schaake Shuffle \citep{Clark2004a} that reorders the ensemble members (here the analogue dates) in order to restore consistency in the spatio-temporal variability. Figure \ref{fig:biases} shows that 2SLP induced a dry bias for most reanalyses, as well as PT-2Z-4W-4MI, while PT-2Z-4MI resulted in a wet bias for most reanalyses. The bias related to PT-2Z-4W-4MI is discussed in \citet{Caillouet2016} and addressed in \citet{Caillouet2017}. 
+	
+	The reanalyses certainly had an impact on the biases, but inconsistently between methods. Future use of AMs might rely on Fig. \ref{fig:biases} to guide their choice, according to the predictors selected.
 	
 	
 	\subsection{Spatial patterns}
@@ -302,7 +305,7 @@
 	
 	The use of a particular reanalysis in preference to another has an influence on the selection of the analogue days. The first difference is in the number of selected analogues, as shown in Fig. \ref{fig:number_analogues}, which were optimized for every reanalysis, method and station. Usually, a higher number of analogues indicates lower performance; this is most visible for 20CR-2c, and partly for NR-1 and NR-2. However, a lower number of analogues were not always associated with the best performing reanalyses.
 	
-	The selected dates were compared between reanalyses for all stations and all AMs. Figure \ref{fig:similarities_analogue_dates} shows the percentage of similar analogue dates selected when using the reanalyses in columns that were also found when using the reanalyses in rows for the different AMs. The values were averaged for all stations on the VP (same results on the CP). The different spatial resolutions are likely to play a role in the differences of selected analog dates. Additionally, the spatial windows on which the predictors were compared might differ from one reanalysis to another (as the methods were calibrated for all stations and all reanalyses independently), what can potentially also play a role.
+	The selected dates were compared between reanalyses for all stations and all AMs. Figure \ref{fig:similarities_analogue_dates} shows the percentage of similar analogue dates selected when using the reanalyses in columns that were also found when using the reanalyses in rows for the different AMs. The values were averaged for all stations on the VP (same results on the CP). The different spatial resolutions are likely to play a role in the differences of selected analogue dates. Additionally, the spatial windows on which the predictors were compared might differ from one reanalysis to another (as the methods were calibrated for all stations and all reanalyses independently), what can potentially also play a role.
 	
 	As expected, more complex AMs showed lower percentages of similar analogue days between the reanalyses. Indeed, higher correspondence is expected for circulation variables than moisture variables, which are more model-dependent. Reanalyses that are relatively similar, such as NR-1 and NR-2 or JRA-55 and JRA-55C, showed the highest similarity. Higher similarities were also observed between CERA-20C and ERA-20C for methods based on circulation, but not, significantly, for more complex methods. This suggests that at least humidity variables are substantially different between CERA-20C and ERA-20C. The selection based on JRA-55 and JRA-55C had globally the highest correspondence to the other reanalyses.
 	
