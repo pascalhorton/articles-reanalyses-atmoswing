@@ -207,7 +207,7 @@
 	
 	Different variants of the AM were considered in the present work (Table \ref{table:methods}). These methods have varying degrees of complexity and comprise one or more subsequent levels of analogy with predictor variables of different kinds. The first method developed with NR-1 by \citet{Bontron2004} is based on the analogy of synoptic circulation on the geopotential height at two pressure levels (Z1000 at +12 h and Z500 at +24 h) and is known in this work as 2Z.
 	
-	The 2Z method consists of the following steps: firstly, to cope with seasonal effects, candidate dates are extracted within a period of four months centered around the target date, for every year of the archive (PC: preselection on calendar basis in Table \ref{table:methods}). Then, the analogy of the atmospheric circulation of a target date with every day from the preselection set (excluding the same year as the target date along with the VP) is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Drosdowsky2003}, which is a comparison of gradients, over a defined spatial window (the domain on which the predictors are compared). S1 is processed on each level and the average is then considered, here with the same weights.
+	The 2Z method consists of the following steps: firstly, to cope with seasonal effects, candidate dates are extracted within a period of four months centered around the target date, for every year of the archive (PC: preselection on calendar basis in Table \ref{table:methods}). Then, the analogy of the atmospheric circulation of a target date with every day from the preselection set (excluding the same year as the target date along with the VP) is assessed by processing the S1 criterion \citep[Eq.\ \ref{eq:S1}, ][]{Teweles1954, Brown2012}, which is a comparison of gradients, over a defined spatial window (the domain on which the predictors are compared). S1 is processed on each level and the average is then considered, here with the same weights.
 	
 	\begin{equation}
 	\label{eq:S1}
@@ -258,7 +258,7 @@
 	\end{equation}
 	where $CRPS_{clim}$ is the CRPS value for the climatological distribution. A better prediction is characterized by an increase in CRPSS.
 	
-	All AMs were calibrated for every reanalysis and station, which resulted in a total of 21,070 calibrations being processed on a HPC cluster at the University of Bern. For every combination, the spatial windows and the number of analogues of each analogy level were calibrated for each station in order to be optimal.
+	All AMs were calibrated for every reanalysis and station, which resulted in a total of 21,070 calibrations being processed on a HPC cluster at the University of Bern. For every combination, the spatial windows and the number of analogues of each analogy level were calibrated for each station in order to be optimal. These optimized parameters were published as datasets (see Sect. Data availability).
 	
 	
 	\section{Impact of the reanalysis}
@@ -299,13 +299,13 @@
 	
 	\subsection{Selection of the analogue dates}
 	
-	The use of a particular reanalysis in preference to another has an influence on the selection of the analogue days. The first difference is in the number of selected analogues, as shown in Fig. \ref{fig:number_analogues}, which were optimized for every reanalysis, method and station. Usually, a higher number of analogues indicates lower performance; this is most visible for 20CR-2c, and partly for NR-1 and NR-2. However, a lower number of analogues were not always associated with the best performing reanalyses.
-	
-	The selected dates were compared between reanalyses for all stations and all AMs. Figure \ref{fig:similarities_analogue_dates} shows the percentage of similar analogue dates selected when using the reanalyses in columns that were also found when using the reanalyses in rows for the different AMs. The values were averaged for all stations on the VP (same results on the CP). The different spatial resolutions are likely to play a role in the differences of selected analogue dates. Additionally, the spatial windows on which the predictors were compared might differ from one reanalysis to another (as the methods were calibrated for all stations and all reanalyses independently), what can potentially also play a role.
+	The use of a particular reanalysis in preference to another has an influence on the selection of the analogue dates. These were compared between reanalyses for all stations and all AMs. Figure \ref{fig:similarities_analogue_dates} shows the percentage of similar analogue dates selected when using the reanalyses in columns that were also found when using the reanalyses in rows for the different AMs. The values were averaged for all stations on the VP (same results on the CP). The different spatial resolutions are likely to play a role in the differences of selected analogue dates. Additionally, the spatial windows on which the predictors were compared might differ from one reanalysis to another (as the methods were calibrated for all stations and all reanalyses independently), what can potentially also play a role.
 	
 	As expected, more complex AMs showed lower percentages of similar analogue days between the reanalyses. Indeed, higher correspondence is expected for circulation variables than moisture variables, which are more model-dependent. Reanalyses that are relatively similar, such as NR-1 and NR-2 or JRA-55 and JRA-55C, showed the highest similarity. Higher similarities were also observed between CERA-20C and ERA-20C for methods based on circulation, but not, significantly, for more complex methods. This suggests that at least humidity variables are substantially different between CERA-20C and ERA-20C. The selection based on JRA-55 and JRA-55C had globally the highest correspondence to the other reanalyses.
 	
 	20CR-2c differed the most from other reanalyses for most methods. This difference in the selection of analogue days led to lower performance of the methods (Fig. \ref{fig:comparison_relative}). Another noticeable difference is for MERRA-2 and the 2SLP method; in this case, this departure led to better performance scores (Fig. \ref{fig:comparison_relative}).
+	
+	The same analysis has been perfromed for different precipitation thresholds and the results are provided in the supplementary material. Overall, the patterns remains similar. All analogue dates were published as datasets (see Sect. Data availability).
 	
 	
 	\section{Assessing the characteristics of reanalyses}
@@ -531,42 +531,36 @@
 	
 	\begin{figure}
 		\includegraphics[width=0.75\textwidth]{figure07.pdf}\\
-		\caption{Density plots of the optimal number of analogues of the last analogy level for the different AMs and datasets.}
-		\label{fig:number_analogues}
-	\end{figure}
-	
-	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure08.pdf}\\
 		\caption{Percentage of similar analogue dates selected when using the reanalysis datasets in columns that are also found when using the datasets in rows for different AMs. The values are averaged for all stations on the VP.}
 		\label{fig:similarities_analogue_dates}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure09.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure08.pdf}\\
 		\caption{Impact (difference in CRPSS) of a decrease in grid resolution (degrees) for different datasets and AMs on the CP. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_resolution}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure10.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure09.pdf}\\
 		\caption{Impact (difference in CRPSS) on the VP of an increase in the archive length (years) for different datasets and AMs. Results for the 4Z method (shown by the dashed lines) are displayed along with the 2Z method. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_length}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure11.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure10.pdf}\\
 		\caption{Impact (difference in CRPSS) of an increase in the number of ensemble members used for the 2Z method, and for CERA-20C and 20CR-2c datasets. The results are provided for two periods: (a, c) 1981--2010 and (b, d) 1901--1930. Two approaches were assessed: (a, b) the first allowing duplicate analogue dates ("w.d.d.") and (c, d) the second without duplicate analogue dates ("wo.d.d."). The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations). The dashed line and striped area correspond to results on the VP. All 56 members of 20CR-2c were assessed and the tendencies continue, but the plots are split at 30 members.}
 		\label{fig:plot_impact_members_2Z}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure12.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure11.pdf}\\
 		\caption{Same as Fig. \ref{fig:plot_impact_members_2Z} but for the 2Z-2MI method.}
 		\label{fig:plot_impact_members_2Z-2MI}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure13.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure12.pdf}\\
 		\caption{Synthesis table of the recommended reanalyses to use in AMs for different periods and variables. This recommendation applies to Europe and eventually other data-rich regions of the world. The darker shaded area represents the first choice and the lighter shaded area represents alternatives. When a reanalysis is not mentioned, it is either not available or not recommended.}
 		\label{fig:synthesis-table}
 	\end{figure}
