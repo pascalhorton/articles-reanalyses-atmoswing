@@ -129,7 +129,7 @@
 	
 	Different types of reanalyses exist, primarily characterized by their observational inputs. \citet{Fujiwara2017} define three classes: "surface-input" reanalyses that assimilate surface data only, "conventional-input" reanalyses that additionally assimilate upper-air conventional data, and "full-input" reanalyses that additionally assimilate satellite data.
 	
-	The global atmospheric reanalyses under evaluation are briefly described hereafter, providing first the full and conventional-input datasets (1--6), and then the surface-input ones (7--9). Some of their characteristics are provided in Table \ref{table:datasets}. The period common to all datasets is 1981--2010. The predictors are considered at a 6-hr time step in the present work, even though some products or variables have higher temporal resolutions.
+	The global atmospheric reanalyses under evaluation are briefly described hereafter, providing first the full and conventional-input datasets (1--6), and then the surface-input ones (7--9). Some of their characteristics are provided in Table \ref{table:datasets}. The period common to all datasets is 1981--2010. The predictors are considered at a 6-hr time step in the present work, even though some products have higher temporal resolutions.
 	
 	
 	\subsubsection{NCEP Reanalysis I}
@@ -144,7 +144,7 @@
 	
 	\subsubsection{ERA-Interim}
 	
-	ERA-Interim \citep[ERA-INT --][]{Dee2011a} is produced by the European Centre for Medium-Range Weather Forecasts (ECMWF) and covers the period from 1979 onwards. It replaced ERA-40 \citep{Uppala2005}, which replaced ERA-15 \citep{Gibson1997}, reanalyses of 45 and 15 years respectively. ERA-INT aims to address problems in data assimilation of ERA-40 and to improve several technical aspects, which were expected to have an impact on the quality of the product.
+	ERA-Interim \citep[ERA-INT --][]{Dee2011a} is produced by the European Centre for Medium-Range Weather Forecasts (ECMWF) and covers the period from 1979 onwards. It replaced ERA-40 \citep{Uppala2005}, which replaced ERA-15 \citep{Gibson1997}, reanalyses of 45 and 15 years respectively. ERA-INT aims to address problems in data assimilation of ERA-40.
 	
 	ERA-INT uses a 4D variational technique (4D-Var) with sequential data assimilation in 12-hourly analysis cycles. 4D-Var is expected to make a more effective use of observations \citep{Dee2011a}. ERA-INT also relies on several bias and error correction techniques that were introduced after ERA-40, in order to minimize inconsistencies between observations of different types.
 	
@@ -155,16 +155,16 @@
 	
 	The Climate Forecast System Reanalysis \citep[CFSR --][]{Saha2010a} is provided by NCEP. The model resolution has increased significantly since NR-1 and NR-2: horizontal resolution of T382 (about 38~km) and 64 levels on sigma-pressure hybrid vertical coordinates. Both the forecast model and the assimilation were improved, and a coupling to the ocean, as well as a sea-ice model, were introduced. New parameterizations were used, resulting in more realistic moisture prediction and mountain blocking representation, among others \citep{Saha2010a}. Temperature and moisture are also better adjusted to match the observed radiances.
 	
-	CFSR was the first to use the historical tropical storm locations. The significant benefit is that "by relocating a tropical storm vortex to its observed location prior to the assimilation of storm circulation observations, distortion of the circulation by the mismatch of guess and observed locations is avoided" \citep{Saha2010a}.
-	
-	The assimilation scheme relies on the 3D-Var technique, but with a certain consideration of the time aspect by using time tendencies of state variables. The analysis system used in CFSR for the atmosphere is similar to the one used by MERRA \citep{Rienecker2011}, with nearly the same input data. The period covered is from 1979 onwards, but with a plan to extend it back to 1947 or earlier \citep{Saha2010a}.
+	CFSR was the first to use the historical tropical storm locations to avoid distortion of the circulation by the mismatch of guess and observed locations. The assimilation scheme relies on the 3D-Var technique, but with a certain consideration of the time aspect by using time tendencies of state variables. The analysis system used in CFSR for the atmosphere is similar to the one used by MERRA \citep{Rienecker2011}, with nearly the same input data. The period covered is from 1979 onwards, but with a plan to extend it back to 1947 or earlier \citep{Saha2010a}.
 	
 	
 	\subsubsection{Japanese 55-year Reanalysis}
 	
-	The Japanese 55-year Reanalysis \citep[JRA-55 --][]{Kobayashi2015, Harada2016} is produced by the Japan Meteorological Agency (JMA). It starts in 1958, which makes it the first reanalysis applying 4D-Var to this period. The forecast model used has a TL319 spectral resolution (about 60~km) and 60 levels in the vertical. The improvement in the forecast model and the assimilation, as well as the use of newly available and improved observations, have led to substantial improvements in reanalysis quality since JRA-25 \citep{Onogi2007}, the first Japanese product. The observations used consist of those archived by JMA and those used in ERA-40 \citep{Uppala2005}. Tropical cyclones data are also assimilated, and they are well represented compared to other reanalyses \citep{Harada2016}. JRA-55 is sensitive to changes in the observing networks for some characteristics, but far less than JRA-25 was, which is probably related to improvements in the forecast model providing greater physical consistency of the JRA-55 product \citep{Kobayashi2015}.
+	The Japanese 55-year Reanalysis \citep[JRA-55 --][]{Kobayashi2015, Harada2016} is produced by the Japan Meteorological Agency (JMA). It starts in 1958, which makes it the first reanalysis applying 4D-Var to this period. The forecast model used has a TL319 spectral resolution (about 60~km) and 60 levels in the vertical. JRA-55 shows substantial improvements compared to JRA-25 \citep{Onogi2007}, the first Japanese product. The observations used consist of those archived by JMA and those used in ERA-40 \citep{Uppala2005}. Tropical cyclones data are also assimilated, and they are well represented compared to other reanalyses \citep{Harada2016}. JRA-55 is sensitive to changes in the observing networks for some characteristics, but far less than JRA-25 was, which is probably related to improvements in the forecast model providing greater physical consistency of the JRA-55 product \citep{Kobayashi2015}.
 	
-	JMA also released JRA-55 Conventional \citep[JRA-55C --][]{Kobayashi2014}, a version of the reanalysis based on the assimilation of only conventional data, including upper air observations, without any satellite observation. The dataset is thus more homogeneous as it is unaffected by changes in satellite observing systems, even though the temporally variable number of observations may also have an impact. The data assimilation system and the boundary conditions remain identical to the ones used in JRA-55. JRA-55C starts in 1972; the full 55-year reanalysis is obtained by using outputs from JRA-55 prior to 1972. The geopotential height at 500~hPa is found to present very small differences in the extra-tropics in the NH \citep{Kobayashi2014}; these differences are more important for the SH. Globally, the anomaly of geopotential height is highly correlated between both datasets, except where conventional observations are sparse, especially for high latitude areas of the SH.
+	JMA also released JRA-55 Conventional \citep[JRA-55C --][]{Kobayashi2014}, a version of the reanalysis based on the assimilation of only conventional data, including upper air observations, without any satellite observation. The dataset is thus more homogeneous as it is unaffected by changes in satellite observing systems, even though the temporally variable number of observations may also have an impact. JRA-55C starts in 1972; the full 55-year reanalysis is obtained by using outputs from JRA-55 prior to 1972. 
+	
+	Globally, the anomaly of geopotential height is highly correlated between both datasets, except where conventional observations are sparse, especially for high latitude areas of the SH \citep{Kobayashi2014}.
 	
 	
 	\subsubsection{MERRA-2}
@@ -382,7 +382,7 @@
 	\section*{Data availability}
 	\label{sec:data-availability}
 	
-	All calculations were performed with the open source AtmoSwing software v1.5.0 \citep{Horton2017a}.
+	All calculations were performed with the open source AtmoSwing software v1.5.0 \citep{Horton2017a}. The resulting files were processed using AtmoSwing R-toolbox v1.0.0 \citep{Horton2017d}.
 	
 	The resulting analogue dates for every combination of station, dataset, and analogue method were published. Along with these, different files are also available: the parameter files used in AtmoSwing for the calibration, the resulting calibrated parameters, and files listing all assessed parameter sets. The datasets are available for each reanalysis: NR-1 \citep{Horton2018Da}, NR-2 \citep{Horton2018Db}, ERA-INT \citep{Horton2018Dc}, CFSR \citep{Horton2018Dd}, JRA-55 \citep{Horton2018De}, JRA-55C \citep{Horton2018Df}, MERRA-2 \citep{Horton2018Dg}, 20CR-2c \citep{Horton2018Dh}, ERA-20C \citep{Horton2018Di}, and CERA-20C \citep{Horton2018Dj}.
 	
