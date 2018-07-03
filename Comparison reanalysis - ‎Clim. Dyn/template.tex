@@ -283,20 +283,18 @@
 	
 	The impact of the reanalysis was then investigated by considering precipitation thresholds for the target date (not shown). The same tendencies could generally be observed for all thresholds considered, with some nuances: MERRA-2's remarkably high skill score for 2SLP was first related to days with precipitation, of any intensity; the lower performance of ERA-INT for 2SLP and 2Z came from days with precipitation, whereas its skill for dry days is similar to the other reanalyses.
 	
-	Daily correlations were processed between the median or the mean precipitation from the selected analogues and the observations. The results were similar to Fig. \ref{fig:comparison_values} (same respective differences) and are thus not presented. The inter-annual correlation was processed in the same way (Figure \ref{fig:correlation}, based on the mean precipitation), but both the CP and the VP were included to increase the sample size. There was only a slightly increasing trend in the correlation coefficient with the complexity of the method, but most of the differences are between reanalyses, with a growing impact for more complex methods. When using moisture variables, ERA-INT, MERRA-2, and CERA-20C were slightly superior to the others.
+	Daily correlations were processed between the median or the mean precipitation from the selected analogues and the observations. The results were similar to Fig. \ref{fig:comparison_values} (same respective differences) and are thus not presented. The inter-annual correlation was processed in the same way (Figure \ref{fig:correlation}, based on the mean precipitation), but both the CP and the VP were included to increase the sample size. There was only a slightly increasing trend in the correlation coefficient with the complexity of the method, but most of the differences are between reanalyses, with a growing impact for more complex methods. When using moisture variables, ERA-INT, MERRA-2, and CERA-20C were slightly superior to the others. Although it is usually advisable to assess different properties of the optimized methods, one has to remember that these were not optimized for this metric specifically. Thus, optimizing the methods in terms of inter-annual correlation might have resulted in a totally different picture. In conclusion, this analysis should not be used as a basis for selecting a dataset over another for a work relying on inter-annual correlations, but it shows that there are non-negligible differences between datasets in terms of annual volumes that should also be considered.
 	
 	An analysis of variance (ANOVA) emphasised highly significant impact of the reanalyses on the skill. A Tukey Honest Significant Differences test showed highly significant differences between all pairs of reanalyses, except between NR-1 and NR-2 and between JRA-55, JRA-55C, ERA-INT, and CFSR. The NR-1 -- NR-2 and JRA-55 -- JRA-55C pairs are produced with the same model and are very similar products. The contribution to variance was thus processed after removing NR-2 and JRA-55C from the analysis to work with a setting more respectful of the independence assumption. As the four datasets JRA-55, JRA-55C, ERA-INT, and CFSR might also not be independent, the same analysis was performed again by additionally removing JRA-55 and CFSR (contribution provided in parentheses hereafter). The contribution to variance is 63.8\% (60.2\%) for the methods, 20.4\% (23.6\%) for the reanalyses, 3.7\% (4.3\%) for the interaction between methods and reanalyses, and 12.0\% (11.9\%) for the residuals. 
 	
-	The impact of the reanalyses on the biases was assessed for the first analogue. Considering only the first analogue is not recommended when using the results of the AM for hydrological modelling for example, but it was considered reasonable for the purpose of comparing reanalyses. A better way would be to use an approach such as Schaake Shuffle \citep{Clark2004a} that reorders the ensemble members (here the analogue dates) in order to restore consistency in the spatio-temporal variability. Figure \ref{fig:biases} shows that 2SLP induced a dry bias for most reanalyses, as well as PT-2Z-4W-4MI, while PT-2Z-4MI resulted in a wet bias for most reanalyses. The bias related to PT-2Z-4W-4MI is discussed in \citet{Caillouet2016} and addressed in \citet{Caillouet2017}. 
-	
-	The reanalyses certainly had an impact on the biases, but inconsistently between methods. Future use of AMs might rely on Fig. \ref{fig:biases} to guide their choice, according to the predictors selected.
+	The impact of the reanalyses on the biases was assessed for the first analogue. Considering only the first analogue is not recommended when using the results of the AM for hydrological modelling for example, but it was considered reasonable for the purpose of comparing reanalyses. A better way would be to use an approach such as Schaake Shuffle \citep{Clark2004a} that reorders the ensemble members (here the analogue dates) in order to restore consistency in the spatio-temporal variability. Figure \ref{fig:biases} shows that the biases seem to depend on both the method and the reanalysis. In terms of methods, 2SLP induced a dry bias for most reanalyses, as well as PT-2Z-4W-4MI, while PT-2Z-4MI resulted in a wet bias for most reanalyses. The bias related to 2Z-2MI and 4Z-2MI is generally more contained within a relative 5\% range for most of the reanalyses. It can be noted that the reanalyses showing the larger bias in PT-2Z-4W-4MI are the ones with a higher CRPSS. The bias related to PT-2Z-4W-4MI is due to a selection of too many dry days \citep{Caillouet2016}, which is addressed in \citet{Caillouet2017}. NR-1, NR-2 and 20CR-2c are generally on the higher (wetter) part of the ensemble of reanalyses, which is to their advantage when the others show a dry bias, but which is detrimental when the ensemble is more balanced. Putting this in perspective with the known dry bias of PT-2Z-4W-4MI, it is likely that a wet bias related to these three reanalyses by chance compensate the dry bias of these methods. It should then not be an argument to consider them as superior to the others. MERRA-2 is often showing a stronger dry bias.
 	
 	
 	\subsection{Spatial patterns}
 	
-	The 301 precipitation stations are located at different elevations and are subject to various meteorological influences. In order to analyze spatial patterns of the methods/reanalyses relationships, maps of the best method per reanalysis are presented in Fig. \ref{fig:map_best_methods}. The selection of an optimal method was not systematic for all stations, but some spatial patterns appeared, depending on the local climate. The three most complex methods (4Z-2MI, PT-2Z-4MI, and PT-2Z-4W-4MI) were almost always selected. The PT-2Z-4MI and PT-2Z-4W-4MI methods were developed for the context of large and relatively flat/lowland catchments, and 4Z-2MI in the context of the upper Rhone catchment in Switzerland. There is a tendency in these maps for the methods to be selected as optimal in their original context, respectively in relatively flat plains or an Alpine environment. Indeed, the use of a variable, such as vertical velocity, at a relatively low resolution may still make sense in large plains as an uplift/subsidence index, but may be less relevant in narrow alpine valleys.
+	The 301 precipitation stations are located at different elevations and are subject to various meteorological influences. In order to analyze spatial patterns of the methods/reanalyses relationships, maps of the best methods per reanalysis are presented in Fig. \ref{fig:map_best_methods}. The selection of an optimal method was not systematic for all stations, but some spatial patterns appeared, depending on the local climate. The three most complex methods (4Z-2MI, PT-2Z-4MI, and PT-2Z-4W-4MI) were almost always selected. The PT-2Z-4MI and PT-2Z-4W-4MI methods were developed for the context of large and relatively flat/lowland catchments, and 4Z-2MI in the context of the upper Rhone catchment in Switzerland. There is a tendency in these maps for the methods to be selected as optimal in their original context, respectively in relatively flat plains or an Alpine environment. Indeed, the use of a variable, such as vertical velocity, at a relatively low resolution may still make sense in large plains as an uplift/subsidence index, but may be less relevant in narrow alpine valleys. The variability between the maps is probably related to the predictive skill of the variables from the different reanalyses. Overall, vertical velocity seems to be sub-optimal in 20CR-2c, but preferable in JRA-55(C) and ERA-20C.  
 	
-	The variability between the maps is probably related to the predictive skill of the variables from the different reanalyses. Overall, vertical velocity seems to be sub-optimal in 20CR-2c, but preferable in JRA-55(C) and ERA-20C. Thus, the choice of the reanalysis and the AM should take into account the context of the area of interest.
+	A similar figure shows the best reanalyses for each method (Fig. \ref{fig:map_best_dataset}). One has to keep in mind that only the best reanalysis is shown, but others might provide similar results. For 2SLP, MERRA-2 was the best reanalysis for almost all stations. The other methods did not show a single best reanalysis, but a selection of about 3--4 datasets. This selection was not completely random, as some spatial patterns could be identified. For the SE part of Switzerland, MERRA-2 was often selected as the best option for different methods. Both methods based on the geopotential height only (2Z and 4Z) showed some clusters of CFSR, JRA-55(C), ERA-INT and CERA-20C, and a more defined pattern for 4Z with JRA-55(C) and the European products on the Plateau and CFSR in the reliefs. When moisture was added (from 2Z-2MI on), ERA-INT was more present as the first choice, particularly for the W and N part of Switzerland. The presence of four variables from the geopotential heights in 4Z-2MI gave the advantage to CFSR over ERA-INT. The preselection on the temperature in PT-2Z-4MI introduced a cluster of CFSR in the E part of Switzerland, while ERA-INT and MERRA-2 dominated the rest. CFSR was far less selected when vertical velocity was introduced in PT-2Z-4W-4MI, while JRA-55(C) appeared as one of the favorites along with ERA-INT and MERRA-2. In conclusion, the choice of the reanalysis and the AM should take into account the context of the area of interest.
 	
 	
 	\subsection{Selection of the analogue dates}
@@ -307,7 +305,7 @@
 	
 	20CR-2c differed the most from other reanalyses for most methods. This difference in the selection of analogue days led to lower performance of the methods (Fig. \ref{fig:comparison_relative}). Another noticeable difference is for MERRA-2 and the 2SLP method; in this case, this departure led to better performance scores (Fig. \ref{fig:comparison_relative}).
 	
-	The same analysis has been perfromed for different precipitation thresholds and the results are provided in the supplementary material. Overall, the patterns remains similar. All analogue dates were published as datasets (see Sect. Data availability).
+	The same analysis has been performed for different precipitation thresholds (days with precipitation $>0.1~mm$, and the $95^{th}$ and $99^{th}$ percentiles of rainy days) and the results are provided in the supplementary material. Overall, the patterns remained akin, but the percentage of similar days was slightly superior for days with high precipitation. 
 	
 	
 	\section{Assessing the characteristics of reanalyses}
@@ -371,6 +369,14 @@
 	20CR-2c is the only reanalysis so far that provides data for the second half of the 19$^{th}$ century, which makes it a valuable asset. However, it is not the best estimate for more recent periods \citep{Poli2017}, and its performance for daily precipitation was systematically and substantially inferior to that of other reanalyses. Although it sometimes showed inter-annual correlations at the same level as other reanalyses, its overall lower performance at a daily time step disqualifies it as an option for periods other than the distant past. Its lower performance in the AM was also raised by \citet[][]{Dayon2015}, particularly when local predictors are included. It can be at least partly explained by the fact that 20CR-2c assimilates less data compared than other reanalyses. Additionally, 20CR-2c exhibits fewer westerlies and more easterlies over Western Europe than other reanalyses \citep{Rohrer2018}. Nevertheless, it is noteworthy to mention all the informative outputs generated over such a long period on the basis of so few assimilated data.
 	
 	ERA-20C assimilates marine wind observations in addition to the data included in 20CR-2c, and the model is also forced by more data for its boundary conditions. This, along with a different model and assimilation technique, resulted in higher skills than 20CR-2c within the AM. However, ERA-20C did not compete at a daily time step for more recent periods with other reanalyses that assimilate more observations. CERA-20C has an additional coupling to the ocean and is processed with a more recent version of the IFS forecast model. This resulted in relatively equivalent skills at a daily time step, but higher inter-annual correlations; thus CERA-20C should be chosen over ERA-20C.
+	
+	Switzerland is a small country, but with high contrasts in terms of climate, with regions sensitive to different meteorological situations, as well as a wide range of elevations. The choice of the best method or the best dataset was found to depend on the context of the station, with spatial patterns emphasizing the different climatic regions. The choice of the variables also had a strong impact on selection of the best reanalysis, with MERRA-2 being the best for SLP; CFSR and JRA-55(C) along with MERRA-2 were often selected for Z; ERA-INT appeared strongly with moisture variables; JRA-55(C), ERA-INT and MERRA-2 were most often chosen for the most complex method with W.
+	
+	The biases seemed to depend on both the method and the reanalysis. 2SLP induced a dry bias for most reanalyses, as well as PT-2Z-4W-4MI, while PT-2Z-4MI resulted in a wet bias for most reanalyses. The bias related to 2Z-2MI and 4Z-2MI was generally more contained within a relative 5\% range for most of the reanalyses. NR-1, NR-2 and 20CR-2c generally resulted in wetter predictions, and MERRA-2 in dryer ones.	The bias can be crucial depending on the use of the downscaled precipitation, and should then be considered in the choice of the method and the reanalysis. It can also be corrected in a postprocessing stage, such as in \citet{Caillouet2017}.
+	
+	The percentage of similar analogue days between reanalysis decreased with the complexity of the method. The similar reanalyses showed a higher percentage of shared analogue dates. This percentage increased slightly for days with high precipitation. This is likely due to more defined circulation patterns associated with e.g. cyclonic circulations, and to the fact that these situations are less frequent, which increases the probability to select the same analogue dates. However, as the numbers do not drastically differ, most of the difference in the selection of analogue dates in the all-days analysis is not only related to situations with a less defined atmospheric circulation, such as an anti-cyclonic situation protecting Europe. 
+	
+	By taking the problem the other way around, it could be possible that some of these similar analogue dates are driven by similarities between products, in terms of input data or concepts of numerical modelling, rather than being perfect analogue situations. There could also be differences between stations or seasons, which were not investigated. All analogue dates were published as datasets (see Sect. Data availability) in order to allow the community for further analyses.
 	
 	The differences in skill between reanalyses did not depend so much on the assimilation technique (at least between 3D-Var and 4D-Var), but rather on the assimilated data and on the forecast model. Although higher spatial resolutions in the forecast models are likely to result in better reanalyses, higher output resolutions were not found to contribute to the differences in skill between reanalyses (Sect. \ref{sec:resolution}). 
 	
@@ -529,42 +535,48 @@
 	
 	\begin{figure*}
 		\includegraphics[width=\textwidth]{figure06.pdf}\\
-		\caption{Best method per station for the different datasets. NR-2 and JRA-55C are not shown as they are similar to NR-1 and JRA-55 respectively. Background map: \textcopyright\ SwissTopo.}
+		\caption{Best method per station for the different datasets. NR-2 and JRA-55C are not shown as they are similar to NR-1 and JRA-55 respectively. Background map: \textcopyright\ Swisstopo.}
 		\label{fig:map_best_methods}
+	\end{figure*}
+
+	\begin{figure*}
+		\includegraphics[width=\textwidth]{figure07.pdf}\\
+		\caption{Best reanalysis per station for the different methods. Background map: \textcopyright\ Swisstopo.}
+		\label{fig:map_best_dataset}
 	\end{figure*}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure07.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure08.pdf}\\
 		\caption{Percentage of similar analogue dates selected when using the reanalysis datasets in columns that are also found when using the datasets in rows for different AMs. The values are averaged for all stations on the VP.}
 		\label{fig:similarities_analogue_dates}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure08.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure09.pdf}\\
 		\caption{Impact (difference in CRPSS) of a decrease in grid resolution (degrees) for different datasets and AMs on the CP. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_resolution}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure09.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure10.pdf}\\
 		\caption{Impact (difference in CRPSS) on the VP of an increase in the archive length (years) for different datasets and AMs. Results for the 4Z method (shown by the dashed lines) are displayed along with the 2Z method. The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations).}
 		\label{fig:plot_impact_length}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure10.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure11.pdf}\\
 		\caption{Impact (difference in CRPSS) of an increase in the number of ensemble members used for the 2Z method, and for CERA-20C and 20CR-2c datasets. The results are provided for two periods: (a, c) 1981--2010 and (b, d) 1901--1930. Two approaches were assessed: (a, b) the first allowing duplicate analogue dates ("w.d.d.") and (c, d) the second without duplicate analogue dates ("wo.d.d."). The line represents the median and the shaded area represents the first and the third quartiles (on 30 stations). The dashed line and striped area correspond to results on the VP. All 56 members of 20CR-2c were assessed and the tendencies continue, but the plots are split at 30 members.}
 		\label{fig:plot_impact_members_2Z}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure11.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure12.pdf}\\
 		\caption{Same as Fig. \ref{fig:plot_impact_members_2Z} but for the 2Z-2MI method.}
 		\label{fig:plot_impact_members_2Z-2MI}
 	\end{figure}
 	
 	\begin{figure}
-		\includegraphics[width=0.75\textwidth]{figure12.pdf}\\
+		\includegraphics[width=0.75\textwidth]{figure13.pdf}\\
 		\caption{Synthesis table of the recommended reanalyses to use in AMs for different periods and variables. This recommendation applies to Europe and eventually other data-rich regions of the world. The darker shaded area represents the first choice and the lighter shaded area represents alternatives. When a reanalysis is not mentioned, it is either not available or not recommended.}
 		\label{fig:synthesis-table}
 	\end{figure}
