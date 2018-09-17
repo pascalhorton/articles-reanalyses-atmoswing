@@ -1,7 +1,6 @@
 _ressources/
 *.aux
 *.log
-*/template.pdf
 *.gz
 *.bbl
 *.blg
