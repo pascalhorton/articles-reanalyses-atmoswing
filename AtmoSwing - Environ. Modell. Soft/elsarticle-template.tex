@@ -11,8 +11,9 @@
 % TODO: wider litterature review
 % TODO: show scaling with multiple cores
 % TODO: more technical stuff (e.g. classes + schemas)
+% TODO: Raspberry Pi
 
-% TODO: read again
+% TODO: rewrite abstract
 % TODO: add more references
 % TODO: remove appendix ?
 % TODO: add all reanalysis datasets
@@ -60,7 +61,7 @@
 
 \begin{frontmatter}
 
-\title{AtmoSwing: Analog Technique Model for Statistical Weather forecastING and downscalING}
+\title{AtmoSwing: Analogue Technique Model for Statistical Weather forecastING and downscalING}
 
 
 \author[unibe,unil,terranum]{Pascal Horton\corref{correspondingauthor}}
@@ -101,23 +102,28 @@ analogue method, precipitation, downscaling, forecasting
 
 \section{Introduction}
 
-Reasoning by analogy is rather widespread in different domains of sciences or engineering. In hydrometeorology, it consists, given a certain situation, in looking into the past to retrieve situations that can be considered similar and therefore with consequences that may be expected similar to the situation at hand. By situation, one often thinks of the atmospheric situation over a rather wide spatial domain. By consequence, one often focuses on a local variable of interest, such as the occurrence of hail, storm, avalanches, or the amount of wind or precipitation over a given region, cumulated on a given time period.
+Approaches based on the concept of analogy is rather widespread in different domains of sciences or engineering. In hydrometeorology it consists in retrieving atmospheric situations from the past that can be considered similar to the situation at hand and therefore with consequences that may be expected similar. Consequences can be local variables of interest, such as the occurrence of fog, favourable conditions for avalanches, the wind intensity, or the precipitation amount. It relies on the idea expressed by \citet{Lorenz1956, Lorenz1969} that similar situations in terms of atmospheric circulation are likely to lead to similar local weather. The approach requires at least two concurrent archives: one describing the situation through different variables, called predictors, and another one providing the value of the local variable of interest, called predictand.
 
-As a general setting, the required ingredients are a couple of archives, one describing the situation through different variables, called predictors, and another one giving, for those situations, the value of the local variable of interest for engineering purpose, called predictand.
+Usually, the predictand values could be derived by modeling the chain of processes linking the predictors to the predictand. The processes involved range from large scale dynamical states of the atmosphere down to very small scale microphysical processes, requiring models that are extremely complex, data-demanding, and time consuming. Conversely, given an appropriate set of predictors archives, enough situations analogous to a target one could be found so that reasonable values will be obtained for the predictand, at a reasonable coding and computing-time costs. This is particularly true for a predictand much required in hydrometeorological applications, namely the precipitation amount over a given domain and time duration. Incidentally, the forecast will be proposed as a statistical distribution based on the values taken by the predictand in the set of analogs selected, unless one considers only the single best analog, which may not prove the most efficient \citep{Bontron2005}.
 
-Usually, the predictand values could be derived in a rather physical-dynamic approach  by modeling the chain of processes linking the predictors to the predictand. The processes involved range from large scale dynamical states of the atmosphere down to very small scale microphysical processes, requiring models that are extremely complex, data-demanding, and time consuming. Conversely, given an appropriate set of predictors archives, enough situations analogous to a target one could be found so that reasonable values will be obtained for the predictand, at a reasonable coding and computing-time costs. This is particularly true for a predictand much required in hydrometeorological applications, namely the precipitation amount over a given domain and time duration. Incidentally, the forecast will be proposed as a statistical distribution based on the values taken by the predictand in the set of analogs selected, unless one considers only the single best analog, which may not prove the most efficient \citep{Bontron2005}.
+Analogue methods (AMs) are used in two different kind of approaches \citep{Rummukainen1997}: perfect prognosis, for which the statistical relationship is calibrated based on observed predictors, and model output statistics, for which the relationship is calibrated against the outputs of a specific climate or numerical weather prediction (NWP) model. It is often used to predict daily precipitation, either in an operational forecasting context \citep[e.g.][]{Guilbaud1997, Bontron2005, Hamill2006, Bliefernicht2010, Marty2012, Horton2012, Hamill2015, BenDaoud2016} or a climate downscaling context \citep[e.g.][]{Radanovics2013, Chardon2014, Dayon2015, Raynaud2016b}. Other predictands are also considered, such as precipitation radar images \citep{Panziera2011,Foresti2015a}, temperature \citep{Radinovic1975, Woodcock1980, Kruizinga1983, DelleMonache2013, Caillouet2016, Raynaud2016b}, wind \citep{Gordon1987, DelleMonache2013, DelleMonache2011, Vanvyve2015, Alessandrini2015, Junk2015, Junk2015c}, solar radiation or power production \citep{Alessandrini2015a, Bessa2015, Raynaud2016b}, snow avalanches \citep{Obled1980, Bolognesi1993}, and the trajectory of tropical cyclones \citep{Keenan1981, Sievers2000, Fraedrich2003}. \citet{Guilbaud1997} performed a literature review about the use of the AM in long-term forecasting and identified operational applications for monthly forecasts in many countries, including Canada \citep{Shabbar1986},  Hungary \citep{Toth1989}, the Netherlands \citep{Nap1981}, and England \citep{Murray1974}, as well as seasonal forecasts: \citet{Barnett1978}, \citet{Bergen1982} and \citet{Livezey1988}.
 
-In addition to precipitation prediction, analog methods (AMs), or equivalent, were also used for short to medium term prediction of daily temperatures \citep{Radinovic1975, Woodcock1980, Kruizinga1983}, wind \citep{Gordon1987}, snow avalanches \citep{Obled1980, Bolognesi1993}, insolation \citep{Bois1981}, and the trajectory of tropical cyclones \citep{Keenan1981, Sievers2000, Fraedrich2003}. \citet{Guilbaud1997} performed a literature review about the use of the AM in long-term forecasting and identified operational applications for monthly forecasts in many countries, including Canada \citep{Shabbar1986},  Hungary \citep{Toth1989}, the Netherlands \citep{Nap1981}, and England \citep{Murray1974}, as well as seasonal forecasts: \citet{Barnett1978}, \citet{Bergen1982} and \citet{Livezey1988}.
+In operational forecasting, they have been used mainly by practitioners, notably hydropower companies \citep{Desaint2008a,BenDaoud2009,Obled2014} or flood forecasting services in France and Switzerland \citep{Marty2010,GarciaHernandez2009b,Horton2012}. They should however not be considered as a substitute for NWP models, but as a complement in order to get a fast and partly independent forecast that is known to be accurate several days in advance. They therefore enrich the analysis of a potential critical situation for flood forecasting, for example, and are very interesting in early warning.
 
-In operational forecasting, they have been used mainly by practitioners, notably hydropower companies \citep{Desaint2008a,BenDaoud2009,Obled2014} or flood forecasting services in France and Switzerland \citep{Marty2010,GarciaHernandez2009b,Horton2012}. They should however not be considered as a substitute for Numerical Weather Prediction (NWP) models, but as a complement in order to get a fast and partly independent forecast that is known to be accurate several days in advance. They therefore enrich the analysis of a potential critical situation for flood forecasting, for example, and are very interesting in early warning.
+The present work does not present a new method, but a software, named AtmoSwing, implementing AMs in a versatile and efficient way. Versatile, as it allows building AM structures in a dynamic way, through the use of XML files. Efficient, as it is written in C++ and allows parallel computing. AtmoSwing is made up of different modules targeted either for operational forecasting (the Forecaster and the Viewer) or for climate impact studies (the Downscaler). Additionally it provides a module to calibrate the different parameters of the method, namely the Optimizer. AtmoSwing is continuously evolving and has been used in \citet{Horton2012, Horton2017a, Horton2017b, Horton2018a} and \citet{Horton2018b}.
 
-However, how efficient and useful it may seem, this approach is not straightforward. Usually the type of predictand is imposed by some practical needs or constraints. Considering a precipitation variable, one has to decide upon the duration of accumulation, (e.g. from 6-hourly to daily or several day totals) according for example to the size or response time of the catchments to be managed. The availability and quality of long enough time series must also be considered. Moreover, the analogy is restricted to a selection of variables at a specific time and over optimized spatial domains, that are compared by means of a chosen criteria that can rank the candidate days from the archive with a distance quantification. The approach appears predictand-specific but also dependent on the archive of predictors. 
-
-The AM will first be presented along with various implementations (Sect. \ref{sec:method}), as all these can be processed with AtmoSwing. The software will then be presented (Sect. \ref{sec:atmoswing}), and its modules detailed, such as the Forecaster (Sect. \ref{sec:forecaster}) and the Viewer (Sect. \ref{sec:viewer}) that are tools for operational use, and the Optimizer (Sect. \ref{sec:optimizer}) that allows optimizing the method for a given predictand time series, may it be for operational forecasting or climate impact studies.
+Some existing AMs will first be described along with the required data (Sect. \ref{sec:data_methods}) and the software will then be presented (Sect. \ref{sec:atmoswing}) and its modules detailed: the Forecaster (Sect. \ref{sec:forecaster}), the Viewer (Sect. \ref{sec:viewer}), the Downscaler (Sect. \ref{sec:downscaler}), and the Optimizer (Sect. \ref{sec:optimizer}). The conclusion (Sect. \ref{sec:conclusions}) provides some additional perspectives for future developments of AtmoSwing. 
 
 
 \section{Data and methods}
 \label{sec:data_methods}
+
+
+
+
+
+
+
 
 \subsection{Data}
 \label{sec:data}
@@ -359,6 +365,12 @@ AtmoSwing Viewer relies on workspaces to specify the path to the forecast direct
 All AMs rely on atmospheric circulation information, while some add subsequent levels of analogy on moisture or other thermodynamic predictors (see Sect. \ref{sec:method:references}). However, these subsequent predictors were found to be relevant only on the first 3~days, and not much further, due to higher uncertainties in their forecast (see Sect. \ref{sec:optimization-operational}). This was found to be the case for moisture indexes and vertical velocity. The user has to keep this aspect in mind when interpreting forecasts over a range of lead times.
 
 
+\subsection{AtmoSwing Downscaler}
+\label{sec:downscaler}
+
+
+
+
 \subsection{AtmoSwing Optimizer}
 \label{sec:optimizer}
 
@@ -525,6 +537,7 @@ It should be stressed that these operational aspects are dependent on the model 
 
 
 \section{Conclusions and perspectives}
+\label{sec:conclusions}
 
 Processing operational forecasts by means of AtmoSwing requests in the end very low computing infrastructure and can provide useful information, such as early warning for extreme precipitation, in the case of an application in flood forecasting. The Forecaster is very flexible as it builds the desired method in a dynamic way, and can thus implement multiple variants of the AM. The connection with open access NWP model such as GFS is easy and very efficient (data are collected quickly after being available, and processed in a few minutes). The Viewer offers a user-friendly display of the forecasts, with different levels of synthesis and details. The Optimizer implements different optimization techniques, such as the sequential approach, a Monte\textendash Carlo method, and a global optimization technique. Obviously, it is used only occasionally for a given location: for a first implementation of an AM, in case of a change in the archive, or of a substantial updating, etc.
 
@@ -669,7 +682,7 @@ Thanks to Lucien Schreiber and Richard Metzger for their programming advices and
 			\textbf{PC-2Z} & PC & Z1000@12h & 50 &&&&& \citealt{Bontron2004} \\
 			&& Z500@24h &&&&&& \\
 			\hline 
-			\textbf{PC-4Z} & PC & Z1000@06h & {\raise.17ex\hbox{$\scriptstyle\sim$}}27 &&&&& \citealt{Horton2018} \\
+			\textbf{PC-4Z} & PC & Z1000@06h & {\raise.17ex\hbox{$\scriptstyle\sim$}}27 &&&&& \citealt{Horton2018a} \\
 			&& Z1000@30h &&&&&& \\
 			&& Z700@24h &&&&&& \\
 			&& Z500@12h &&&&&& \\
@@ -683,7 +696,7 @@ Thanks to Lucien Schreiber and Richard Metzger for their programming advices and
 			\textbf{PC-2Z-2MF} & PC & Z1000@06h & 60 & MF700@06h$^{\dagger}$ & 25 &&& \citealt{Marty2010} \\
 			&& Z500@18h && MF700@18h &&&& \\
 			\hline 
-			\textbf{PC-4Z-2MI} & PC & Z1000@30h & {\raise.17ex\hbox{$\scriptstyle\sim$}}63 & MI700@24h & {\raise.17ex\hbox{$\scriptstyle\sim$}}24 &&& \citealt{Horton2018}\\
+			\textbf{PC-4Z-2MI} & PC & Z1000@30h & {\raise.17ex\hbox{$\scriptstyle\sim$}}63 & MI700@24h & {\raise.17ex\hbox{$\scriptstyle\sim$}}24 &&& \citealt{Horton2018a}\\
 			&& Z850@12h && MI600@12h &&&& \\
 			&& Z700@24h &&&&&& \\
 			&& Z400@12h &&&&&& \\
