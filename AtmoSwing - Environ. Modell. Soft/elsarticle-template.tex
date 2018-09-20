@@ -116,8 +116,8 @@ However, how efficient and useful it may seem, this approach is not straightforw
 The AM will first be presented along with various implementations (Sect. \ref{sec:method}), as all these can be processed with AtmoSwing. The software will then be presented (Sect. \ref{sec:atmoswing}), and its modules detailed, such as the Forecaster (Sect. \ref{sec:forecaster}) and the Viewer (Sect. \ref{sec:viewer}) that are tools for operational use, and the Optimizer (Sect. \ref{sec:optimizer}) that allows optimizing the method for a given predictand time series, may it be for operational forecasting or climate impact studies.
 
 
-\section{Data and case study description}
-\label{sec:data_and_case_study}
+\section{Data and methods}
+\label{sec:data_methods}
 
 \subsection{Data}
 \label{sec:data}
@@ -128,18 +128,13 @@ The predictors describing the target situation in operational forecasting can, f
 
 The predictand can be 6-houry data, or more often daily time series. The most used predictand is the daily precipitation, usually averaged over subregions in order to smooth local effects \citep{Obled2002, Marty2012}. These time series are frequently normalized by the precipitation value for a return period of 10~years \citep{Djerboua2001}. This normalization allows for an easier comparison between subregions subject to different precipitation regimes, and thus to better identify the most important contributions.
 
-\subsection{Case study description}
-\label{sec:case_study}
 
-Some results will be illustrated throughout this article for the alpine upper Rh\^{o}ne catchment in Switzerland (Fig.\ \ref{figure:map}). Even though the region is rather small (5524~km$^{2}$), the meteorological influences related to extreme weather conditions varies substantially within it \citep[see][]{Horton2012}. The gauging stations in the catchment were thus aggregated into 10~subregions (Fig.\ \ref{figure:map}): (1) Swiss Chablais, (2) Trient Valley, (3) West Bernese Alps, (4) Lower Rhone Valley, (5) Left side valleys, (6) Southern ridges, (7) Upper Rhone Valley, (8) Southeast ridges, (9) East Bernese Alps, and (10) Conches Valley.
-
-
-\section{Analog methods}
+\subsection{Analog methods}
 \label{sec:method}
 
 AtmoSwing does not rely on a single variant of the AM, but can implement different parameterizations. Thus, several examples of possible implementations are gathered here, as well as the main evolution steps of the AM.
 
-\subsection{Principles}
+\subsubsection{Principles}
 
 The AM is based on the principle that two similar synoptic situations may produce similar local effects \citep{Lorenz1956}. The perfect analogy does not exist, but sufficiently similar situations leading to similar effects can be identified. Thus, two states of the atmosphere that are alike are called analogs \citep{Lorenz1969}. To be relevant, this analogy must be selected by optimizing the following elements:
 
@@ -156,7 +151,7 @@ The AM is based on the principle that two similar synoptic situations may produc
 Because of the chaotic nature of the atmosphere, two analog situations quickly diverge over time \citep{Lorenz1969}. Thus, the AM has strong limitations regarding the temporal extrapolation \citep{Bontron2004}. Numerical models being more capable of simulating the dynamic evolution of the atmosphere, the temporal extrapolation of the synoptic variables is left to them. The search for analogy aims thus at connecting the forecasted synoptic situation with a local predictand (temperature, precipitation, etc), which is more difficult to simulate by numerical models.
 
 
-\subsection{Present structure}
+\subsubsection{Present structure}
 
 Although multiple variations of the AM exist, they generally share the same basics and the same structure. For example, let's say we want here to forecast the daily precipitation for a target day, at a defined lead time. The generic structure is the following:
 
@@ -183,7 +178,7 @@ Although multiple variations of the AM exist, they generally share the same basi
 \end{enumerate}
 
 
-\subsection{Proposed nomenclature}
+\subsubsection{Proposed nomenclature}
 
 Variants of the AM parameterization are numerous and it is not always easy to reference them in a short and descriptive way. We thus propose a basic nomenclature (Fig. \ref{figure:nomenclature}) in order to express the structure into a simple identifier. This one cannot describe all the parameters of the AM, but quickly illustrate the structure of the implementation. This is particularly useful when working with a global optimization method, where nothing is fixed but the very structure of the AM.
 
@@ -216,7 +211,7 @@ In order to keep the identifier simple, no value of atmospheric level neither ti
 This nomenclature can be adapted to specific needs, or simplified for a better readability (eg. by removing the specification of the preselection). For example, one of the most used parameterization established by \citet{Bontron2004} is composed of a first level of analogy on the geopotential height and a second on the moisture index and can thus be codified as PC-2Z-2MI. Other examples are provided in the following section.
 
 
-\subsection{Common variants for precipitation prediction}
+\subsubsection{Common variants for precipitation prediction}
 \label{sec:method:references}
 
 
@@ -255,22 +250,22 @@ With a systematic assessment of the newly available NCEP/NCAR reanalysis data, \
 
 Every variable of the NCEP/NCAR reanalysis was systematically assessed for each of the identified subregions of the study area (Sect. \ref{sec:case_study}). The present assessment considers every subregion separately and optimizes the spatial window and the number of analogs for every combination of variables, pressure levels, times of observation, and subregions (using the sequential calibration tool implemented in AtmoSwing, see Sect. \ref{sec:atmoswing-calibration}). Even though the best predictors may vary from one place to another due to different meteorological influences (see Fig. \ref{figure:variable_exploration_Chablais} for the 30 best predictors for the Chablais region, and Fig. \ref{figure:variable_exploration_SE_crests} for the Southeast ridges), 2 main conclusions can be drawn from the NCEP/NCAR reanalysis dataset for the area of interest, that meet those from \citet{Bontron2004}: (1) the variables describing the atmospheric circulation (pressure fields or geopotential heights) are the ones with the highest prediction capacity (the precipitation rate is even rarely selected in the 30 best predictors), and (2) these are better when compared by means of the S1 criteria (asterisk in Fig. \ref{figure:variable_exploration_Chablais} and \ref{figure:variable_exploration_SE_crests}) instead of the RMSE. The reason for this latter point is the better representation of the atmospheric circulation information when considering the shape of a pressure field rather than its values.
 
-\citet{Horton2012} identified that the analogy on the atmospheric circulation as defined by \citet{Bontron2004} may not be comprehensive in an alpine environment, and that considering 4 atmospheric levels (1000, 850, 700, and 500~hPa at 12 or 24~h) instead of 2 could improve the performance (Table \ref{table:methods} -- the number of analogs $N_{1}$ was not provided globally, as it was calibrated for every subregion). The change in performance scores is illustrated in Fig. \ref{figure:scores_1} for the different subregions of the study area. An equivalent structure was also optimized by means of generic algorithms (PC-4Zgo), which is the topic of another paper \citep{Horton2016b}. As these new parametrizations provide performance gains for alpine catchments under varying meteorological influences (Fig. \ref{figure:scores_1}), they are recommended for operational use.
+\citet{Horton2012} identified that the analogy on the atmospheric circulation as defined by \citet{Bontron2004} may not be comprehensive in an alpine environment, and that considering 4 atmospheric levels (1000, 850, 700, and 500~hPa at 12 or 24~h) instead of 2 could improve the performance (Table \ref{table:methods} -- the number of analogs $N_{1}$ was not provided globally, as it was calibrated for every subregion). An equivalent structure was also optimized by means of generic algorithms (PC-4Zgo), which is the topic of another paper \citep{Horton2016b}. As these new parametrizations provide performance gains for alpine catchments under varying meteorological influences, they are recommended for operational use.
 
 A second level of analogy based on thermodynamic variables was then introduced by \citet{Mandon1985}, \citet{Vallee1986}, and \citet{Gibergans-Baguena2007}. After a systematic assessment, \citet{Bontron2004} pointed out that a moisture index (MI) made of the product of relative humidity at 850~hPa (RH850) and total precipitable water (TPW) gave the best performance (Table \ref{table:methods}). This index does not represent an actual physical quantity, but expresses the water content of the air column and its proximity to saturation.
 
 \citet{Marty2010} tested other temporal windows for intraday application on the basis of a more comprehensive reanalysis dataset. He first proposed to change the hours of observation for both levels of analogy (both for 06~h and 18~h), and selected the 925~hPa level for the moisture analogy (Table \ref{table:methods}). The selected hours and atmospheric levels were not available before in the reanalysis dataset. Then, \citet{Marty2010} changed the moisture index into the moisture flux by adding the wind velocity (V700 or V925) component in the multiplication. He considered this flux at 700~hPa or 925~hPa (Table \ref{table:methods}).
 
-\citet{Horton2012} also integrated an analogy on the moisture flux, after the circulation analogy on the 4 atmospheric levels (Table \ref{table:methods}). The number of analogs ($N_{1}$, $N_{2}$) were calibrated for every subregion. Similarly, an equivalent structure was optimized \citep[PC-4Zgo-2MIgo,][]{Horton2016b}. The change in the performance scores, for the method with 2 levels of analogy, is illustrated in Fig. \ref{figure:scores_2} for the study area. As previously, we would recommend using these new parametrizations for alpine catchments.
+\citet{Horton2012} also integrated an analogy on the moisture flux, after the circulation analogy on the 4 atmospheric levels (Table \ref{table:methods}). The number of analogs ($N_{1}$, $N_{2}$) were calibrated for every subregion. Similarly, an equivalent structure was optimized \citep[PC-4Zgo-2MIgo,][]{Horton2016b}. 
 
-\citet{BenDaoud2010} applied the AM in the context of large floodplains (Sa\^{o}ne, Seine). He evaluated several variables usually used in weather prediction, amongst them the air temperature and the vertical velocity that presented a potential interest. The temperature (at the nearest grid point, on the 925~hPa \& 36~h and 600~hPa \& 12~h levels) could replace the rigid calendar preselection of $\pm$ 60 days around the target date by a more dynamic screening of similar situations in terms of air masses. The seasonal effect is indeed also present in the temperature data. The number of preselected dates is equivalent to the number of days one would have chosen with the calendar approach, and thus depends on the archive size: $N_{0} = 60 \cdot 2 \cdot n_{a}$ where $n_{a}$ is the number of years in the calibration period. \citet{BenDaoud2010} also reconsidered the parameters of the moisture index and ended up with both 925~hPa and 700~hPa levels, at 12~h and 24~h, or at every time step (6~h) between 06~h and 30~h (Table \ref{table:methods}). The performance of this parameterization for our case study is presented in Fig. \ref{figure:scores_2}.
+\citet{BenDaoud2010} applied the AM in the context of large floodplains (Sa\^{o}ne, Seine). He evaluated several variables usually used in weather prediction, amongst them the air temperature and the vertical velocity that presented a potential interest. The temperature (at the nearest grid point, on the 925~hPa \& 36~h and 600~hPa \& 12~h levels) could replace the rigid calendar preselection of $\pm$ 60 days around the target date by a more dynamic screening of similar situations in terms of air masses. The seasonal effect is indeed also present in the temperature data. The number of preselected dates is equivalent to the number of days one would have chosen with the calendar approach, and thus depends on the archive size: $N_{0} = 60 \cdot 2 \cdot n_{a}$ where $n_{a}$ is the number of years in the calibration period. \citet{BenDaoud2010} also reconsidered the parameters of the moisture index and ended up with both 925~hPa and 700~hPa levels, at 12~h and 24~h, or at every time step (6~h) between 06~h and 30~h (Table \ref{table:methods}).
 
 Subsequently, \citet{BenDaoud2010} added an additional level of analogy, between the circulation and the moisture analogy (Table \ref{table:methods}), based on vertical velocity at 850~hPa (W850). This AM was developed for large floodplains in France, but was found to be not relevant for an Alpine environment where topography is mostly responsible for uplift of air masses \citep{Horton2012}. 
 
 The optimal predictors vary from one region to another, along with the leading atmospheric processes. One will thus never get a unique parameterization of the AM valid for any place on earth, but the method needs to be adapted to the local conditions, available data, and to the size of the catchment of interest. Thus, there will always be local adaptations to be made for use in a new region.
 
 
-\subsection{Discussion on the method}
+\subsubsection{Discussion on the method}
 
 A version of the AM was evaluated during the project STARDEX \citep[\textit{STAtistical and Regional dynamical Downscaling of EXtremes for European regions}, see][]{Goodess2003, Stardex2005}. One of the project goals was to compare various downscaling methods for the determination of weather extremes, and the AM was selected among the most interesting from various techniques \citep{Maheras2005, Schmidli2007}. Its use as adaptation method of climate models is also the subject of a growing number of studies \citep{Zorita1999, Wetterhall2005, Wetterhall2007, Matulla2007, Chardon2014, Dayon2015}. \citet{Bliefernicht2010} obtained better results witht the AM than downscaling methods based on weather typing.
 
@@ -285,10 +280,10 @@ Another limitation is the fact that extreme events may be under-represented in t
 It is also legitimate to raise the question of the relevance of an approach based on archives of past situations in a context of climate change. The first potential issue is a possible change in atmospheric circulation. \citet{Philipp2007} observed certain trends in the synoptic atmospheric circulation over Europe, but with moderate frequencies. Moreover, the basic laws governing the atmosphere behavior will not be transformed \citep{Hewitson1996}. The assumption is that a large part of local climate change will result from changes in intensity, frequency and persistence of synoptic variables, but with other characteristics substantially similar to the present situation \citep{Hewitson1996}. Thus, if the archive of weather situations is long enough, it is reasonable to assume that a large part of future situations is already represented, even those whose frequency will change under different climatic conditions \citep{Wetterhall2005}. \citet{Dayon2015} has proven these assumptions to be accurate by showing the transferability in the future climate of the AM. They could demonstrate that the AM was able to predict the same trends in precipitations changes than Regional Climate Models. In addition, for operational use, climate change is relatively slow, and through continuous updating of the archive, the AM will incorporate new information progressively with no strong discontinuity. However, this may plea in favor of the approach proposed by \cite{BenDaoud2010} for defining the potential candidates to analogy: instead of considering a fixed period of two months before and after the target dates, one would prefer to select candidates that have approximately the same range of temperature.
 
 
-\section{Software basics}
+\section{AtmoSwing}
 \label{sec:atmoswing}
 
-AtmoSwing is made of 3 main modules (Fig. \ref{figure:logo}) that are standalone, but do share a common code basis: the Forecaster, to process the operational forecasting, the Viewer, to display the forecast in a GIS environment, and the Optimizer, to calibrate/optimize the statistical relationship defining the analogy for a given predictand time series. Separating the Forecaster and the Viewer allows to automate the forecast on a server and to quickly display the results locally. The code is written in object oriented C++ and relies on the wxWidgets \citep{Smart2006} library to provide a cross-platform native experience to users. The software can thus be compiled on MS Windows, Linux / Unix, Mac (OS X, iOS), both in 32-bit and 64-bit.
+AtmoSwing is made of 3 main modules that are standalone, but do share a common code basis: the Forecaster, to process the operational forecasting, the Viewer, to display the forecast in a GIS environment, and the Optimizer, to calibrate/optimize the statistical relationship defining the analogy for a given predictand time series. Separating the Forecaster and the Viewer allows to automate the forecast on a server and to quickly display the results locally. The code is written in object oriented C++ and relies on the wxWidgets \citep{Smart2006} library to provide a cross-platform native experience to users. The software can thus be compiled on MS Windows, Linux / Unix, Mac (OS X, iOS), both in 32-bit and 64-bit.
 
 The source code in under version control (with Mercurial), and is open source (on Bitbucket, www.atmoswing.org). Developments have been made with a test driven development (TDD) approach. A collection of more than 500 tests are frequently evaluated and completed during development, in order to verify that code changes do not introduce regression. Every analogy criterion, prediction score, searching and sorting functions, data manipulation, and so on, is tested. The integration tests specific to the AM rely on the results of another analog sorting software developed at the LTHE \textendash INPG university of Grenoble. They ensure that the results of AtmoSwing are exactly equivalent to their model, given the same parameters and data. These tests are part of the checks carried out regularly.
 
@@ -321,7 +316,7 @@ The major performance gains were obtained by:
 \end{itemize}
 
 
-\section{AtmoSwing Forecaster}
+\subsection{AtmoSwing Forecaster}
 \label{sec:forecaster}
 
 The Forecaster module allows to process operational forecasts, defined by an XML file. A list of parameterizations is processed successively. The software can be compiled with a GUI (graphical user interface, Fig. \ref{figure:atmoswing-forecaster-gui}), or without in order to be used on a headless server through a command line interface. Processing a forecast requires very low computing capabilities and can be done on a low-end computer. 
@@ -333,10 +328,8 @@ When using a given parameterization of the AM, it has previously been optimized 
 The command-line interface allows to start the process for the present date, a selected past date, or the last $x$ days (as long as the predictors are available on the provider server). When there is nothing to process (no new predictor data available), the execution just stops, leading to no loss of computing resources. The recommended use is thus to set up a cron task on a Linux server in order to trigger the forecast every 30 minutes. When using GFS outputs, this would provide 4 forecasts a day with a reduced delay between GFS outputs availability and the analog forecast.
 
 
-\section{AtmoSwing Viewer}
+\subsection{AtmoSwing Viewer}
 \label{sec:viewer}
-
-\subsection{The graphical user interface }
 
 The Viewer module allows displaying the resulting forecast files in an interactive GIS environment (Fig. \ref{figure:atmoswing-viewer-gui}). During the forecast, different parametrization variants of the same type of AM may be applied to a region; the reason being that some parameterizations may be specific for a subregion, when its meteorological influences differ, which is often the case even in relatively small catchments \citep{Horton2012}. The Viewer automatically gathers the similar AMs and provides a composite view of the optimal forecasts per subregion. The user can however choose to display a specific parameterization for the whole region, which is more consistent in terms of homogeneity of the analog dates.
 
@@ -355,7 +348,7 @@ Finally, one can see the details of the analog dates, along with the predictand 
 AtmoSwing Viewer relies on workspaces to specify the path to the forecast directories and the GIS layers. Many GIS formats are supported thanks to GDAL \cite[Geospatial Data Abstraction Library,][]{GDAL2014}. One can have as many layers as desired, and can control their display properties. It is thus easy to switch from a forecast for a region to another by opening a workspace file (XML format).
 
 
-\subsection{Interpreting a precipitation forecast}
+\subsubsection{Interpreting a precipitation forecast}
 \label{sec:interpreting}
 
 \citet{Djerboua2001} applied the AM developed by \citet{Guilbaud1997} in operational forecasting as part of the MAP project \citep[\textit{Mesoscale Alpine Programme}, see][]{Binder1996} during the special observation period \citep{Bougeault2001}. He noted that the 60$^{th}$ percentile was better to forecast precipitation amounts for common situations, but for strong to extreme events, the 90$^{th}$ percentile turned out to be a better indicator. It is therefore necessary to pay particular attention to the 90$^{th}$ percentile which, when reaching high values, may be indicative of a situation related to extreme precipitations, due the presence of several analog dates with significant observed precipitations amounts in the distribution \citep{Djerboua2001}. \citet{Bontron2004} made the same observation: he found the 60$^{th}$ percentile to be best for occurrence prediction, but the 90$^{th}$ percentile to be the most informative in order to forecast medium to high precipitation amounts ($P > P10/10$, one tenth of the 10~year return period value). In this regard, operators should pay particular attention to the distribution of the best analogs. If, for example, it is shifted to higher values, there is a risk of under-estimating the event when considering the middle of the full distribution. Obviously, if the target situation has its best analogs with high precipitations, then this situation is likely to be rare. So, when collecting a fixed number of analog situations, the worst ones are likely to be more common and will contribute to lower the resulting precipitation distribution, therefore a trend towards underestimation.
@@ -366,7 +359,7 @@ AtmoSwing Viewer relies on workspaces to specify the path to the forecast direct
 All AMs rely on atmospheric circulation information, while some add subsequent levels of analogy on moisture or other thermodynamic predictors (see Sect. \ref{sec:method:references}). However, these subsequent predictors were found to be relevant only on the first 3~days, and not much further, due to higher uncertainties in their forecast (see Sect. \ref{sec:optimization-operational}). This was found to be the case for moisture indexes and vertical velocity. The user has to keep this aspect in mind when interpreting forecasts over a range of lead times.
 
 
-\section{AtmoSwing Optimizer}
+\subsection{AtmoSwing Optimizer}
 \label{sec:optimizer}
 
 AtmoSwing Optimizer is a single tool that integrates different optimization methods, presented in Sect. \ref{sec:atmoswing-calibration} to \ref{sec:atmoswing-optimization}. Optimization is essentially performed in the calibration framework (Sect. \ref{sec:calibration-framework}), where one tries to maximize (by means of performance scores, see Sect. \ref{sec:forecasts-scores}) the information that can be extracted from the available predictors and predictand archives.
@@ -374,7 +367,7 @@ AtmoSwing Optimizer is a single tool that integrates different optimization meth
 However, in operational use, a further ingredient arises : the model from which the target synoptic situations are taken for the coming days, and the increasing uncertainty related to the lead time. Depending on the properties of these forecasts, the operational scheme has to be tuned (Sect. \ref{sec:optimization-operational}).
 
 
-\subsection{Calibration framework}
+\subsubsection{Calibration framework}
 \label{sec:calibration-framework}
 
 The calibration of the AM is usually carried out in a perfect prognosis \citep{Klein1959} framework \citep{Bontron2004, BenDaoud2010}. Perfect prognosis uses observed or reanalyzed data to calibrate the relationship between predictors and predictands. As a result, this framework will identify and provide us with relationships that are as close as possible to the natural links between predictors and predictands. However, no model is perfect, and even reanalysis data may contain bias that cannot be ignored. The calibration process has to try to cope with such bias, but also with the data spatial resolution, that may be too rough for certain variables like humidity or vertical velocity. For these reasons, the statistical relationships identified in the perfect prognosis framework should hopefully be applied to new target situations (e.g. resulting from an operational NWP model) with characteristics as similar as possible to the those of the reanalyses.
@@ -386,13 +379,13 @@ The statistical relationship is established on a calibration period that is as l
 A validation period is always considered. It consists of an independent period that is never used as target neither candidate. Validating the parameters of the AM is very important in order to avoid over-parametrization and thus to ensure that the statistical relationship is valid on another period. In order to account for climate change and the evolution of the measuring techniques, it is recommended to use a noncontinuous period for validating, distributed over the whole archive \citep{BenDaoud2010}. The user can thus specify a list of the years to keep for the validation and AtmoSwing Optimizer handles this aspect easily by both removing the validation years from possible candidate situations, and by automatically processing the validation score on these years at the end of the optimization.
 
 
-\subsection{Implemented prediction scores}
+\subsubsection{Implemented prediction scores}
 \label{sec:forecasts-scores}
 
 Most often, the accuracy of the parameters for precipitations downscaling is evaluated by means of the CRPS \citep[Continuous Ranked Probability Score,][]{Brown1974, Matheson1976, Hersbach2000}. It is the only score that will be detailed hereafter (in Sect. \ref{sec:prob_forecasts}). In addition, other scores are implemented in AtmoSwing Optimizer. The following sections list the scores presently available, but will not detail them.
 
 
-\subsubsection{Discrete deterministic predictions}
+\textbf{Discrete deterministic predictions}
 
 Deterministic predictions consider no uncertainty. A single value is provided for a variable. The first group of this type of prediction is based on discrete values, also called categories. These scores are used, for example, to evaluate a deterministic prediction of threshold exceedance. In our case, the continuous probabilistic nature of an analogy prediction can be transformed into a discrete prediction by considering a threshold exceedance and a fixed percentile from the distribution. These scores rely on a contingency table, which is here a table containing the sums of observed / unobserved and predicted / unpredicted events \citep{Wilks2006}. On the basis of this table, multiple scores can be processed within AtmoSwing:
 
@@ -410,7 +403,7 @@ Deterministic predictions consider no uncertainty. A single value is provided fo
 \end{itemize}
 
 
-\subsubsection{Continuous deterministic predictions}
+\textbf{Continuous deterministic predictions}
 
 The difference of the continuous deterministic predictions compared to discrete ones is that they provide non-discrete values that must be evaluated with distance measures. In our application, the distribution of the analogs is summarized by a chosen percentile. Available scores are the following:
 
@@ -421,7 +414,7 @@ The difference of the continuous deterministic predictions compared to discrete 
 \end{itemize}
 
 
-\subsubsection{Discrete probabilistic predictions}
+\textbf{Discrete probabilistic predictions}
 
 In the case of discrete probabilistic predictions, one works with probabilities of occurrence or probability of belonging to a certain category. The implemented options are:
 
@@ -434,7 +427,7 @@ In the case of discrete probabilistic predictions, one works with probabilities 
 \end{itemize}
 
 
-\subsubsection{Continuous probabilistic predictions}
+\textbf{Continuous probabilistic predictions}
 \label{sec:prob_forecasts}
 
 Continuous probabilistic predictions of a variable are issued in the form of the expected statistical distribution for this variable. They are expressed either in terms of distribution or by probability density, which needs to be compared to an observed value. This is the situation one meets when downscaling precipitations with the AM.
@@ -468,7 +461,7 @@ The CRPS can be decomposed into several indicators, also implemented into AtmoSw
 Finally, the rank diagram \citep{Talagrand1997} and its accuracy as defined by \citet{Candille2005} are also available.
 
 
-\subsection{The sequential calibration}
+\subsubsection{The sequential calibration}
 \label{sec:atmoswing-calibration}
 
 The calibration procedure that we call ''sequential'' or ''classic'', but which is also named ''optimization'' \cite[eg. by ][]{BenDaoud2015}, was developed at LTHE \textendash INPG university of Grenoble \citep{Bontron2004}. It is a semi-automatic procedure that determines the optimal parameters for the different variables of each level of analogy. The analogy levels (eg. the atmospheric circulation or moisture index) are calibrated sequentially. The procedure consists of the following steps \citep{Bontron2004}:
@@ -496,7 +489,7 @@ The calibration is thus done in successive steps, on a limited number of paramet
 
 Small improvements were added to this method, then named ''classic+'', by allowing the spatial windows to do other moves, such as: (1) increase in 2 simultaneous directions, (2) decrease in 1 or 2 simultaneous directions, (3) expansion or contraction (in every direction), (4) shift of the window (without resizing) in 8 directions (including diagonals), and finally (5) all the moves described above, but with a factor of 2, 3, or more. For example, an increase by 2 units in one (or more) direction is assessed. This allows to skip one size that may not be optimal. These supplementary steps often result in spatial windows that are a bit different, but the performance gain is rather marginal.
 
-\subsection{Monte\textendash Carlo analysis}
+\subsubsection{Monte\textendash Carlo analysis}
 
 A Monte\textendash Carlo analysis is also implemented in AtmoSwing. It performs thousands assessments of random parameters within given ranges. This method is not efficient to find the best parameters set, but helps to better understand the sensitivity of the parameters.
 
@@ -511,13 +504,13 @@ The same analysis has been conducted on the AM with 2 levels of analogy, PC-2Z-2
 The use of such a random method allows informing on the parameters sensitivity, and so on the importance of the expected precision of the calibration results. It helps understanding how different parameterizations can end up to relatively similar performances. Using Monte Carlo analyses allows to easily display the AM parameters sensitivity. 
 
 
-\subsection{Global optimization}
+\subsubsection{Global optimization}
 \label{sec:atmoswing-optimization}
 
 Due to limitations in the sequential approach, we decided to explore optimization techniques that could handle all parameters fully automatically. The \citet{Nelder1965a} method was first assessed, but was found unsuitable for this purpose. Because of the complexity of the AM and its non-linearity, a technique of global optimization is required. Genetic algorithms were thus implemented in AtmoSwing Optimizer in order to perform a global optimization of the AM. This allows for a fully automatic and objective optimization of the AM. However, as this topic is rather consequent, it is the subject of other coming publications \cite[see][]{Horton2016a, Horton2016b}.
 
 
-\subsection{Optimization for operational use}
+\subsubsection{Optimization for operational use}
 \label{sec:optimization-operational}
 
 Up to now, the AM has been optimized essentially by replaying past situations that were taken from a unique meteorological archive. Therefore, the synoptic variables have similar properties in terms of resolution, models that have processed them, etc... However, when it comes to operational forecasting, as already mentioned, the resulting AM will be applied to target situations that are no longer similar to the reanalyzed ones. They will be taken from global model forecasts, which may not be those used to elaborate the archive of reanalyzed situations. Thus, these new targets will display characteristics different from those of the archive, and will in particular contain larger uncertainties, especially at growing lead-times.
@@ -562,9 +555,7 @@ AtmoSwing is open source, under the CDDL license. It is developed under the Git 
 
 
 \section*{Acknowledgements}
-Thanks to Lucien Schreiber and Richard Metzger for their programming advices. Thanks to Renaud Marty for his active involvement in testing AtmoSwing against his code base. Thanks to Dominique B\'{e}rod for his support.
-
-Thanks to the Roads and Water courses Service, Energy and Water Power Service of the Wallis Canton, the Water, Land and Sanitation Service of the Vaud Canton and the Swiss Federal Office for Environment (FOEV), who financed the MINERVE (Mod\'{e}lisation des Intemp\'{e}ries de Nature Extr\^{e}me des Rivi\`{e}res Valaisannes et de leurs Effets) project which started this research. The fruitful collaboration with the Laboratoire d'Etude des Transferts en Hydrologie et Environnement of the Grenoble Institute of Technology (G-INP) was made possible thanks to the Herbette Foundation. NCEP reanalysis data provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, from their Web site at http://www.esrl.noaa.gov/psd/. 
+Thanks to Lucien Schreiber and Richard Metzger for their programming advices and to Renaud Marty for his active involvement in testing AtmoSwing against his code base.
 
 
 
@@ -572,11 +563,6 @@ Thanks to the Roads and Water courses Service, Energy and Water Power Service of
 
 \clearpage
 
-\begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/map.pdf}
-	\caption{Location of the alpine Rh\^{o}ne catchment in Switzerland. (source: Swisstopo)}
-	\label{figure:map}
-\end{figure}
 
 \begin{figure}[t]
 	\includegraphics[width=7.5cm]{figures/variable_exploration_Chablais.pdf}
@@ -594,24 +580,6 @@ Thanks to the Roads and Water courses Service, Energy and Water Power Service of
 	\includegraphics[width=8.3cm]{figures/fig01.pdf}
 	\caption{Proposed structure for naming the parameterizations of the AM.}
 	\label{figure:nomenclature}
-\end{figure}
-
-\begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/fig02.pdf}
-	\caption{Performance scores, for the Swiss Alps, for different AM variants on a single level of analogy \citep{Horton2012a}.}
-	\label{figure:scores_1}
-\end{figure}
-
-\begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/fig03.pdf}
-	\caption{Performance scores, for the Swiss Alps, for different AM variants on multiple levels of analogy \citep{Horton2012a}. Same conventions as Fig. \ref{figure:scores_2}.}
-	\label{figure:scores_2}
-\end{figure}
-
-\begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/fig04.pdf}
-	\caption{The AtmoSwing logo and its 3 modules: the Forecaster, the Viewer and the Optimizer.}
-	\label{figure:logo}
 \end{figure}
 
 \begin{figure}[t]
