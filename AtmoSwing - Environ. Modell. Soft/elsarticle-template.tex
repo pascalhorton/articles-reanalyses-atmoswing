@@ -68,8 +68,9 @@
 \cortext[correspondingauthor]{Corresponding author}
 \ead{pascal.horton@giub.unibe.ch}
 
-\author[unil]{Michel Jaboyedoff}
 \author[grenoble]{Charles Obled}
+\author[unil]{Michel Jaboyedoff}
+\author[unibe]{Rolf Weingartner}
 
 \address[unibe]{University of Bern, Oeschger Centre for Climate Change Research, Institute of Geography, Bern, Switzerland}
 \address[unil]{University of Lausanne, Institute of Earth Sciences, Lausanne, Switzerland}
@@ -110,51 +111,54 @@ Analogue methods (AMs) are used in two different kind of approaches \citep{Rummu
 
 In operational forecasting, they have been used mainly by practitioners, notably hydropower companies \citep{Desaint2008a,BenDaoud2009,Obled2014} or flood forecasting services in France and Switzerland \citep{Marty2010,GarciaHernandez2009b,Horton2012}. They should however not be considered as a substitute for NWP models, but as a complement in order to get a fast and partly independent forecast that is known to be accurate several days in advance. They therefore enrich the analysis of a potential critical situation for flood forecasting, for example, and are very interesting in early warning.
 
-The present work does not present a new method, but a software, named AtmoSwing, implementing AMs in a versatile and efficient way. Versatile, as it allows building AM structures in a dynamic way, through the use of XML files. Efficient, as it is written in C++ and allows parallel computing. AtmoSwing is made up of different modules targeted either for operational forecasting (the Forecaster and the Viewer) or for climate impact studies (the Downscaler). Additionally it provides a module to calibrate the different parameters of the method, namely the Optimizer. AtmoSwing is continuously evolving and has been used in \citet{Horton2012, Horton2017a, Horton2017b, Horton2018a} and \citet{Horton2018b}.
+The present work does not present a new method, but a software, named AtmoSwing, implementing AMs in a versatile and efficient way. Versatile, as it allows building AM structures in a dynamic way, through the use of XML files, and because the code is written with an object-oriented architecture. Efficient, as it is written in C++ and allows parallel computing. AtmoSwing is made up of different modules targeted either for operational forecasting (the Forecaster and the Viewer) or for climate impact studies (the Downscaler). Additionally it provides a module to calibrate the different parameters of the method, namely the Optimizer. AtmoSwing is continuously evolving and has been used in \citet{Horton2012, Horton2017a, Horton2017b, Horton2018a} and \citet{Horton2018b}.
 
-Some existing AMs will first be described along with the required data (Sect. \ref{sec:data_methods}) and the software will then be presented (Sect. \ref{sec:atmoswing}) and its modules detailed: the Forecaster (Sect. \ref{sec:forecaster}), the Viewer (Sect. \ref{sec:viewer}), the Downscaler (Sect. \ref{sec:downscaler}), and the Optimizer (Sect. \ref{sec:optimizer}). The conclusion (Sect. \ref{sec:conclusions}) provides some additional perspectives for future developments of AtmoSwing. 
+Some existing AMs designed for daily precipitation will first be described along with the required data (Sect. \ref{sec:data_methods}) and the software will then be presented (Sect. \ref{sec:atmoswing}) and its modules detailed: the Forecaster (Sect. \ref{sec:forecaster}), the Viewer (Sect. \ref{sec:viewer}), the Downscaler (Sect. \ref{sec:downscaler}), and the Optimizer (Sect. \ref{sec:optimizer}). The conclusion (Sect. \ref{sec:conclusions}) provides some additional perspectives for future developments of AtmoSwing. 
 
 
 \section{Data and methods}
 \label{sec:data_methods}
 
 
-
-
-
-
-
-
 \subsection{Data}
 \label{sec:data}
 
-Predictors are generally reanalysis datasets (as archive) and outputs of a global numerical weather prediction models for the target situation in operational forecasting. Reanalysis datasets, such as the NCEP/NCAR reanalysis I \citep[6-hourly, 17 pressure levels at a resolution of 2.5\degree, see][]{Kalnay1996}, the NCEP/DOE reanalysis II \citep{Kanamitsu2002}, ERA-40 \citep{Uppala2005} are often used and can be input in AtmoSwing. Other observed predictors can also be used, such as Sea Surface Temperature \citep[SST, ][]{Reynolds2007}. \citet{Bontron2004} proposed that the minimum length of the archive should be 30 years to predict usual situations, and 40 years or more for intense events.
+AMs generally require three datasets: one of the historical predictand values, one of the historical predictor values for the same period and another one of the predictors describing the target situation.
 
-The predictors describing the target situation in operational forecasting can, for example, result from GFS \citep[Global Forecast System,][]{Kanamitsu1991,Kanamitsu1989}, which is operated by NCEP and NOAA.
+The predictand is often daily time series. It can have a higher temporal resolution, such as 6-houry, but not higher than the time step of the predictors. The most used predictand is the daily precipitation, usually averaged over subregions in order to smooth local effects \citep{Obled2002, Marty2012}. These time series are frequently normalized by the precipitation value for a return period of 10~years \citep{Djerboua2001}. This normalization allows for an easier comparison between subregions subject to different precipitation regimes, and thus to better identify the most important contributions.
 
-The predictand can be 6-houry data, or more often daily time series. The most used predictand is the daily precipitation, usually averaged over subregions in order to smooth local effects \citep{Obled2002, Marty2012}. These time series are frequently normalized by the precipitation value for a return period of 10~years \citep{Djerboua2001}. This normalization allows for an easier comparison between subregions subject to different precipitation regimes, and thus to better identify the most important contributions.
+The predictors archive is often a global atmospheric reanalysis dataset, which provides gridded large-scale variables at any location in the world. Reanalyses are produced using a single version of a data assimilation system coupled with a forecast model constrained to follow observations over a long period. They provide multivariate outputs that are physically consistent, which contain information in locations where few or no observations are available, also for variables that are not directly observed \citep{Gelaro2017}. Even though reanalyses are considered as very accurate in a data-rich region such as Europe, they can have a non-negligible impact on the skill of the prediction that can be even higher than the choice of the predictor variables \cite{Dayon2015, Horton2018b}. AtmoSwing can read the native files of ten reanalyses (Table \ref{table:datasets}), and others can be easily added thanks to the encapsulation of the dataset characteristics in the objects. Users can find recommendations for the selection of a reanalysis in \cite{Horton2018b}. Other predictor archives can also be used, such as Sea Surface Temperature \citep[SST, ][]{Reynolds2007}. \citet{Bontron2004} proposed that the minimum length of the archive should be 30 years to predict usual situations, and 40 years or more for intense events.
+
+The predictors dataset describing the target situation varies according to the application of the AM. For operational forecasting (Sect. \ref{sec:forecaster}) they are outputs of NWP models, such as GFS \citep[Global Forecast System,][]{Kanamitsu1991,Kanamitsu1989}, which is operated by NCEP and NOAA. For climate impact studies (Sect. \ref{sec:downscaler}), they are outputs of general circulation models (GCMs) or regional climate models (RCMs).
 
 
 \subsection{Analog methods}
 \label{sec:method}
 
-AtmoSwing does not rely on a single variant of the AM, but can implement different parameterizations. Thus, several examples of possible implementations are gathered here, as well as the main evolution steps of the AM.
+AtmoSwing does not rely on a single variant of the AM, but can implement different variants. A non-exhaustive selection will be presented hereafter, focusing on the prediction of daily precipitation. Some early findings and choices will also be summarized to justify the present structure of this family of AMs, such as the use of raw data instead of principal components.
+
 
 \subsubsection{Principles}
 
-The AM is based on the principle that two similar synoptic situations may produce similar local effects \citep{Lorenz1956}. The perfect analogy does not exist, but sufficiently similar situations leading to similar effects can be identified. Thus, two states of the atmosphere that are alike are called analogs \citep{Lorenz1969}. To be relevant, this analogy must be selected by optimizing the following elements:
+The AM is based on the principle that two similar synoptic situations may produce similar local effects \citep{Lorenz1956}. The perfect analogy does not exist, but sufficiently similar situations leading to similar effects can be identified. Thus, two states of the atmosphere that are alike are called analogues \citep{Lorenz1969}. To be relevant, this analogy must be selected by optimizing the following elements:
 
-\begin{itemize}
-	\item The analogy variable (the predictor) must contain synoptic information having indirect dependency with the local weather and the target predictand (often the precipitation).
-	\item The pressure level, or height, at which the analogy variable is considered.
-	\item The spatial window is the domain on which the analogy variable is considered. The ideal size of this area is the one that maximizes useful information.
-	\item The temporal window is the hour in the day, or a set of different hours, at which the analogy variables are considered.
-	\item The preselection, which is often a period of the year in which similar situations are being sought. Thus, only situations with a similar distribution of solar energy are compared \citep{Lorenz1969}.
-	\item The analogy criterion, needed to compare the variables on the chosen spatial and temporal windows, is a score used for ranking past situations according to their degree of similarity with the target situation.
-	\item The ideal number of analog situations is the best compromise in order to take into account local variability and to maximize useful synoptic information \citep{Bontron2004}.
+\begin{itemize}		
+	\item The meteorological variables (predictors) must contain synoptic scale information having a direct or indirect dependency with the target predictand.
+	\item The pressure level, or height, at which the predictor is selected.
+	\item The spatial window is the domain on which predictors are compared. The ideal size of this area is that which maximizes the useful information and minimizes noise.
+	\item The temporal window is the hour(s) of the day at which the predictors are considered.
+	\item The analogy criterion, needed to compare the variables on the chosen spatial and temporal windows, is a distance measure, used to rank observed situations according to their degree of similarity with the target situation.
+	\item Eventual weights between the predictors \cite[e.g.,][]{Horton2017b, Junk2015}.
+	\item The optimal number of analog situations, which is the best compromise in order to take into account local variability and maximize useful synoptic information.
 \end{itemize}
 
 Because of the chaotic nature of the atmosphere, two analog situations quickly diverge over time \citep{Lorenz1969}. Thus, the AM has strong limitations regarding the temporal extrapolation \citep{Bontron2004}. Numerical models being more capable of simulating the dynamic evolution of the atmosphere, the temporal extrapolation of the synoptic variables is left to them. The search for analogy aims thus at connecting the forecasted synoptic situation with a local predictand (temperature, precipitation, etc), which is more difficult to simulate by numerical models.
+
+
+
+
+
+
 
 
 \subsubsection{Present structure}
