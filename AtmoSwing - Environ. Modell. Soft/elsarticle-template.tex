@@ -2,6 +2,7 @@
 %\documentclass[5p]{elsarticle}
 
 \usepackage{lineno,hyperref,gensymb,multirow}
+\usepackage[textwidth=18cm]{geometry}
 \modulolinenumbers[5]
 
 \journal{Environmental Modelling \& Software}
@@ -210,75 +211,55 @@ This nomenclature can be adapted to specific needs, or simplified for a better r
 \section{AtmoSwing}
 \label{sec:atmoswing}
 
+AtmoSwing is made of 4 main modules that are standalone, but do share a common code basis: the Forecaster for operational forecasting, the Viewer, to display the forecast in a GIS environment, the Downscaler for climate applications, and the Optimizer, to calibrate/optimize the statistical relationship defining the analogy for a given predictand time series. Separating the Forecaster and the Viewer allows to automate the forecast on a server and to quickly display the results locally. The Forecaster, the Downscaler and the Optimiser can be either used with a graphical user interface or with a command-line interface.
 
 
+\subsection{Technical aspects}
 
+The code is written in object oriented C++ and relies on the wxWidgets \citep{Smart2006} library to provide a cross-platform native experience to users. CMake is used to build AtmoSwing on MS Windows, Linux / Unix, or Mac (macOS). The source code in under version control (Git), and is open source (on Github, www.atmoswing.org). Developments have been partly made with a test driven development (TDD) approach. A continuous integration has been setuped so that a collection of more than 500 tests are evaluated every time new code is pushed to ther server, to prevent regressions. Every analogy criterion, prediction score, searching and sorting functions, data manipulation, and so on, is tested. Some tests specific to the AM rely on the results of another analogue sorting software developed at the Universit\'{e} Grenoble Alpes. They ensure that the results of AtmoSwing are exactly equivalent to their model, given the same parameters and data. 
 
+Although processing an analogue prediction for a given target date is fast, hindcasts over periods of several decades must be performed for calibration, which may become very time consuming. Thus, great effort has been made to reduce the processing time to a minimum by means of profiling tools. First, all identified redundancies in processing were removed. Then, when looking for a certain date or data, it is first searched in the region where it is likely to be found instead of exploring an entire array. Similar data are not loaded twice, but shared pointers are used. Many other improvements allowed saving more time, for example the use of the quicksort method \citep{Hoare1962a} to sort the date vectors according to the analogy criterion. Different implementation variants were tested in order to select the most efficient one: for example, when storing analogue dates according to their criterion value, it is faster to insert them in a fixed-size array rather than storing them all and sorting the array subsequently. When using the S1 criteria, the gradients are preprocessed on the predictor data, so they are only processed once. AtmoSwing also uses the linear algebra library Eigen 3 \citep{Guennebaud2010} for calculations on vectors and matrices, which resulted in time saving. Multi-threading is also implemented so that the search for analogue situations in the archive is distributed among the available threads.
 
-
-AtmoSwing is made of 3 main modules that are standalone, but do share a common code basis: the Forecaster, to process the operational forecasting, the Viewer, to display the forecast in a GIS environment, and the Optimizer, to calibrate/optimize the statistical relationship defining the analogy for a given predictand time series. Separating the Forecaster and the Viewer allows to automate the forecast on a server and to quickly display the results locally. The code is written in object oriented C++ and relies on the wxWidgets \citep{Smart2006} library to provide a cross-platform native experience to users. The software can thus be compiled on MS Windows, Linux / Unix, Mac (OS X, iOS), both in 32-bit and 64-bit.
-
-The source code in under version control (with Mercurial), and is open source (on Bitbucket, www.atmoswing.org). Developments have been made with a test driven development (TDD) approach. A collection of more than 500 tests are frequently evaluated and completed during development, in order to verify that code changes do not introduce regression. Every analogy criterion, prediction score, searching and sorting functions, data manipulation, and so on, is tested. The integration tests specific to the AM rely on the results of another analogue sorting software developed at the LTHE \textendash INPG university of Grenoble. They ensure that the results of AtmoSwing are exactly equivalent to their model, given the same parameters and data. These tests are part of the checks carried out regularly.
-
-A user interface allows the creation of the precipitation database. Its generation consists in extracting the time series from text files in order to process them and save a database in the NetCDF format. During the process, Gumbel adjustments are automatically calculated in order to determine the values corresponding to different return periods. The time series are normalized by a selected return period (default 10~years) and their square root is eventually processed. The final database file contains both the raw and the normalized series, as well as characteristics of the gauging stations and some metadata.
+A user interface allows the creation of the predictand database. Its generation consists in extracting the time series from text files to save a database in the NetCDF format. During the process, Gumbel adjustments are automatically calculated for precipitation data to determine the values corresponding to different return periods. The time series are normalized by a selected return period (default 10~years) and their square root can be processed. The final database file contains both the raw and the normalized series, as well as characteristics of the gauging stations and some metadata.
 
 
 \subsection{Modular approach and implementation}
 
-An AtmoSwing great strength is that it is designed to process analogy downscaling in a modular fashion. The structure of the AM (number of analogy levels, number of predictors) is built dynamically (Fig. \ref{figure:flowchart_modules_atmoswing}), and nothing is fixed a priori. The software then performs successively as many analogy levels as the user specified, with all the predictors he wants. Each level of analogy processed results in an object containing target dates, analogue dates, values of the analogy criteria, and other data. This object can be saved in a NetCDF file and/or can be injected into a new analogy level. The whole structure of the AM is defined in an XML file generated by the user. Even the time step of the method (6 or 24~hours for example) is a dynamic parameter.
+AtmoSwing's great strength is that it is designed to process the analogue method in a modular fashion. The structure of the AM (number of analogy levels, number of predictors) is built dynamically (Fig. \ref{figure:flowchart_modules_atmoswing}), and nothing is fixed a priori. The software then performs successively as many analogy levels as the user specified, with all the predictors he wants. Each level of analogy result in an object containing target dates, analogue dates, values of the analogy criteria, values of the predictand (at the final stage), and other data. This object can be saved as a NetCDF file and/or can be injected into a new analogy level. The whole structure of the AM is defined by the user through an XML file. Even the time step of the method (6 or 24~hours for example) is a dynamic parameter.
 
 Each implementation of the AM (see Sect. \ref{sec:method}) may enter this scheme, even if it consists of preprocessed variables (e.g. moisture index). Various preprocessing functions are implemented, as the calculation of the moisture index or flux, multiplication operations or calculation of the gradients. The user can specify the preprocessing method and the predictors to use, dynamically, in the XML file.
 
-
-\subsection{Performance}
-
-Although processing an analogue forecast for a given target date is fast, when optimizing the AM, predictions are re-processed over long periods of several decades, which may become very time consuming. Thus, great effort has been made in order to reduce the processing time to a minimum. Waste of time were identified with profiling tools and cut down at different levels. The software also use the linear algebra library Eigen 3 \citep{Guennebaud2010} for calculations on vectors and matrices, which resulted in time saving. Multi-threading is also implemented so that the search for analogue situations in the archive is distributed among the available threads.
-
-The code optimization consited in reducing the most significant processing time identified by means of profiling tools. First, every identified redundancy in processing has been removed. Then, when looking for a certain date or data, the search looks first in the proximity where it is likely to be found instead of exploring an entire array. Similar data are not loaded twice, but shared pointers are used. Many other improvements allowed saving more time, for example the use of the quicksort method \citep{Hoare1962a} to sort the date vectors according to the values of analogy criteria. Different implementations were tested (many remain in the code as alternatives) in order to select the most efficient: for example, when storing analogue dates according to their criteria value, it is faster to insert them in a fixed-size array rather than storing them all and sorting the array subsequently.
-
-The major performance gains were obtained by:
-\vspace*{-2mm}
-\begin{itemize}
-	\setlength\itemsep{-2px}
-	\item reduction of the array sizes used in the calculations,
-	\item use of pointers (and therefore the decrease of data copies),
-	\item better search for dates in temporal vectors starting from the previous index (reduction of the range of the array to explore),
-	\item better management of the analogue vectors,
-	\item preprocessed gradients on geopotential fields when using the S1 criteria,
-	\item and finally the implementation of parallel calculations (multi-threading).
-\end{itemize}
+This modular approach is implemented through object-oriented programming, specifically thanks to polymorphism. This allows for example to process a predictor object as a single inferface to entities representing any reanalysis dataset. Similarly, the criterion can be of different types, as well as the score for calibrating. Figure \ref{figure:code_diagram} illustrates in a simplified way the main classes or objects involved in the core of the analogue method processing in AtmoSwing. The different types of objects that are instantiated are defined in the XML parameters file. Thus, there is a single implementation of the analogue method capable of interacting with different object types in various context (calibration, forecasting, downscaling).
 
 
 \subsection{AtmoSwing Forecaster}
 \label{sec:forecaster}
 
-The Forecaster module allows to process operational forecasts, defined by an XML file. A list of parameterizations is processed successively. The software can be compiled with a GUI (graphical user interface, Fig. \ref{figure:atmoswing-forecaster-gui}), or without in order to be used on a headless server through a command line interface. Processing a forecast requires very low computing capabilities and can be done on a low-end computer. 
+The Forecaster module allows to process operational forecasts. The software can be compiled with a graphical user interface (GUI, Fig. \ref{figure:atmoswing-forecaster-gui}), or without it to be used on a headless server through a command line interface (CLI). Processing a forecast requires very low computing capabilities and can be done on a low-end computer. It sucessfully runs on a Raspberry Pi 3 (Model B).
 
-The software first downloads the predictor describing the target situation, such as 1\degree\ GFS outputs \citep[Global Forecast System,][see Sect. \ref{sec:data}]{Kanamitsu1991,Kanamitsu1989}. It then interpolates linearly the gridded data to match the resolution of the archive (for example 2.5\degree\ in the case of the NCEP/NCAP reanalysis I). The analogues dates are next sought according to the selected parameterization, and the predictand data are associated with the corresponding dates. The results are finally saved in auto-describing NetCDF files. If required, a synthetic XML is generated for an easier integration on a web platform for example. Every step of the forecast, from the predictor downloading to the final results, is done in the software (and controlled through configuration), without use of external scripts (e.g. for data conversion).
+The software first downloads the predictor describing the target situation, such as 1\degree\ GFS outputs \citep[Global Forecast System,][see Sect. \ref{sec:data}]{Kanamitsu1991,Kanamitsu1989}. It then interpolates linearly the gridded data to match the resolution of the archive. The analogues dates are next extracted according to the selected AM variant, and the predictand data are associated with the corresponding dates. The results are finally saved in auto-describing NetCDF files. If requested, a synthetic XML file is generated for an easier integration on a web platform for example. Every step of the forecast, from the predictor downloading (when possible) to the final results, is done in the software (and controlled through configuration), without use of external scripts (e.g. for data conversion).
 
-When using a given parameterization of the AM, it has previously been optimized in a perfect prognosis context \citep[i.e. by optimizing on the reanalysis dataset; however, this does not take into account the uncertainty of the target situation when taken from operational forecasts of a Numerical Weather Prediction model,][]{Klein1963}. In operational forecasting, one should take into account the uncertainty of the predictor increasing with the lead time. A solution, presented in Sect. \ref{sec:optimization-operational}, consists in increasing the number of analogue situations to keep with the lead time. This technique is available in AtmoSwing, as the number of analogues can be specified for every lead time, making such approach easily accessible.
+Both the GUI and the CLI allow to make a forecast based on the most recent NWP outputs, or for a given date or period. When there is no new predictor data available, the forecast is not processed and no computing resources are lost. The recommended use is thus to set up a cron task on a Linux server to trigger the forecast every 30 minutes. When using GFS outputs, this would provide four forecasts a day with a reduced delay between GFS outputs availability and the analogue forecast.
 
-The command-line interface allows to start the process for the present date, a selected past date, or the last $x$ days (as long as the predictors are available on the provider server). When there is nothing to process (no new predictor data available), the execution just stops, leading to no loss of computing resources. The recommended use is thus to set up a cron task on a Linux server in order to trigger the forecast every 30 minutes. When using GFS outputs, this would provide 4 forecasts a day with a reduced delay between GFS outputs availability and the analogue forecast.
+Before being used in operational forecasting, the AMs were calibrated in a perfect prognosis framework, usually by using a reanalysis dataset (Sect. \ref{sec:atmoswing-calibration}). However, this does not take into account the uncertainty related to the forecast of the target situation by Numerical Weather Prediction models. One might be willing to take into account this uncertainty, which is increasing with the lead time. A solution consists in increasing the number of analogue situations with the lead time, which should be optimized for every lead time on a forecast archive or a reforecast dataset \citep{Thevenot2004}. This technique is available in AtmoSwing, as the number of analogues can be specified for every lead time.
+
+A meteorological variable that was proven to be a good predictor in the perfect prognosis framework may eventually be poorly predicted by the selected NWP beyond a certain lead time. It should then be dropped after the lead time in question (see Sect. \ref{sec:interpreting}). For example, when using moisture variables for the second level of analogy, \citet{Thevenot2004} showed that beyond a lead time of three days the AM with two levels did not perform better that the one with a single level of analogy. To assess and address these operational aspects, the best option is to collect a dataset of reforecast from the selected NWP model. Then, distinct variants of AMs can be assessed on different lead times. 
 
 
 \subsection{AtmoSwing Viewer}
 \label{sec:viewer}
 
-The Viewer module allows displaying the resulting forecast files in an interactive GIS environment (Fig. \ref{figure:atmoswing-viewer-gui}). During the forecast, different parametrization variants of the same type of AM may be applied to a region; the reason being that some parameterizations may be specific for a subregion, when its meteorological influences differ, which is often the case even in relatively small catchments \citep{Horton2012}. The Viewer automatically gathers the similar AMs and provides a composite view of the optimal forecasts per subregion. The user can however choose to display a specific parameterization for the whole region, which is more consistent in terms of homogeneity of the analogue dates.
+AtmoSwing Viewer allows displaying the files produced by the Forecaster in an interactive GIS environment (Fig. \ref{figure:atmoswing-viewer-gui}). It provides several levels of synthesis of the forecasts. It first shows an overview of possible alerts by means of color codes on the lead time switcher (upper right in the GUI, see Fig. \ref{figure:atmoswing-viewer-gui}) that represent the worst case scenarios, or in the alarms panel (on the left side of the GUI). The alarms panel offers a synthesis of the highest forecasted values for the different AMs and the different lead times. By default, the colors are expressed relatively to the 10~year return period, for the $90^{th}$ percentile (which can be changed in the preferences). This highest level of synthesis allows to quickly identify potential critical situations in the days ahead.
 
-The software provides several levels of synthesis of the forecasts. When it is opened, it automatically loads the most recent forecasts, eliminating the need to manually open files. It first offers a quick overview of possible alerts by means of color codes on the lead time switcher (upper right in the graphical user interface (GUI), see Fig. \ref{figure:atmoswing-viewer-gui}), which synthesizes the worst case scenario, or in the alarms panel (on the left part of the GUI). The alarms panel offers a synthesis of the higher forecasted values over the region, for the different AMs and the different lead times. By default, the colors are expressed relatively to 10~year return period values, for the $90^{th}$ percentile (can be changed in the preferences). This higher level of synthesis allows to quickly identify potential critical situations in the days ahead.
+Then, the user can explore the forecasts in more details, starting from the provided map (Fig. \ref{figure:atmoswing-viewer-gui}). The map displays the forecast of the selected AM variant (selected in the upper left panel) and the selected lead time (upper right). During the forecast, one AM might have parameters that differ by subregions, such as the number of analogues or the spatial windows. The Viewer automatically gathers the similar AM types and provides a composite view of the optimal forecasts per subregion. The user can however choose to display the results associated to a single parameter set for the whole region (by opening the tree view and selecting a child element), which provides a homogeneous set of analogue dates. A display of all lead times on a single map is made possible by means of a symbolic representation on a circular band with a box for every lead time (Fig. \ref{figure:atmoswing-viewer-snail}). The number of boxes is adjusted to the number of lead times. This representation offers a global spatiotemporal visualization for a chosen AM.
 
-Then, the user can explore the forecasts more in details, starting from the map provided by the GUI (Fig. \ref{figure:atmoswing-viewer-gui}). The map display the forecast of the selected parameterization (upper left) and the selected lead time (upper right). The displayed AM is by default a composite of the parameterization variants for the region, but the user can choose a specific parameterization for the whole region by opening the tree view and selecting a child element. We also allowed a display of all lead times on a single map by means of a symbolic representation on a circular band with a box for every lead time (Fig. \ref{figure:atmoswing-viewer-snail}). The number of boxes is dynamically adjusted to the number of lead times. This representation offers a global spatiotemporal display for a chosen parameterization.
+Color scales in the map can be adjusted by choosing (on the left part of the GUI) the predictand reference (raw value or ratio to different return periods) and the quantile of the distribution. Using a ratio to a certain return period eases the interpretation of the expected precipitation as reference volumes can drastically differ from one location to another, particularily in mountainous regions. All information relative to a rain gauge station (or catchment), such as its location, its name, or the values of different return periods, are stored in the forecast files to be displayable for end users who do not have the predictand database.
 
-Color scales in the map are easily controlled by choosing the predictand ratio (raw value or ratio to different return periods) and the quantile of the distribution (on the left part of the GUI). Representation relatively to a return time better expresses the meaning of a certain precipitation amount for a given region, as climatology can be drastically different between two locations in a mountainous area, even if they are close to each other. All information relative to a rain gauge station (or catchments), such as its location, its name, or the values of different return periods, are stored in the forecast files, in order to be displayable for end users who do not have the predictand database.
+By clicking on a station on the map (or by selection in a dropdown list on the left), a new window appears with a plot of the forecasted time series (Fig. \ref{figure:atmoswing-viewer-timeseries}). By default, the plot contains the usual three considered percentiles (90$^{th}$, 60$^{th}$, and 20$^{th}$), along with the 10 best analogues with a color code from yellow (tenth) to red (first). The 10 year return period value is also displayed to set the forecast in perspective. The user can choose to hide any data or to display supplementary information (all analogues, all 10$^{th}$ percentiles, or all return periods) in the left panel. Traces of previous forecasts are also automatically loaded and displayed to provide information on the consistency of the forecasts. 
 
-By clicking on a station (forecast points) on the map (or by selection in a dropdown list on the left), a new window appears with a plot of the forecasted time series (Fig. \ref{figure:atmoswing-viewer-timeseries}). By default, the plot contains the usual 3 considered percentiles (90$^{th}$, 60$^{th}$, and 20$^{th}$), along with the 10 best analogues with a color code from yellow (tenth) to red (first). The 10 year return period is also displayed in order to put the forecast in perspective. The user can choose to hide any data or to display supplementary information (all analogues, all 10$^{th}$ percentiles, or all return periods) in the left panel. Traces of previous days forecasts are also automatically loaded and displayed in order to inform on the stability of the forecasts. 
+The user can then go into further details and display the predictand cumulative distribution for a given lead time (Fig. \ref{figure:atmoswing-viewer-distribution}). This can inform if there is a shift between the distribution of all analogues versus the 10 best. Such a shift warns of a risk of under/overestimation when considering the full distribution, particularily for high precipitation amount. The distribution of the analogy criteria (not shown) can also be displayed to identify eventual discontinuities in the criteria values. Finally, one can display a grid containing the analogue dates with the corresponding predictand and criteria values in an interactive spreadsheet (not shown).
 
-The user can even go into further details and display the predictand cumulative distribution for a given lead time (Fig. \ref{figure:atmoswing-viewer-distribution}). This is useful when working on extreme precipitation, as comparing the distribution of all analogues versus the 10 best analogues provides information in order to interpret the forecast (trend to under/overestimation). Distribution of the analogy criteria (not shown) can also be displayed in order to identify eventual discontinuities in the criteria values.
-
-Finally, one can see the details of the analogue dates, along with the predictand and the criteria values in an interactive spreadsheet (not shown).
-
-AtmoSwing Viewer relies on workspaces to specify the path to the forecast directories and the GIS layers. Many GIS formats are supported thanks to GDAL \cite[Geospatial Data Abstraction Library,][]{GDAL2014}. One can have as many layers as desired, and can control their display properties. It is thus easy to switch from a forecast for a region to another by opening a workspace file (XML format).
+AtmoSwing Viewer relies on workspaces, defined in XML files, to specify the path to the forecast directories and the GIS layers. It is thus easy to switch from a forecast for a region to another. Many GIS formats are supported thanks to GDAL \cite[Geospatial Data Abstraction Library,][]{GDAL2014}. One can has as many layers as wanted, and can control their display properties (color, transparency).
 
 
 \subsubsection{Interpreting a precipitation forecast}
@@ -449,20 +430,6 @@ The use of such a random method allows informing on the parameters sensitivity, 
 Due to limitations in the sequential approach, we decided to explore optimization techniques that could handle all parameters fully automatically. The \citet{Nelder1965a} method was first assessed, but was found unsuitable for this purpose. Because of the complexity of the AM and its non-linearity, a technique of global optimization is required. Genetic algorithms were thus implemented in AtmoSwing Optimizer in order to perform a global optimization of the AM. This allows for a fully automatic and objective optimization of the AM. However, as this topic is rather consequent, it is the subject of other coming publications \cite[see][]{Horton2016a, Horton2016b}.
 
 
-\subsubsection{Optimization for operational use}
-\label{sec:optimization-operational}
-
-Up to now, the AM has been optimized essentially by replaying past situations that were taken from a unique meteorological archive. Therefore, the synoptic variables have similar properties in terms of resolution, models that have processed them, etc... However, when it comes to operational forecasting, as already mentioned, the resulting AM will be applied to target situations that are no longer similar to the reanalyzed ones. They will be taken from global model forecasts, which may not be those used to elaborate the archive of reanalyzed situations. Thus, these new targets will display characteristics different from those of the archive, and will in particular contain larger uncertainties, especially at growing lead-times.
-
-Eventually, a meteorological variable that was proven to be a good predictor during the calibration of the AM may be poorly predicted by the forecast NWP model selected beyond a certain lead time. In this regards, it should be dropped after the lead time in question (see Sect. \ref{sec:interpreting}).
-
-To assess and address these operational aspects, the best option is to collect a dataset of reforecast from the specific NWP model selected. Then, distinct variants of AM parameterizations can be assessed on different lead times. For example, when using moisture variables for the second level of analogy, \citet{Thevenot2004} showed that beyond a lead time of 3 days, the AM with two levels did not do better that the one with a unique level of analogy. It comes from the fact that large scale geopotential variables are correctly predicted up to 8 or 10 days, while humidity variables are not, at least by the current version of the model considered.
-
-Next, we assume that for the synoptic variables used as predictors, the model predictions have more uncertainties than the reanalyses, but no systematic bias. To optimize further the AM, it can be considered that the further the lead time, the more uncertain the synoptic forecasts and therefore the more uncertain the precipitation forecasts could be. This can been addressed by reconsidering, for each lead-time, the optimal number of analogues to select, for reforecast data from a particular NWP model \citep{Thevenot2004}. The underlying idea is that if the model proves perfect, then the number of analogues should remain close to that obtained in the perfect progonosis framework. While if the forecast becomes irrelevant, for example at distant lead times, the AM should propose a prediction closer and closer to the climatological distribution of the predictand. The optimal number of analogue situations will thus increase with the lead time, and should be optimized for every lead time on the reforecast dataset \citep[see][for the details]{Thevenot2004}. This option is implemented in AtmoSwing Forecaster (see Sect. \ref{sec:forecaster}).
-
-It should be stressed that these operational aspects are dependent on the model used to provide the AM with synoptic forecasts, and on the availability of a reforecast data to perform the tuning of the AM to this particular model.
-
-
 
 \section{Discussion}
 \label{sec:discussion}
@@ -522,11 +489,11 @@ Thanks to Lucien Schreiber and Richard Metzger for their programming advices and
 \clearpage
 
 
-\begin{figure}[t]
-	\includegraphics[width=\textwidth]{figures/selection_variables_optim.pdf}
+\begin{figure*}[t]
+	\includegraphics[width=13cm]{figures/selection_variables_optim.pdf}
 	\caption{Performance score (CRPSS) of the 30 best variables from the NCEP/NCAR reanalysis dataset, when considered separately (no combination), for the Chablais region and the southeast ridges. The analogy criteria is S1 when there is an asterisk next to the variable name, and RMSE otherwise. Color illustrates the variable type: green = atmospheric circulation, blue = moisture, orange = temperature, yellow = radiation, purple = vertical velocity, and gray = other. SLP stands for sea level pressure, and Z for geopotential height}
 	\label{figure:variable_exploration}
-\end{figure}
+\end{figure*}
 
 \begin{figure}[t]
 	\includegraphics[width=8.3cm]{figures/fig01.pdf}
@@ -535,10 +502,16 @@ Thanks to Lucien Schreiber and Richard Metzger for their programming advices and
 \end{figure}
 
 \begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/fig05.pdf}
-	\caption{Simplified organizational chart of the AM implementation in AtmoSwing.}
+	\includegraphics[width=8.3cm]{figures/flowchart.pdf}
+	\caption{Simplified flowchart of the AM implementation in AtmoSwing.}
 	\label{figure:flowchart_modules_atmoswing}
 \end{figure}
+
+\begin{figure*}[t]
+	\includegraphics[width=16cm]{figures/code_diagram.pdf}
+	\caption{Simplified illustration of the main classes or objects involved in the core of the AM processing in AtmoSwing. The processor class interacts with parent classes that can represent different entities, such as different reanalysis datasets, predictand, criteria, scores, and in different contexts: calibration, forecasting, and downscaling. The items in green are only available in the Optimizer, the ones in blue, in the Forecaster, and the ones in Orange, in the Downscaler. The area represents the spatial window and the time array a list of candidate dates (from preselection or previous analogy levels). The links to the parameters illustrate the dynamic definition of the different types by the parameters from the XML file.}
+	\label{figure:code_diagram}
+\end{figure*}
 
 \begin{figure}[t]
 	\includegraphics[width=8.3cm]{figures/fig06.png}
@@ -585,7 +558,6 @@ Thanks to Lucien Schreiber and Richard Metzger for their programming advices and
 \clearpage
 
 
-
 \begin{table*}[t]
 	\caption{Reanalysis datasets that can be read by AtmoSwing.}
 	\begin{center}
@@ -612,7 +584,6 @@ Thanks to Lucien Schreiber and Richard Metzger for their programming advices and
 
 \begin{table*}[t]
 	\caption{Some existing analogue methods, listed by increasing complexity. P0 is the preselection (PC: on calendar basis, that is $\pm 60$ days around the target date), L1, L2 and L3 are the subsequent levels of analogy. N1, N2 and N3 are the number of analogues to select at each level of analogy. The meteorological variables are: Z -- geopotential height, T -- air temperature, W -- vertical velocity, MI -- moisture index, which is the product of the relative humidity at the given pressure level and the total water column, MF -- moisture flux, which is the product of MI with the wind intensity. The analogy criterion is S1 for Z and RMSE for the other variables.}
-	\footnotesize
 	\begin{center}
 		\begin{tabular}{ccccccccl}
 			\hline
