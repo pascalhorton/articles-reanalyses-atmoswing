@@ -9,24 +9,6 @@
 
 
 
-% TODO: wider litterature review
-% TODO: show scaling with multiple cores
-% TODO: more technical stuff (e.g. classes + schemas)
-% TODO: Raspberry Pi
-
-% TODO: rewrite abstract
-% TODO: add more references
-% TODO: remove appendix ?
-% TODO: add all reanalysis datasets
-% TODO: add forecasts performances
-% TODO: review: While the authors show a good command of the Analogue Technique and of its applications, it is not clear from the manuscript which predictors should be used for the forecast of alpine precipitations. The authors present two sets, that of Bontron (2004) and of Horton et al. (2012). An evaluation (or a summary, if already done elsewhere) of the relative merits of the two methods should be shown,
-% TODO: relative merits of the metrics used (S1 or RMSE) are not explained
-% TODO: article doesn't present any evaluation or validation of the precipitation fields/data or alerts provided by AtmoSwing
-% TODO: the article is too general and descriptive and should detail the specifics of the present implementation of the Analogue Technique.
-% TODO: Another point (though not a reason for rejection) is about the practical use for forecasters: as the authors rightly pointed out, it is impossible to apply analogue techniques directly on NWP forecasts of meteorological parameters, since the analogues are provided by other models, with different resolution. A coherent (I.e with the same model version and resolution) and long enough period of NWP forecasts can be hard to come by, especially for rare episodes. This may restrain the practical use of AtmoSwing for operational precipitation and flood forecasts. Maybe the authors could comment on that?
-% However, in operational use, a further ingredient arises : the model from which the target synoptic situations are taken for the coming days, and the increasing uncertainty related to the lead time. Depending on the properties of these forecasts, the operational scheme has to be tuned (Sect. \ref{sec:optimization-operational}).
-
-
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -78,15 +60,18 @@
 
 
 \begin{abstract}
-Analogue methods (AMs) allow predicting local meteorological variables of interest (predictand), such as the daily precipitation, on the basis of synoptic variables (predictors). They rely on the fact that similar meteorological influences are likely to result in similar local effects. This statistical relationship is thus based on archives of observed data, and used in order to operationally forecast the coming days, or to evaluate future conditions under a changing climate.
+Analogue methods (AMs) allow predicting local meteorological variables of interest (predictand), such as the daily precipitation, on the basis of synoptic variables (predictors). They are based on the principle that two similar synoptic situations may produce similar local effects. The statistical relationship between predictors and predictands is infered in a perfect prognosis framework between observations and / or reanalyses. This relationship can then be applied to outputs of numerical weather prediction models in the context of operational forecasting, or outputs of climate models in the context of climate impact studies. AMs are computationally effective and require low computing capacity. Although they are inexpensive, they have demonstrated interesting potential for application in several contexts.
 
-AtmoSwing is an open source software that implements different AM variants in a very flexible way, so that different variants can be handled dynamically, by parameterization through XML files. It is made of 3 tools: the Forecaster to perform operational forecasts, the Viewer to display the results, and the Optimizer to establish the relationship between the predictand and predictors. 
+AtmoSwing is an open source software written in C++ that implements AMs in a very flexible way, so that different variants can be handled dynamically. It is made of four tools: the Forecaster to perform operational forecasts, the Viewer to display the results, the Downscaler for climate studies, and the Optimizer to infer the relationship between the predictand and predictors. 
 
-The Forecaster handles every required processing internally, such as predictors downloading and reading, grid interpolation, analogy sorting, without external scripts or file conversion. The processing of a forecast is extremely lightweight in terms of IT infrastructure; it can indeed run on almost any computer.
+The Forecaster handles every required processing internally, such as predictors downloading and reading, grid interpolation, etc, without external scripts or file conversion. The processing of a forecast is extremely lightweight in terms of computing infrastructure and can even run on a Raspberry Pi. It provides valuable results, as shown by a three-years long operational forecast in the Swiss Alps.
 
-The Viewer displays the forecasts in an interactive GIS environment. It contains several layers of syntheses and details in order to provide a quick overview of the potential critical situations in the coming days, as well as the possibility for the user to go into the details of the forecasted predictand and criteria distributions. Several tips coming from the literature are provided in order to help interpreting the forecasts.
+The Viewer displays the forecasts in an interactive GIS environment. It contains several layers of syntheses and details in order to provide a quick overview of the potential critical situations in the coming days, as well as the possibility for the user to go into the details of the forecasted predictand and criteria distributions.
 
-The Optimizer integrates the common semi-automatic sequential approach, as well as Monte--Carlo analyses, and a global optimization technique by means of Genetic Algorithms. 
+The Downscaler allows using AMs in a climatic context, either for climate reconstruction or for climate change impact studies. When used for a future climate, the user must pay close attention to the selected predictors, so that they are able to represent the climate change signal.
+
+The Optimizer implements different optimization techniques, such as the sequential approach, a Monte--Carlo simulation, and a global optimization technique by means of genetic algorithms. Infering the statistical relationship between predictors and predictand is quite intensive in terms of processing as it requires numerous assessment over decades. To this end, the Optimizer has been highly optimized in terms of computing efficency, is parallelized over multiple threads and scales well on a Linux cluster. This procedure is only required to infer the statistical relationship, which can then be used in forecasting or downscaling at low computing cost.
+  
 
 \end{abstract}
 
@@ -221,7 +206,7 @@ AtmoSwing is made of 4 main modules that are standalone, but do share a common c
 
 \subsection{Technical aspects}
 
-The code is written in object oriented C++ and relies on the wxWidgets \citep{Smart2006} library to provide a cross-platform native experience to users. CMake is used to build AtmoSwing on MS Windows, Linux / Unix, or Mac (macOS). The source code in under version control (Git), and is open source (on Github, www.atmoswing.org). Developments have been partly made with a test driven development (TDD) approach. A continuous integration has been setuped so that a collection of more than 500 tests are evaluated every time new code is pushed to ther server, to prevent regressions. Every analogy criterion, prediction score, searching and sorting functions, data manipulation, and so on, is tested. Some tests specific to the AM rely on the results of another analogue sorting software developed at the Universit\'{e} Grenoble Alpes. They ensure that the results of AtmoSwing are exactly equivalent to their model, given the same parameters and data. 
+The code is written in object oriented C++ and relies on the wxWidgets \citep{Smart2006} library to provide a cross-platform native experience to users. CMake is used to build AtmoSwing on MS Windows, Linux / Unix, or Mac (macOS). Developments have been partly made with a test driven development (TDD) approach. A continuous integration has been setuped so that a collection of more than 600 tests are evaluated every time new code is pushed to the server, to prevent regressions. Every analogy criterion, prediction score, searching and sorting functions, data manipulation, and so on, is tested. Some tests specific to the AM rely on the results of another analogue sorting software developed at the Universit\'{e} Grenoble Alpes. They ensure that the results of AtmoSwing are exactly equivalent to their model, given the same parameters and data. The source code in under version control (Git), and is open source \citep[on GitHub, www.atmoswing.org,][]{Horton2018c}. The GitHub organization page (https://github.com/atmoswing) also contains toolboxes to work with AtmoSwing's outputs in R \citep{Horton2018d} or Python \citep{Horton2018e}. They allow parsing the output files and doing some analyses or plotting.
 
 Although processing an analogue prediction for a given target date is fast, hindcasts over periods of several decades must be performed for calibration, which may become very time consuming. Thus, great effort has been made to reduce the processing time to a minimum by means of profiling tools. First, all identified redundancies in processing were removed. Then, when looking for a certain date or data, it is first searched in the region where it is likely to be found instead of exploring an entire array. Similar data are not loaded twice, but shared pointers are used. Many other improvements allowed saving more time, for example the use of the quicksort method \citep{Hoare1962a} to sort the date vectors according to the analogy criterion. Different implementation variants were tested in order to select the most efficient one: for example, when storing analogue dates according to their criterion value, it is faster to insert them in a fixed-size array rather than storing them all and sorting the array subsequently. When using the S1 criteria, the gradients are preprocessed on the predictor data, so they are only processed once. AtmoSwing also uses the linear algebra library Eigen 3 \citep{Guennebaud2010} for calculations on vectors and matrices, which resulted in time saving. Multi-threading is also implemented so that the search for analogue situations in the archive is distributed among the available threads.
 
@@ -422,6 +407,14 @@ The results of the GAs show more variability than before, likely due to a higher
 The former results present a relatively noisy signal for the different optimization methods or the Monte--Carlo simulations. This can be due (1) to the fact that we consider a station time series instead of regional ones, which could decrease some variability from small scale patterns in the precipitation fields, and (2) due to the fact that we consider a short period for calibration. Despite the high number of simulations, Monte--Carlo simulations with a uniform probability law are not appropriate for even moderately complex AMs. It is likely that using a gaussian probability law centered on the station would be more appropriate.
 
 
+\section{Feedback from operational forecast}
+\label{sec:operational}
+
+AtmoSwing Forecaster has been issuing operational forecasts since 2012 for the upper Rh\^one catchment in Switzerland (Fig. \ref{figure:variable_exploration}) in the context of a flood management project \citep{GarciaHernandez2009b}. First, the 2Z and 2Z-2MI methods were implemented using NR-1 as archive and GFS outputs to describe the target situation \citep{Horton2012a}. Two more recent methods optimized by genetic alborithms \citep{Horton2018a} were also implemented since 2016. These methods were found to provide better results both in perfect prognosis and in operational forecast. Results of the forecasts are provided for the Binn station (as in Sect. \ref{sec:parameters-space}) for the 4Zo method with a lead time of three days (forecast issued three days before the target day; Fig. \ref{figure:operational_4z}) and the the 4Zo-2MIo method with a lead time of one day (Fig. \ref{figure:operational_4z_2mi}). For both methods and both lead times, the forecast given by analogs is rather satisfactory with observations falling within the distribution provided by the analogs. Moreover, when the analogue distribution reached high values, it often mached with observed high precipitation values. As discussed in Sect. \ref{sec:viewer}, high precipitation events are better described by the 90$^{th}$ percentile than the center of the distribution. The distributions provided by the analogues are quite large, but they do provide useful information.
+
+Figure \ref{figure:operational_2018} shows how the most significant event (Oct./Nov. 2018) is predicted by the four implemented methods at different lead times. The two older methods (2Z and 2Z-2MI) do not forecast the main peak as well as the optimized ones (4Zo and 4Zo-2MIo). The forecast provided with a lead time of seven days show that high precipitation amounts can be expected, but the timing is not well defined as the four daily forecasts show high variablility of the timing of the peaks occurrence (illustrated by the four forecasted 90$^{th}$ percentiles in Fig. \ref{figure:operational_2018}). The timing and amplitude of the event is relatively well captured by the 4Zo method with a lead time of four days. For this same lead time, adding moisture data (4Zo-2MIo) is not really informative as the distributions are wider and thus the peaks more uncertain. Globally, moisture data was not highly informative for this event. This might be related to the use of NR-1 as archive, which has a very coarse resolution an was proved to perform not as well as other reanalyses \citep{Horton2018b}. It is likely that another dataset would be more accurate, and would be recommended to use operationally.
+
+
 \section{Limitations of AMs}
 \label{sec:limitations}
 
@@ -437,22 +430,19 @@ It is also legitimate to raise the question of the relevance of an approach base
 \section{Conclusions and perspectives}
 \label{sec:conclusions}
 
-Processing operational forecasts by means of AtmoSwing requests in the end very low computing infrastructure and can provide useful information, such as early warning for extreme precipitation, in the case of an application in flood forecasting. The Forecaster is very flexible as it builds the desired method in a dynamic way, and can thus implement multiple variants of the AM. The connection with open access NWP model such as GFS is easy and very efficient (data are collected quickly after being available, and processed in a few minutes). The Viewer offers a user-friendly display of the forecasts, with different levels of synthesis and details. The Optimizer implements different optimization techniques, such as the sequential approach, a Monte--Carlo method, and a global optimization technique. Obviously, it is used only occasionally for a given location: for a first implementation of an AM, in case of a change in the archive, or of a substantial updating, etc.
+AMs are cost-effective techniques to downscale local meteorological variables from large-scale predictors. They are used in the context of operational forecasting for flood management or hydropower production, or in a climatic context for climate change impact modelling or reconstruction of past meteorological conditions.
 
-Meanwhile, several additions would be nice to have in AtmoSwing for operational forecasting. The first one would be using outputs from multiple global NWP models within one forecast, namely making multi-models forecasts, in order to take into account the variability between various providers. In the same direction, \citet{Thevenot2004} showed the benefit of using ensembles of global NWP forecasts as input for the method (in his case the 51 traces from the EFS of ECMWF). This approach takes into account the uncertainties on predictors from the global model. Its implementation is a combination of the selected analogue days associated with each of the traces. Rainfall distribution is then established on all analogues. The forecast on the ensemble was found to be more accurate than the deterministic control for a lead time of 4 days and more \citep{Thevenot2004}. 
+AtmoSwing is a suite of tools allows processing multiple AMs structure in a flexible and efficient way. It it made of four software: the Forecaster for operational forecasting, the Viewer to display the Forecaster outputs, the Downscaler to apply AMs in a climatic context, and the Optimizer to infer the relationsip between predictors and predictands. AtmoSwing is written in C++, is open source and is extensively tested.
 
-Next, a bias correction should be implemented. \citet{Marty2010} has indeed observed that the frequency of the forecasted days without precipitation was biased and underestimated the actual frequency of zero precipitation. On the contrary, the frequency of the forecasted days with precipitation overestimated the observed frequencies. On this basis, \citet{Marty2010} proposed a bias correction technique, that should be implemented as well. This issue occurs in operational forecasting and was not observed in perfect prognosis.
+Processing operational forecasts with AtmoSwing requires very low computing infrastructure (as low as a Raspberry Pi 3) yet it can provide useful information, such as early warning for high precipitation events in the case of an application to flood forecasting. Valuable results were obtained in a three-years long operational forecast in the Swiss Alps. With the availibility of reanalyses globally, it can be applied to any region having relatively long predictand times series. The predictors and the structure of the method can be adapted to the local meteorological processes and controlled through xml files. The connection with open access NWP models such as GFS is integrated into AtmoSwing an requires no prior processing. The Forecaster can be installed on a computer or a headless server and run automatically to issue a forecast as soon as new NWP outputs are available. The Viewer offers a user-friendly display of the forecasts, with different levels of synthesis and details. It provides first an overview of the potential critical situations (possibility of high precipitation at a station for a certain lead time), but also allows plotting the details of the distributions provided by the selected analogue dates.
 
-As it was shown in the historical section, the AM evolves, with the availability of new data, computer facilities and progress in NWP models, and still proves to bring complementary information on predictands like precipitation, for example at long lead time. Its interest in climatological downscaling has not been addressed in this paper but should be mentioned. However, there remain still many possibilities to be explored. Amongst them, one can mention:
+The Downscaler allows using AMs in a climatic context, either for climate reconstruction or for climate change impact studies. When used for a future climate, the user must pay close attention to the selected predictors, so that they are able to represent the climate change signal. This is a relatively new field of application of AMs, which was proven to be of interest.
 
-\begin{itemize}
-	\item an optimization per season in order to get parameterizations specific to the leading processes during the period in question;
-	\item optimizations specific for extreme events, with an objective function tailored to the determination of the most critical situations;
-	\item a better insight in the role of the length of the archive, by using long reanalyses over the $20^{th}$ century;	
-	\item a weighting of the predictor grids \citep[see][]{Bliefernicht2010};
-	\item assessment of potential indicators based on the properties of the distribution of all analogues or the 10 best, for example;
-	\item assessment of the relevance of an automatic interpretation of the distribution in order to provide the most likely expected value;
-\end{itemize}
+The Optimizer implements different optimization techniques, such as the sequential approach, a Monte--Carlo simulation, and a global optimization technique. Infering the statistical relationship between predictors and predictand is quite intensive in terms of processing as it requires numerous assessment over decades. To this end, the Optimizer has been highly optimized in terms of computing efficency and is parallelized over multiple threads. It scales well on a Linux cluster. This procedure is only required to infer the statistical relationship, which can then be used in forecasting or downscaling at low computing cost. 
+
+One possible key improvement to AtmoSwing Forecaster is a multi-models approach relying on outputs from multiple global NWP models to better take into account the uncertainty of the NWP forecasts. Similarly, \citet{Thevenot2004} showed the benefit of using ensembles from global NWP as input for the method. The implementation consists in combining the selected analogue days associated with each of the members.The forecast on the ensemble was found to be more accurate than the deterministic control for a lead time of four days and more \citep{Thevenot2004}. 
+
+AtmoSwing aims at making it easy to implement AMs with different types of structure and various predictors, while being computationally efficient and having low computing requirements. It can be applied to different contexts, let them be operational forecasting or climate impact studies. It is open source and will hopefully save some development time to future users as well as benefit from effort pooling from the community.
 
 
 \section*{Code availability}
@@ -544,6 +534,26 @@ Precipitation time series were provided by MeteoSwiss. The NCEP/NCAR reanalysis 
 	\includegraphics[width=19cm]{figures/fig12.jpg}
 	\caption{Same as Fig. \ref{figure:monte_carlo_r1} but for 2Z-2MI (Table \ref{table:methods}). Results are shown for both levels of analogy (geopotential height and moisture index).}
 	\label{figure:monte_carlo_r2}
+\end{figure*}
+
+\begin{figure*}[t]
+	\vspace{-70pt}
+	\includegraphics[width=16cm]{figures/oper_4Z.pdf}
+	\caption{Forecasts for the Binn station (Fig. \ref{figure:variable_exploration}) over the period 2016--2018 provided by the 4Zo method (Table \ref{table:methods}) with a lead time of three days. The distributions provided by the analogue values are summarized by the $90^{th}$, $60^{th}$, and $30^{th}$ percentiles, as well as the maximum (crosses), all of them averaged over the four daily forecasts. Additionally, the four $90^{th}$ percentiles were also plotted to show the consistency / variability between the four daily forecasts. The shaded areas correspond to forecasts downtime.}
+	\label{figure:operational_4z}
+\end{figure*}
+
+\begin{figure*}[t]
+	\vspace{-70pt}
+	\includegraphics[width=16cm]{figures/oper_4Z_2MI.pdf}
+	\caption{Same as Fig. \ref{figure:operational_4z_2mi} but for the 4Zo-2MIo method (Table \ref{table:methods}) with a lead time of one day.}
+	\label{figure:operational_4z_2mi}
+\end{figure*}
+
+\begin{figure*}[t]
+	\includegraphics[width=19cm]{figures/oper_2018.pdf}
+	\caption{Forecasts for the Oct./Nov. 2018 event at the Binn station (Fig. \ref{figure:variable_exploration}) for 2Z, 4Zo, 2Z-2MI and 4Zo-2MIo for lead times from seven to zero days prior to the target day.}
+	\label{figure:operational_2018}
 \end{figure*}
 
 \clearpage
