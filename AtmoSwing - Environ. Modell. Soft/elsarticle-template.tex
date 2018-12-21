@@ -68,7 +68,7 @@
 	\end{abstract}
 	
 	\begin{keyword}
-		analog method, precipitation, downscaling, forecasting
+		Analog Method; Precipitation; Downscaling; Forecasting
 	\end{keyword}
 	
 \end{frontmatter}
@@ -232,7 +232,7 @@ where $\Delta \hat{z}_{i}$ is the forecast geopotential height difference betwee
 The optimal predictors vary from one region to another, along with the leading atmospheric processes. Thus a unique version of the AM valid for any place on earth cannot be obtained. However, the method needs to be adapted to the local conditions, available data, and to the size of the catchment of interest. Thus, there will always be local adaptations to be made for use in a new region. Even for two locations that are close to each other but subject to different critical atmospheric conditions, the selection of the best predictors can vary. This is illustrated in Fig. \ref{figure:variable_exploration} for two subregions of the Rh\^{o}ne catchment in Switzerland. For both regions, all variables of NR-1 were assessed by optimizing the spatial window and the number of analogs for each one of them using the sequential calibration tool implemented in AtmoSwing (Sect. \ref{sec:vars-explo}). The main similarities in the selection of the best predictor from the NCEP/NCAR reanalysis I at both locations are: (1) the variables describing the atmospheric circulation (pressure fields or geopotential heights) perform best, and (2) they are better when compared with the S1 criteria (asterisk in Fig. \ref{figure:variable_exploration}) instead of the RMSE. The main difference is that the pressure fields better explain the precipitation when they are considered close to the ground for the Chablais region, and at a higher altitude for the South-east crests. This is driven by the elevation of the stations and by the main atmospheric influences related to precipitation events at these locations. 
 
 \begin{figure*}[hbt!]
-	\includegraphics[width=14cm]{figures/selection_variables_optim.pdf}
+	\includegraphics[width=14cm]{figures/fig_01.pdf}
 	\caption{Performance score (CRPSS) of the 30 best variables from the NCEP/NCAR reanalysis dataset, when considered separately (no combination), for the Chablais region and the southeast ridges. The analogy criterion is S1 when there is an asterisk next to the variable name, and RMSE otherwise. Colour illustrates the variable type: green = atmospheric circulation, blue = moisture, orange = temperature, yellow = radiation, purple = vertical velocity, and gray = other. SLP stands for sea level pressure and Z for geopotential height. The blue square indicates the Binn station, which is analyzed in more detail later on.} 
 	\label{figure:variable_exploration}
 \end{figure*}
@@ -245,7 +245,7 @@ The choice of the best predictors is likely to vary from one reanalysis dataset 
 Variants of the AMs are numerous and it is not always easy to reference them in a short and descriptive way. In AtmoSwing, a basic nomenclature is used (Fig. \ref{figure:nomenclature}) in order to express the structure into a simple identifier. This cannot describe all the parameters of the AM, but quickly illustrates the structure of the implementation. This is particularly useful when working with a global optimization method, where nothing is fixed but the structure of the AM. This nomenclature has been used in \citet{Horton2017a, Horton2017b, Horton2018a} and \citet{Horton2018b}.
 
 \begin{figure}[hbt!]
-	\includegraphics[width=9cm]{figures/fig01.pdf}
+	\includegraphics[width=9cm]{figures/fig_02.pdf}
 	\caption{Proposed structure for naming the parameterizations of the AM.}
 	\label{figure:nomenclature}
 \end{figure}
@@ -296,7 +296,7 @@ A user interface allows for the creation of the predictand database in the NetCD
 AtmoSwing's great strength is that it is designed to process the analog method in a modular fashion. The structure of the AM (number of analogy levels, number of predictors) is built dynamically (Fig. \ref{figure:flowchart_modules_atmoswing}), and nothing is fixed a priori. The software then successively performs as many analogy levels as the user specifies, using all the predictors indicated. Each level of analogy results in an object containing target dates, analog dates, values of the analogy criteria, values of the predictand (at the final stage), and other data. This object can be saved as a NetCDF file and/or can be injected into a new analogy level. The whole structure of the AM is defined through an XML file. Even the time step of the method (6 or 24~hours for example) is a dynamic parameter.
 
 \begin{figure}[hbt!]
-	\includegraphics[width=9cm]{figures/flowchart.pdf}
+	\includegraphics[width=9cm]{figures/fig_03.pdf}
 	\caption{Simplified flowchart of the AM implementation in AtmoSwing.}
 	\label{figure:flowchart_modules_atmoswing}
 \end{figure}
@@ -306,7 +306,7 @@ Each implementation of the AM (see Sect. \ref{sec:method}) may enter this scheme
 This modular approach is implemented through object-oriented programming, as a direct consequence of polymorphism. This allows, for example, processing of a predictor object as a single interface to entities representing any reanalysis dataset. Similarly, the criterion can be of different types, as well as the score for calibrating. Figure \ref{figure:code_diagram} illustrates the main classes or objects involved in the core of the analog method processing in AtmoSwing in a simplified way. The different types of objects that are instantiated are defined in the XML parameters file. Thus, there is a single implementation of the analog method capable of interacting with different object types in various contexts (calibration, forecasting, downscaling). 
 
 \begin{figure*}[hbt!]
-	\includegraphics[width=19cm]{figures/code_diagram.pdf}
+	\includegraphics[width=19cm]{figures/fig_04.pdf}
 	\caption{Simplified illustration of the main classes or objects involved in the core of the AM processing in AtmoSwing. The processor class interacts with parent classes that can represent different entities, such as different reanalysis datasets, predictand, criteria, scores, and in different contexts: calibration, forecasting, and downscaling. The items in green are only available in the Optimizer, the ones in blue, in the Forecaster, and the ones in Orange, in the Downscaler. The area represents the spatial window and the time array a list of candidate dates (from preselection or previous analogy levels). The links to the parameters illustrate the dynamic definition of the different types by the parameters from the XML file.}
 	\label{figure:code_diagram}
 \end{figure*}
@@ -318,7 +318,7 @@ This modular approach is implemented through object-oriented programming, as a d
 The Forecaster module allows processing of operational forecasts. The software can be compiled with a graphical user interface (GUI, Fig. \ref{figure:atmoswing-forecaster-gui}), or without it to be used on a headless server through a command line interface (CLI). Processing a forecast requires very low computing capabilities and can be performed on a low-end computer. It successfully runs on a Raspberry Pi 3 (Model B).
 
 \begin{figure}[hbt!]
-	\includegraphics[width=9cm]{figures/fig06.png}
+	\includegraphics[width=9cm]{figures/fig_05.png}
 	\caption{Graphical user interface of the Forecaster module. A list of different parameterizations is being processed.}
 	\label{figure:atmoswing-forecaster-gui}
 \end{figure}
@@ -338,7 +338,7 @@ A meteorological variable that was proven as a good predictor in the perfect pro
 AtmoSwing Viewer allows for the display of the files produced by the Forecaster in an interactive GIS environment (Fig. \ref{figure:atmoswing-viewer-gui}). It provides several levels of synthesis of the forecasts. It first provides an overview of possible alerts using color codes on the lead time switcher (upper right in the GUI, see Fig. \ref{figure:atmoswing-viewer-gui}) that represent the worst case scenarios, or in the alarm panel (on the left side of the GUI). The alarm panel allows for a synthesis of the highest forecasted values for the different AMs and the different lead times. By default, the colors are expressed relative to the 10~year return period, for the $90^{th}$ percentile (which can be changed in the preferences). This highest level of synthesis allows for quick identification of potentially critical situations in the days ahead.
 
 \begin{figure*}[hbt!]
-	\includegraphics[width=19cm]{figures/fig07.jpg}
+	\includegraphics[width=19cm]{figures/fig_06.jpg}
 	\caption{Graphical user interface of the Viewer module (Elevation data from The Shuttle Radar Topography Mission (SRTM), and hydrological network from SwissTopo).}
 	\label{figure:atmoswing-viewer-gui}
 \end{figure*}
@@ -346,7 +346,7 @@ AtmoSwing Viewer allows for the display of the files produced by the Forecaster 
 Then, the user can explore the forecasts in more details, starting from the provided map (Fig. \ref{figure:atmoswing-viewer-gui}). The map displays the forecast of the selected AM variant (selected in the upper left panel) and the selected lead time (upper right). During the forecast, one AM might have parameters that differ by subregions, such as the number of analogs or the spatial windows. The Viewer automatically gathers the similar AM types and provides a composite view of the optimal forecasts per subregion. The user can, however, choose to display the results associated with a single parameter set for the entire region (by opening the tree view and selecting a child element), which provides a homogeneous set of analog dates. A display of all lead times on a single map is possible based on a symbolic representation on a circular band with a box for every lead time (Fig. \ref{figure:atmoswing-viewer-snail}). The number of boxes is adjusted to the number of lead times. This representation offers a global spatiotemporal visualization for a chosen AM.
 
 \begin{figure*}[hbt!]
-	\includegraphics[width=19cm]{figures/fig08.jpg}
+	\includegraphics[width=19cm]{figures/fig_07.jpg}
 	\caption{Visualization of multiple lead times on the map (Elevation data from the SRTM, and hydrological network from SwissTopo).}
 	\label{figure:atmoswing-viewer-snail}
 \end{figure*}
@@ -356,7 +356,7 @@ Color scales in the map can be adjusted by choosing (on the left part of the GUI
 By clicking on a station on the map (or by selection from a dropdown list on the left), a new window appears with a plot of the forecasted time series (Fig. \ref{figure:atmoswing-viewer-timeseries}). By default, the plot contains the usual three considered percentiles (90$^{th}$, 60$^{th}$, and 20$^{th}$), along with the 10 best analogs with a color code from yellow (tenth) to red (first). The 10-year return period value is also displayed to set the perspective of the forecast. The user can choose to hide any data or to display supplementary information (all analogs, all 10$^{th}$ percentiles, or all return periods) in the left panel. Traces of previous forecasts are also automatically loaded and displayed to provide information on the consistency of the forecasts. 
 
 \begin{figure}[hbt!]
-	\includegraphics[width=9cm]{figures/fig09.png}
+	\includegraphics[width=9cm]{figures/fig_08.png}
 	\caption{Visualization of the forecasted time series for an event at the Binn station (Fig. \ref{figure:variable_exploration}) in October 2018.}
 	\label{figure:atmoswing-viewer-timeseries}
 \end{figure}
@@ -364,7 +364,7 @@ By clicking on a station on the map (or by selection from a dropdown list on the
 The user can then delve into further details and display the predictand cumulative distribution for a given lead time (Fig. \ref{figure:atmoswing-viewer-distribution}). This can inform if there is a shift between the distribution of all analogs versus the 10 best. Such a shift warns of a risk of under/overestimation when considering the full distribution, particularly for high precipitation amounts. Indeed, the number of extreme precipitation events in the archive is limited and they are thus likely to be underrepresented in the selected analog dates. Different authors have shown that if the 60$^{th}$ percentile is best to forecast the occurrence and the amount of precipitation for common situations, the 90$^{th}$ percentile is a better indicator for strong to extreme events \citep{Djerboua2001, Bontron2004, Marty2010}. It is, therefore, necessary to pay close attention when the 90$^{th}$ percentile reaches high values, as this may be indicative of possible extreme precipitations due the presence of several analog dates with high precipitation amounts in the distribution \citep{Djerboua2001}.
 
 \begin{figure}[hbt!]
-	\includegraphics[width=9cm]{figures/fig10.png}
+	\includegraphics[width=9cm]{figures/fig_09.png}
 	\caption{Visualization of the forecasted precipitation distribution for a given lead time for an event at the Binn station (Fig. \ref{figure:variable_exploration}) in October 2018.}
 	\label{figure:atmoswing-viewer-distribution}
 \end{figure}
@@ -515,7 +515,7 @@ An analysis of the parameters resulting from Monte--Carlo simulations, the seque
 The analysis was first performed for the 2Z method (Table \ref{table:methods}) for the period 2001--2010 for the target, and 1981--2010 as the archive. A relatively short period of 10 years was chosen to allow for 50,000 Monte--Carlo simulations. The plots in Fig. \ref{figure:monte_carlo_r1} are truncated at the best $25^{th}$ percentile. The Monte--Carlo simulations show that the spatial window for Z needs to cover a certain region, but can be larger than a critical size. The extent of the spatial window can thus be substantially different without significantly affecting the performance score. This was also observed by \citet{Bontron2004}, who noted that ''\textit{performance slowly decreases if we consider a window that is slightly too large, while using windows that are too small results in strong performance loss}''. The dilution of the relevant synoptic information therefore does not necessarily have a significant negative impact on performance, while ignoring some of this information leads to stronger losses of performance. The issue of equifinality related to the spatial windows is discussed in \cite{Radanovics2013}. The station is usually contained within the optimal spatial domain, provided the predictors are considered on the same day as the predictand. The optimal number of analogs is relatively well defined, although the selection of more analog candidates is possible without a strong penalty in terms of performance.
 
 \begin{figure*}[hbt!]
-	\includegraphics[width=19cm]{figures/fig11.jpg}
+	\includegraphics[width=19cm]{figures/fig_10.jpg}
 	\caption{Example of parameter values for 2Z (Table \ref{table:methods}) for the precipitation at the Binn station (Fig. \ref{figure:variable_exploration}) on the period 2001--2010. The parameters are the extent (min/max longitude/latitude) of the spatial windows for the geopotential height at 500 and 1000~hPa, and the number of analogs. The green vertical bar in the plots represents the location of the station. The circles represent random parameters from the Monte--Carlo analysis. The plots are truncated at the $25^{th}$ best percentiles for 50,000 realizations. Squares are the results of the sequential calibration and triangles result from genetic algorithms. Markers in blue represent parameters optimized for the period 1981--2000 and applied to 2001--2010. Markers in red represent parameters optimized directly for the period 2001--2010.}
 	\label{figure:monte_carlo_r1}
 \end{figure*}
@@ -527,7 +527,7 @@ Fourteen optimizations by GAs were performed for the same setup (seven optimizat
 Monte--Carlo simulations were also performed for 2Z-2MI (Table \ref{table:methods}) for the same periods and for the same station. Figure \ref{figure:monte_carlo_r2} shows that the Monte--Carlo simulations could not properly use the moisture variables of the second level of analogy. The boxplots for the second level of analogy show an indifference of the location and the size of the spatial windows, which is demonstrated to be wrong, based on the other optimization methods. Moreover, the achieved CRPS here based on random parameters is not better than the case without the moisture variables (Fig. \ref{figure:monte_carlo_r1}). Additionally, the number of analogs corresponding to the best CRPS values are similar between the two levels of analogy, which means that the second level is simply discarded. There are too many parameters with acceptable ranges that are too narrow to obtain meaningful parameters randomly. Monte--Carlo simulations with uniform probability laws is not suited for even moderately complex AMs. 
 
 \begin{figure*}[hbt!]
-	\includegraphics[width=19cm]{figures/fig12.jpg}
+	\includegraphics[width=19cm]{figures/fig_11.jpg}
 	\caption{Same as Fig. \ref{figure:monte_carlo_r1} but for 2Z-2MI (Table \ref{table:methods}). Results are shown for both levels of analogy (geopotential height and moisture index).}
 	\label{figure:monte_carlo_r2}
 \end{figure*}
@@ -545,14 +545,14 @@ The former results present a relatively noisy signal for the different optimizat
 
 \begin{figure*}[hbt!]
 	\vspace{-70pt}
-	\includegraphics[width=16cm]{figures/oper_4Z.pdf}
+	\includegraphics[width=16cm]{figures/fig_12.pdf}
 	\caption{Forecasts for the Binn station (Fig. \ref{figure:variable_exploration}) over the period 2016--2018 obtained using the 4Zo method (Table \ref{table:methods}) with a lead time of three days. The distributions provided by the analog values are summarized by the $90^{th}$, $60^{th}$, and $30^{th}$ percentiles, as well as the maximum (crosses), all of them averaged over the four daily forecasts. Additionally, the four $90^{th}$ percentiles were also plotted to show the consistency / variability between the four daily forecasts. The shaded areas correspond to forecasts downtime.}
 	\label{figure:operational_4z}
 \end{figure*}
 
 \begin{figure*}[hbt!]
 	\vspace{-70pt}
-	\includegraphics[width=16cm]{figures/oper_4Z_2MI.pdf}
+	\includegraphics[width=16cm]{figures/fig_13.pdf}
 	\caption{Same as Fig. \ref{figure:operational_4z_2mi} but for the 4Zo-2MIo method (Table \ref{table:methods}) with a lead time of one day.}
 	\label{figure:operational_4z_2mi}
 \end{figure*}
@@ -563,7 +563,7 @@ AtmoSwing Forecaster has been issuing operational forecasts since 2012 for the u
 Figure \ref{figure:operational_2018} shows how the most significant event (Oct./Nov. 2018) is predicted by the four implemented methods at different lead times. The two older methods (2Z and 2Z-2MI) do not forecast the main peak as well as the optimized ones (4Zo and 4Zo-2MIo). The forecast with a lead time of seven days show that high precipitation amounts can be expected, but the timing is not well defined as the four daily forecasts show high variability of the timing of the occurrence of the peaks (illustrated by the four forecasted 90$^{th}$ percentiles in Fig. \ref{figure:operational_2018}). The timing and amplitude of the event are relatively well captured by the 4Zo method with a lead time of four days. For the same lead time, adding moisture data (4Zo-2MIo) is not informative as the distributions are wider, and thus the occurrence of the peaks is more uncertain. Globally, moisture data was not very informative for this event. This might be related to the use of NR-1 as the archive, which has a very coarse resolution and was shown to not perform as well as other reanalyses \citep{Horton2018b}. It is likely that another dataset would be more accurate, and would be recommended for operational use.
 
 \begin{figure*}[hbt!]
-	\includegraphics[width=19cm]{figures/oper_2018.pdf}
+	\includegraphics[width=19cm]{figures/fig_14.pdf}
 	\caption{Forecasts for the Oct./Nov. 2018 event at the Binn station (Fig. \ref{figure:variable_exploration}) for 2Z, 4Zo, 2Z-2MI and 4Zo-2MIo for lead times from seven to zero days prior to the target day.}
 	\label{figure:operational_2018}
 \end{figure*}
@@ -599,9 +599,9 @@ One possible key improvement to AtmoSwing Forecaster is a multi-models approach 
 AtmoSwing aims to facilitate implementation of AMs with different types of structure and various predictors while being computationally efficient with low computing requirements. It can be applied to different contexts, allowing them to be operational forecasting or climate impact studies. It is open source and will hopefully save future users some development time.
 
 
-\section*{Code availability}
+\section*{Software availability}
 
-AtmoSwing is open source, under the CDDL license. It is developed under the Git distributed revision control, and the source code can be found at:
+AtmoSwing is free and open source (CDDL license). It is developed under the Git distributed revision control, and the source code can be found at:
 
 \begin{itemize}
 	\item AtmoSwing \citep{Horton2018c}: https://github.com/atmoswing/atmoswing/
@@ -612,9 +612,9 @@ AtmoSwing is open source, under the CDDL license. It is developed under the Git 
 
 
 \section*{Acknowledgements}
-Thanks to Charles Obled and Michel Jaboyedoff for their valuable inputs during the development of AtmoSwing. Thanks also to Lucien Schreiber and Richard Metzger for their programming advice and to Renaud Marty for his active involvement in testing AtmoSwing against his code base. Calculations were performed on UBELIX (http://www.id.unibe.ch/hpc), the HPC cluster at the University of Bern. 
+Thanks to Charles Obled and Michel Jaboyedoff for their valuable inputs during the development of AtmoSwing. Thanks also to Lucien Schreiber and Richard Metzger for their programming advice and to Renaud Marty for his active involvement in testing AtmoSwing against his code base.  
 
-Precipitation time series were provided by MeteoSwiss. The NCEP/NCAR reanalysis was provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, at http://www.esrl.noaa.gov/psd/. ERA-interim was obtained from the ECMWF Data Server at http://apps.ecmwf.int/datasets/. 
+Calculations were performed on UBELIX (http://www.id.unibe.ch/hpc), the HPC cluster at the University of Bern. Precipitation time series were provided by MeteoSwiss. The NCEP/NCAR reanalysis was provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, at http://www.esrl.noaa.gov/psd/. ERA-interim was obtained from the ECMWF Data Server at http://apps.ecmwf.int/datasets/. 
 
 
 
