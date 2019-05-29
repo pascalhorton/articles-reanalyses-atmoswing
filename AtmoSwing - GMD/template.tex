@@ -33,11 +33,12 @@
 
 %TODO: + help in figures MonteCalro
 %TODO: figure 11, 12 and 13: The axis annotations, legends and crosses are very small. Please increase their size. 
+%TODO: skill / performance ?
 
 
 \begin{document}
 
-\title{AtmoSwing: Analog Technique Model for Statistical Weather forecastING and downscalING}
+\title{AtmoSwing: Analog Technique Model for Statistical Weather forecastING and downscalING (v2.1.0)}
 
 
 % \Author[affil]{given_name}{surname}
@@ -226,7 +227,7 @@ AtmoSwing's great strength is that it is designed to process the analog method i
 
 Each implementation of the AM (see Sect. \ref{sec:method}) may enter this scheme, even if it consists of pre-processed variables (e.g. moisture index). Various pre-processing functions are implemented as the calculation of the moisture index or flux, multiplication operations, or calculation of the gradients. The user can dynamically specify the pre-processing method and the predictors to use in the XML file.
 
-This modular approach is implemented through object-oriented programming, as a direct consequence of polymorphism. This allows, for example, processing of a predictor object as a single interface to entities representing any reanalysis dataset. Similarly, the criterion can be of different types, as well as the score for calibrating. Figure \ref{figure:code_diagram} illustrates the main classes or objects involved in the core of the analog method processing in AtmoSwing in a simplified way. The different types of objects that are instantiated are defined in the XML parameters file. Thus, there is a single implementation of the analog method capable of interacting with different object types in various contexts (calibration, forecasting, downscaling). 
+This modular approach is implemented through object-oriented programming, as a direct consequence of polymorphism. This allows, for example, processing of a predictor object as a single interface to entities representing any reanalysis dataset. Similarly, the criterion can be of different types, as well as the score for calibrating. The different types of objects that are instantiated are defined in the XML parameters file. Thus, there is a single implementation of the analog method capable of interacting with different object types in various contexts (calibration, forecasting, downscaling). 
 
 
 \subsection{AtmoSwing Forecaster}
@@ -397,21 +398,21 @@ A Monte--Carlo analysis is also implemented in AtmoSwing. The procedure performs
 \section{Parameters space of AMs}
 \label{sec:parameters-space}
 
-An analysis of the parameters resulting from Monte--Carlo simulations, the sequential calibration, and GAs was performed for the Binn station in Switzerland (Fig. \ref{figure:variable_exploration}) with ERA-INT (Table \ref{table:datasets}). High precipitation in the Binn region were responsible for large damages downstream on several occasions. For this reason, it is a station of particular interest. The results for this station cannot be generalized to all stations, but similar conclusions can be drawn for other locations. Moreover, the parameters space at a single station is expected to be significantly more irregular than averaged regional precipitations.
+An analysis of the parameters resulting from Monte--Carlo simulations, the sequential calibration, and GAs was performed for the Binn station in Switzerland (Fig. \ref{figure:variable_exploration}) with ERA-INT (Table \ref{table:datasets}). High precipitation in the Binn region were responsible for large damages downstream on several occasions, making it a station of particular interest. The results for this station cannot be generalized to all stations, but similar conclusions can be drawn for other locations. Moreover, the parameters space at a single station is expected to be less regular than averaged regional precipitations. For all analyses, the archive period is 1981--2010 and the results are shown for the evaluation period (EP) 2001--2010. For methods requiring a calibration, the calibration period (CP) is 1981--2000. These periods were chosen relatively short to allow for 50,000 Monte--Carlo simulations.
 
-The analysis was first performed for the 2Z method (Table \ref{table:methods}) for the period 2001--2010 for the target, and 1981--2010 as the archive. A relatively short period of 10 years was chosen to allow for 50,000 Monte--Carlo simulations. The plots in Fig. \ref{figure:monte_carlo_r1} are truncated at the best $25^{th}$ percentile. The Monte--Carlo simulations show that the spatial window for Z needs to cover a certain region, but can be larger than a critical size. The extent of the spatial window can thus be substantially different without significantly affecting the performance score. This was also observed by \citet{Bontron2004}, who noted that ''\textit{performance slowly decreases if we consider a window that is slightly too large, while using windows that are too small results in strong performance loss}''. The dilution of the relevant synoptic information therefore does not necessarily have a significant negative impact on performance, while ignoring some of this information leads to stronger losses of performance. The issue of equifinality related to the spatial windows is discussed in \cite{Radanovics2013}. The station is usually contained within the optimal spatial domain, provided the predictors are considered on the same day as the predictand. The optimal number of analogs is relatively well defined, although the selection of more analog candidates is possible without a strong penalty in terms of performance.
+The analysis was first performed for the 2Z method (Table \ref{table:methods}). The Monte--Carlo simulations (Fig. \ref{figure:monte_carlo_r1}) show that the spatial window for Z needs to cover a certain region, but can be larger than a critical size. The extent of the spatial window can thus be substantially different without significantly affecting the performance score. This was also observed by \citet{Bontron2004}, who noted that ''\textit{performance slowly decreases if we consider a window that is slightly too large, while using windows that are too small results in strong performance loss}''. The dilution of the relevant synoptic information therefore does not necessarily have a significant negative impact on the skill, while ignoring some of this information leads to stronger losses of skill. The issue of equifinality related to the spatial windows is discussed in \cite{Radanovics2013}. The station is usually contained within the optimal spatial domain, provided the predictors are selected for the same day as the predictand. The optimal number of analogs is relatively well defined, although the selection of more analog candidates is possible without a strong penalty in terms of performance.
 
-The results of the sequential calibration are also illustrated in Fig. \ref{figure:monte_carlo_r1} (with squares). The calibration was first performed for the period 1981--2000 and applied to 2001--2010 (blue squares) but also calibrated directly for the 2001--2010 period (red squares). Here, the parameters established on a different calibration period provided slightly better results. This is due to the limitations of the sequential calibration that can easily be trapped in a local optima. Indeed, the resulting spatial windows are small in this case, and the algorithm stops as soon as an increase of the domain does not improve the score. This might not be an issue with a low-resolution reanalysis such as NR-1 (2.5\degree; Table \ref{table:datasets}), but this might become more of an issue with higher resolutions, such as ERA-INT used here (0.75\degree), because local minima are more frequent. In this case, the classic+ approach (Sect \ref{sec:sequential}) might be relevant. The Monte-Carlo analysis yielded some better parameter sets than the sequential calibration, due to the constraint on the latter to have the same spatial window for both pressure levels. 
+The results of the sequential calibration are also illustrated in Fig. \ref{figure:monte_carlo_r1} (with squares). The calibration was first performed for the CP and applied to EP (blue squares), but was also achieved directly on the EP (red squares). Here, the parameters established on the CP rather than the EP provided slightly better results when assessed on the EP. This is due to the limitations of the sequential calibration that can easily be trapped in a local optima. Indeed, the resulting spatial windows are small in this case, and the algorithm stops as soon as an increase of the domain does not improve the score. This might not be an issue with a low-resolution reanalysis such as NR-1 (2.5\degree; Table \ref{table:datasets}), but this might become more of an issue with higher resolutions, such as ERA-INT used here (0.75\degree), because local minima are more frequent. In this case, the classic+ approach (Sect \ref{sec:sequential}) might be relevant, but is more time consuming. The Monte-Carlo analysis yielded some better parameter sets than the sequential calibration, due to the constraint on the latter to have the same spatial window for both pressure levels. 
 
-Fourteen optimizations by GAs were performed for the same setup (seven optimizations using the 2001--2010 period as validation (blue triangles) and seven optimizations using this period as the calibration period directly (red triangles)). The optimization with GAs was given the same degrees of freedom as the Monte--Carlo simulations, so no weighting of the pressure levels was considered \citep[as in][]{Horton2018a}. Thus, the parameters optimized for the 2001--2010 period (red) could have been found randomly using the Monte--Carlo simulations. However, this did not occur due to the low probability of obtaining this combination. GAs also result in more skilful parameters than the sequential calibration. When optimized for the 2001--2010 period (red triangles), the parameters yielded results that outperform the optimization for the 1981--2000 period (blue triangles). However, the contrary is expected for the later period. Most optimizations converge to a narrow range of values, supposedly, the global optimum for the respective period. The main difference compared to the sequential calibration is that the spatial windows are substantially larger, mainly for Z500, and they differ between pressure levels.  
+Fourteen optimizations by GAs were performed for the same setup (seven optimizations using the classical CP/EP setting (blue triangles) and seven optimizations using the EP as the calibration period directly (red triangles)). The optimization with GAs was given the same degrees of freedom as the Monte--Carlo simulations, so no weighting of the pressure levels was considered \citep[as in][]{Horton2018a}. Thus, the parameters optimized for the EP (red) could have been found randomly using the Monte--Carlo simulations. However, this did not occur due to the low probability of obtaining this combination. GAs also result in more skilful parameters than the sequential calibration. When optimized for the EP (red triangles), the parameters yielded results that outperform the optimization for the CP (blue triangles) when assessed on the EP, as it can be expected. Most optimizations converge to a narrow range of values, supposedly, the global optimum for the respective period. The main difference compared to the sequential calibration is that the spatial windows are substantially larger, mainly for Z500, and they differ between pressure levels.  
 
-Monte--Carlo simulations were also performed for 2Z-2MI (Table \ref{table:methods}) for the same periods and for the same station. Figure \ref{figure:monte_carlo_r2} shows that the Monte--Carlo simulations could not properly use the moisture variables of the second level of analogy. The boxplots for the second level of analogy show an indifference of the location and the size of the spatial windows, which is demonstrated to be wrong, based on the other optimization methods. Moreover, the achieved CRPS here based on random parameters is not better than the case without the moisture variables (Fig. \ref{figure:monte_carlo_r1}). Additionally, the number of analogs corresponding to the best CRPS values are similar between the two levels of analogy, which means that the second level is simply discarded. There are too many parameters with acceptable ranges that are too narrow to obtain meaningful parameters randomly. Monte--Carlo simulations with uniform probability laws is not suited for even moderately complex AMs. 
+Monte--Carlo simulations were also performed for 2Z-2MI (Table \ref{table:methods}) for the same periods and for the same station. Figure \ref{figure:monte_carlo_r2} shows that the Monte--Carlo simulations could not properly use the moisture variables of the second level of analogy. The boxplots for the second level of analogy show an indifference of the location and the size of the spatial windows, which is demonstrated to be wrong by the sequential calibration and the GAs. Moreover, the achieved CRPS here based on random parameters is not better than the method without the moisture variables (Fig. \ref{figure:monte_carlo_r1}). Additionally, the number of analogs corresponding to the best CRPS values are similar between the two levels of analogy, which means that the second level is simply discarded. There are too many parameters with acceptable ranges that are too narrow to obtain meaningful parameters randomly. Monte--Carlo simulations with uniform probability laws is not suited for even moderately complex AMs. 
 
-The sequential calibration results in small spatial windows, especially for moisture variables. The differences with the 2Z methods for the first level of analogy are due to the different initial number of analogs, which has an influence on the choice of the spatial windows. The optimized parameters for the 2001--2010 period perform better than the ones established based on the other calibration period, which can be expected.
+The sequential calibration results in small spatial windows, especially for moisture variables. The differences with the 2Z methods for the first level of analogy are due to the different initial number of analogs, which has an influence on the choice of the spatial windows. The parameters calibrated for the EP perform better than the ones established on the CP and assessed on the EP, which can be expected.
 
 The results of the GAs show more variability than previously, which is likely due to a higher difficulty related to the larger number of parameters that have to be optimized, and to the presence of potentially more correlated information. The choice of the spatial windows for the moisture index at 12~h~UTC is similar between the different optimization techniques and is a small line of zonally extended points. The chosen spatial windows by GAs for the moisture index at 24~h~UTC is surprisingly large. This is likely due to the search of the GAs for additional information at a more distant location due to highly correlated data between 12~h~UTC and 24~h~UTC at the same 850~hPa level. The lack of convergence for this second spatial window means that the use of this variable is likely not optimal, and it would probably add more information considered at another pressure level, which was shown in \citet{Horton2018a}. The analysis of the convergence of multiple GA optimizations can thus be useful in interpreting the results and in identifying potentially suboptimal structures or variables.
 
-The former results present a relatively noisy signal for the different optimization methods or the Monte--Carlo simulations. This may be due (1) to the fact that we consider a station’s time series instead of regional ones, which could decrease some variability from small-scale patterns in the precipitation fields, and (2) because we consider a short period for calibration. Despite the high number of simulations, Monte--Carlo simulations with a uniform probability law are not appropriate for even moderately complex AMs. It is likely that using a Gaussian probability law centered on the station would be more appropriate.
+The former results present a relatively noisy signal for the different optimization methods or the Monte--Carlo simulations. This may be due (1) to the fact that we consider a station’s time series instead of regional ones (related to variability from small-scale patterns in the precipitation fields), and (2) because we consider a short period for calibration. Despite the high number of simulations, Monte--Carlo simulations with a uniform probability law are not appropriate for even moderately complex AMs. It is likely that using a Gaussian probability law centered on the station would be more appropriate.
 
 In terms of processing resources, all experiments were done under similar conditions, i.e. using 16 cpus on a Linux cluster. For 2Z, the sequential calibration took 7~min (time is expressed as wall clock time), Monte Carlo took 12.9~h (50,000 evaluations), and GAs took 11.6~h on average (41,000 evaluations on average). For 2Z-2MI, the sequential calibration took 12.5~min, Monte Carlo took 16.8~h, and GAs took 20.4~h on average (61,000 evaluations on average). The computation time should be taken into account in the choice of a calibration strategy.
 
@@ -543,14 +544,14 @@ Calculations were performed on UBELIX (http://www.id.unibe.ch/hpc), the HPC clus
 \clearpage
 
 \begin{figure*}[t]
-	\includegraphics[width=12cm]{figures/fig_01.pdf}
-	\caption{Performance score (CRPSS; Eq. \ref{eq:CRPSS}; the reference being the climatological precipitation distribution) of the 30 best variables from the NCEP/NCAR reanalysis dataset, when considered separately (no combination), for the Chablais region and the southeast ridges. The analogy criterion is S1 when there is an asterisk next to the variable name, and RMSE otherwise. Colour illustrates the variable type: green = atmospheric circulation, blue = moisture, orange = temperature, yellow = radiation, purple = vertical velocity, and gray = other. SLP stands for sea level pressure and Z for geopotential height. The blue square indicates the Binn station, which is analyzed in more detail later on.} 
+	\includegraphics[width=11cm]{figures/fig_01.pdf}
+	\caption{Performance score (CRPSS; Eq. \ref{eq:CRPSS}; the reference being the climatological precipitation distribution) of the 30 best variables from the NCEP/NCAR reanalysis dataset, when considered separately (no combination), for the Chablais region and the southeast ridges. The analogy criterion is S1 when an asterisk is present next to the variable name, and RMSE otherwise. Colour illustrates the variable type: green = atmospheric circulation, blue = moisture, orange = temperature, yellow = radiation, purple = vertical velocity, and gray = other. SLP stands for sea level pressure and Z for geopotential height. The blue square indicates the Binn station.} 
 	\label{figure:variable_exploration}
 \end{figure*}
 
 \begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/fig_02.pdf}
-	\caption{Proposed structure for naming the parameterizations of the AM.}
+	\includegraphics[width=7.8cm]{figures/fig_02.pdf}
+	\caption{Proposed nomenclature to describe the AM structure.}
 	\label{figure:nomenclature}
 \end{figure}
 
@@ -562,61 +563,55 @@ Calculations were performed on UBELIX (http://www.id.unibe.ch/hpc), the HPC clus
 \end{figure}
 
 \begin{figure*}[t]
-	\includegraphics[width=\textwidth]{figures/fig_04.pdf}
-	\caption{Simplified illustration of the main classes or objects involved in the core of the AM processing in AtmoSwing. The processor class interacts with parent classes that can represent different entities, such as different reanalysis datasets, predictand, criteria, scores, and in different contexts: calibration, forecasting, and downscaling. The items in green are only available in the Optimizer, the ones in blue, in the Forecaster, and the ones in Orange, in the Downscaler. The area represents the spatial window and the time array a list of candidate dates (from preselection or previous analogy levels). The links to the parameters illustrate the dynamic definition of the different types by the parameters from the XML file.}
-	\label{figure:code_diagram}
-\end{figure*}
-
-\begin{figure*}[t]
-	\includegraphics[width=\textwidth]{figures/fig_05.jpg}
-	\caption{Graphical user interface of the Viewer module (Elevation data from The Shuttle Radar Topography Mission (SRTM), and hydrological network from SwissTopo).}
+	\includegraphics[width=\textwidth]{figures/fig_04.jpg}
+	\caption{Graphical user interface of the Viewer module (Elevation data from The Shuttle Radar Topography Mission - SRTM, and hydrological network from SwissTopo). The values on the map represent the $90^{th}$ percentile (as selected on the left panel) of the precipitation values from the analog samples at the different stations and for the selected lead time. The colour is proportional to the selected return period (10~years here).}
 	\label{figure:atmoswing-viewer-gui}
 \end{figure*}
 
 \begin{figure*}[t]
-	\includegraphics[width=\textwidth]{figures/fig_06.jpg}
-	\caption{Visualization of multiple lead times on the map (Elevation data from the SRTM, and hydrological network from SwissTopo).}
+	\includegraphics[width=\textwidth]{figures/fig_05.jpg}
+	\caption{Same as Fig. \ref{figure:atmoswing-viewer-gui} but for multiple lead times.}
 	\label{figure:atmoswing-viewer-snail}
 \end{figure*}
 
 \begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/fig_07.png}
-	\caption{Visualization of the forecasted time series for an event at the Binn station (Fig. \ref{figure:variable_exploration}) in October 2018.}
+	\includegraphics[width=8.3cm]{figures/fig_06.png}
+	\caption{Visualization of the forecasted time series for an event at the Binn station (Fig. \ref{figure:variable_exploration}) in October 2018. The thick blue lines represent the $90^{th}$, $60^{th}$, and $20^{th}$ percentiles for the given lead times. The thin blue lines represent the equivalent time series but from previous forecasts. The small grey crosses represent all analog values and the larger crosses highlight the 10 best analogs (with a colour gradient from red for the best to yellow for the $10^{th}$).}
 	\label{figure:atmoswing-viewer-timeseries}
 \end{figure}
 
 \begin{figure}[t]
-	\includegraphics[width=8.3cm]{figures/fig_08.png}
-	\caption{Visualization of the forecasted precipitation distribution for a given lead time for an event at the Binn station (Fig. \ref{figure:variable_exploration}) in October 2018.}
+	\includegraphics[width=8.3cm]{figures/fig_07.png}
+	\caption{Visualization of the forecasted precipitation distribution for a given lead time for an event at the Binn station (Fig. \ref{figure:variable_exploration}) in October 2018. The blue line represent the full distribution provided by all analogs, the circles are the $90^{th}$, $60^{th}$, and $20^{th}$ percentiles, and the crosses correspond to the distribution provided by the 10 best analogs (with a colour gradient from red for the best to yellow for the $10^{th}$). The vertical red line is here the precipitation value for a 10~year return period.}
 	\label{figure:atmoswing-viewer-distribution}
 \end{figure}
 
 \begin{figure*}[t]
-	\includegraphics[width=\textwidth]{figures/fig_09.jpg}
-	\caption{Example of parameter values for 2Z (Table \ref{table:methods}) for the precipitation at the Binn station (Fig. \ref{figure:variable_exploration}) on the period 2001--2010. The parameters are the extent (min/max longitude/latitude) of the spatial windows for the geopotential height at 500 and 1000~hPa, and the number of analogs. The green vertical bar in the plots represents the location of the station. The circles represent random parameters from the Monte--Carlo analysis. The plots are truncated at the $25^{th}$ best percentiles for 50,000 realizations. Squares are the results of the sequential calibration and triangles result from genetic algorithms. Markers in blue represent parameters optimized for the period 1981--2000 and applied to 2001--2010. Markers in red represent parameters optimized directly for the period 2001--2010.}
+	\includegraphics[width=\textwidth]{figures/fig_08.jpg}
+	\caption{Example of parameter values for 2Z (Table \ref{table:methods}) for the precipitation at the Binn station (Fig. \ref{figure:variable_exploration}) on the EP. The parameters are the extent (min/max longitude/latitude) of the spatial windows for the geopotential height at 500 and 1000~hPa, and the number of analogs. The green vertical bar in the plots represents the location of the station. The circles represent random parameters from the Monte--Carlo analysis. The plots are truncated at the $25^{th}$ best percentiles for 50,000 realizations. Squares are the results of the sequential calibration and triangles result from genetic algorithms. Markers in blue represent parameters optimized for the CP and applied to EP. Markers in red represent parameters optimized for the EP.}
 	\label{figure:monte_carlo_r1}
 \end{figure*}
 
 \begin{figure*}[t]
-	\includegraphics[width=\textwidth]{figures/fig_10.jpg}
+	\includegraphics[width=\textwidth]{figures/fig_09.jpg}
 	\caption{Same as Fig. \ref{figure:monte_carlo_r1} but for 2Z-2MI (Table \ref{table:methods}). Results are shown for both levels of analogy (geopotential height and moisture index).}
 	\label{figure:monte_carlo_r2}
 \end{figure*}
 
 \begin{figure*}[t]
-	\includegraphics[width=13cm]{figures/fig_11.pdf}
+	\includegraphics[width=15cm]{figures/fig_10.pdf}
 	\caption{Forecasts for the Binn station (Fig. \ref{figure:variable_exploration}) over the period 2016--2018 obtained using the 4Zo method (Table \ref{table:methods}) with a lead time of three days. The distributions provided by the analog values are summarized by the $90^{th}$, $60^{th}$, and $30^{th}$ percentiles, as well as the maximum (crosses), all of them averaged over the four daily forecasts. Additionally, the four $90^{th}$ percentiles were also plotted to show the consistency / variability between the four daily forecasts. The shaded areas correspond to forecasts downtime.}
 	\label{figure:operational_4z}
 \end{figure*}
 
 \begin{figure*}[t]
-	\includegraphics[width=13cm]{figures/fig_12.pdf}
+	\includegraphics[width=15cm]{figures/fig_11.pdf}
 	\caption{Same as Fig. \ref{figure:operational_4z} but for the 4Zo-2MIo method (Table \ref{table:methods}) with a lead time of one day.}
 	\label{figure:operational_4z_2mi}
 \end{figure*}
 
 \begin{figure*}[t]
-	\includegraphics[width=\textwidth]{figures/fig_13.pdf}
+	\includegraphics[width=\textwidth]{figures/fig_12.pdf}
 	\caption{Forecasts for the Oct./Nov. 2018 event at the Binn station (Fig. \ref{figure:variable_exploration}) for 2Z, 4Zo, 2Z-2MI and 4Zo-2MIo for lead times from seven to zero days prior to the target day.}
 	\label{figure:operational_2018}
 \end{figure*}
