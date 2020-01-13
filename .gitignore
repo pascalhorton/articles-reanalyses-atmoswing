@@ -1,23 +1,16 @@
-_ressources/
 *.aux
 *.log
 *.gz
 *.bbl
 *.blg
-*/ressources/
 *.lot
 *.ttt
-*/corrections/
 *.lof
 *.fff
-*.pdf
-*.jpg
 *.tdo
 *.cut
 *.zip
-*.gif
 *.out
 *.spl
-*.png
-
-AtmoSwing - GMD/figures/resources/
+*/ressources/
+*/corrections/
